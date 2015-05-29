@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find stickbot_bipedal_12dof_controlit)/launch/load_stickbot_bipedal_parameters_com.launch"/>
+    <include file="$(find stickbot_bipedal_12dof_controlit)/launch/simulate_base.xml"/>
+</launch>
+

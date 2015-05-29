@@ -1,0 +1,11 @@
+<launch>
+	<!-- Load the robot description parameter. -->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find valkyrie_upperbody_controlit)/models/valkyrie_upperbody_controlit/xacro/valkyrie_upperbody_controlit.xacro'"/>
+
+    <!-- Start controlit_exec with controller dreamer_no_left_arm_controller -->
+    <node name="controlit_exec" pkg="controlit_exec" type="controlit_exec" output="screen" ns="valkyrie_upperbody_controller" respawn="false"/>
+
+    <!-- Start the robot state publisher, which generates the /tf transforms for rViz. -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>

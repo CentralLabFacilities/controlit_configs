@@ -1,0 +1,294 @@
+header:
+  version: 2
+  description: Trikey joint state control
+tasks:
+  - type: controlit/OrientVectorToVectorTask
+    name: HeadingTask
+    parameters:
+      - name: kp
+        type: real
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: trikey_base
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: bodyFrameVector      # in bodyName's frame
+        type: vector
+        value: [1.0, 0.0, 0.0]
+      - name: goalVector           # in frameName's frame
+        type: vector
+        value: [1.0, 0.0, 0.0]
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JPosTask     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [16, 16, 16]
+      - name: kd
+        type: vector
+        value: [8, 8, 8]
+      - name: maxVelocity
+        type: vector
+        value: [10, 10, 10]
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0]
+      - name: goalPosition
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: error
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: errorDot
+        type: vector
+        value: [0.0, 0.0, 0.0]
+    events:
+      # - name: converged
+      #   expression: errorNorm < 55e-4 #err is a norm...it is positive
+      # - name: quiescent
+      #   expression: errorDotNorm < 3e-2 #absolute value take in code
+compound_task:
+  type: compound_task
+  name: My compound task
+  task_list:
+     - name: HeadingTask
+       priority: 0
+       enabled: 1
+     - name: JPosTask
+       priority: 1
+       enabled: 1
+  bindings:
+    - parameters: [HeadingTask.errorNorm]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadingTask/errorNorm
+    - parameters: [HeadingTask.errorDotNorm]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadingTask/errorDotNorm
+    - parameters: [HeadingTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadingTask/error
+    - parameters: [HeadingTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadingTask/errorDot
+    - parameters: [HeadingTask.PDCommand]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadingTask/PDCommand
+    # - parameters: [HeadingTask.actualVector]
+    #   direction: output
+    #   target:
+    #     type: ROSTopic
+    #     dataType: std_msgs/Float64MultiArray
+    #     properties:
+    #       latched: 0
+    #       publish_rate: 10
+    #       queue_size: 1
+    #       topic: HeadingTask/actualVector
+    - parameters: [HeadingTask.goalVector]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: HeadingTask/goalVector
+    - parameters: [HeadingTask.bodyFrameVector]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: HeadingTask/bodyFrameVector
+    - parameters: [HeadingTask.bodyName]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/String
+        properties:
+          topic: HeadingTask/bodyName
+    - parameters: [HeadingTask.frameName]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/String
+        properties:
+          topic: HeadingTask/frameName
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kp
+    - parameters: [JPosTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kd
+    - parameters: [JPosTask.maxVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/maxVelocity
+
+  events:
+    # - name: converged
+    #   expression: JPosTask.converged && JPosTask.quiescent
+constraints:
+  - type: controlit/OmniWheelContactConstraint
+    name: ContactConstraint0
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "base_to_wheel_j0"
+      - name: referenceFrameName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0.24, 0.0, 0.0]
+      - name: wheelAxis
+        type: vector
+        value: [1, 0, 0]
+      - name: normalAxis
+        type: vector
+        value: [0, 0, 1]
+      - name: enabled
+        type: integer
+        value: 1
+  - type: controlit/OmniWheelContactConstraint
+    name: ContactConstraint1
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "base_to_wheel_j1"
+      - name: referenceFrameName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [-0.12, 0.207846096907, 0.0]
+      - name: wheelAxis
+        type: vector
+        value: [-0.5, 0.86602540378,  0]
+      - name: normalAxis
+        type: vector
+        value: [0, 0, 1]
+      - name: enabled
+        type: integer
+        value: 1
+  - type: controlit/OmniWheelContactConstraint
+    name: ContactConstraint2
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "base_to_wheel_j2"
+      - name: referenceFrameName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [-0.12, -0.207846096907, 0.0]
+      - name: wheelAxis
+        type: vector
+        value: [-0.5, -0.86602540378, 0]
+      - name: normalAxis
+        type: vector
+        value: [0, 0, 1]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: Trikey Constraint Set
+  active_constraints:
+    - name: ContactConstraint0
+      enabled: 1
+    - name: ContactConstraint1
+      enabled: 1
+    - name: ContactConstraint2
+      enabled: 1

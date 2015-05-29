@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="trikey">
+
+    <xacro:include filename="$(find trikey)/models/trikey/xacro/trikey_base.xacro"/>
+    <xacro:include filename="$(find omni_wheel)/models/omni_wheel/xacro/omni_wheel.xacro"/>
+
+    <xacro:trikey_base modelPath="package://trikey/models/trikey"/>
+    <xacro:omni_wheel_0 modelPath="package://trikey/models/trikey" subwheelJointType="fixed"/>
+    <xacro:omni_wheel_1 modelPath="package://trikey/models/trikey" subwheelJointType="fixed"/>
+    <xacro:omni_wheel_2 modelPath="package://trikey/models/trikey" subwheelJointType="fixed"/>
+</robot>

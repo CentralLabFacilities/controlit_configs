@@ -1,0 +1,305 @@
+compoundTask: ["Posture:JPosTask:0"]  # comma separated list of task [name:type:priority] elements
+task:
+  Posture:
+
+    # This defines the inital values of the parameters.
+    # Only input parameters should be listed here.
+    parameters:
+      enabled: true
+      ankleRoll:  {kp: 50, ki: 0, kd: 15, goalPosition:  0.0, goalVelocity: 0.0}
+      anklePitch: {kp: 50, ki: 0, kd: 15, goalPosition:  0.3, goalVelocity: 0.0}
+      knee:       {kp: 50, ki: 0, kd: 15, goalPosition: -0.5, goalVelocity: 0.0}
+
+    # These binding specifications are actually the default values and thus don't
+    # have to exist.  They are explicitly defined below for demonstration purposes.
+    # The end-result would be the same even if the specifications below did not exist.
+    bindings:
+      enabled:
+        target: "ROSTopic"
+        target_type: "std_msgs/Bool"
+        properties:
+          topic: enabled # full topic is /[controller name]/task/Posture/parameter/enabled
+
+      ankleRoll:
+        kp:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kp # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/kp
+        ki:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: ki # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/ki
+        kd:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kd # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/kd
+        goalPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalPosition # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/goalPosition
+        goalVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalVelocity # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/goalVelocity
+        currentPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentPosition # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/currentPosition
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        currentVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentVelocity # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/currentVelocity
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        error:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: error # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/error
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        errorDot:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: errorDot # full topic is: /[controller name]/task/Posture/parameter/ankleRoll/errorDot
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+
+      anklePitch:
+        kp:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kp # full topic is: /[controller name]/task/Posture/parameter/anklePitch/kp
+        ki:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: ki # full topic is: /[controller name]/task/Posture/parameter/anklePitch/ki
+        kd:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kd # full topic is: /[controller name]/task/Posture/parameter/anklePitch/kd
+        goalPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalPosition # full topic is: /[controller name]/task/Posture/parameter/anklePitch/goalPosition
+        goalVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalVelocity # full topic is: /[controller name]/task/Posture/parameter/anklePitch/goalVelocity
+        currentPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentPosition # full topic is: /[controller name]/task/Posture/parameter/anklePitch/currentPosition
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        currentVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentVelocity # full topic is: /[controller name]/task/Posture/parameter/anklePitch/currentVelocity
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        error:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: error # full topic is: /[controller name]/task/Posture/parameter/anklePitch/error
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        errorDot:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: errorDot # full topic is: /[controller name]/task/Posture/parameter/anklePitch/errorDot
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+
+      knee:
+        kp:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kp # full topic is: /[controller name]/task/Posture/parameter/knee/kp
+        ki:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: ki # full topic is: /[controller name]/task/Posture/parameter/knee/ki
+        kd:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: kd # full topic is: /[controller name]/task/Posture/parameter/knee/kd
+        goalPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalPosition # full topic is: /[controller name]/task/Posture/parameter/knee/goalPosition
+        goalVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: goalVelocity # full topic is: /[controller name]/task/Posture/parameter/knee/goalVelocity
+        currentPosition:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentPosition # full topic is: /[controller name]/task/Posture/parameter/knee/currentPosition
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        currentVelocity:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: currentVelocity # full topic is: /[controller name]/task/Posture/parameter/knee/currentVelocity
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        error:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: error # full topic is: /[controller name]/task/Posture/parameter/knee/error
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+        errorDot:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: errorDot # full topic is: /[controller name]/task/Posture/parameter/knee/errorDot
+            publish_rate: 100.0
+            queue_size: 2
+            latched: 0
+
+      kp_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: kp_vector # full topic is: /[controller name]/task/Posture/parameter/kp_vector
+
+      ki_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: ki_vector # full topic is: /[controller name]/task/Posture/parameter/ki_vector
+
+      kd_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: kd_vector # full topic is: /[controller name]/task/Posture/parameter/kd_vector
+
+      goalVelocity_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: goalVelocity_vector # full topic is: /[controller name]/task/Posture/parameter/goalVelocity_vector
+
+      currentPosition_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: currentPosition_vector # full topic is: /[controller name]/task/Posture/parameter/currentPosition_vector
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+      currentVelocity_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: currentVelocity_vector # full topic is: /[controller name]/task/Posture/parameter/currentVelocity_vector
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+      error_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: error_vector # full topic is: /[controller name]/task/Posture/parameter/error_vector
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+      errorDot_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: errorDot_vector # full topic is: /[controller name]/task/Posture/parameter/errorDot_vector
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+constraintSet: ["ContactConstraint:controlit/FlatContactConstraint"]  # comma separated list of constraint [name:type] elements
+constraint:
+  ContactConstraint:
+    parameters:
+      enabled: true
+      masterNodeName: "rigid6Dof"
+      contactPoint: {x: 0, y: 0, z: 0}   # Note that by setting this the associated contactPoint_vector is implicitly initialized
+
+    # These binding specifications are actually the default values and thus don't
+    # have to exist.  They are explicitly defined below for demonstration purposes.
+    # The end-result would be the same even if the specifications below did not exist.
+    bindings:
+      enabled:
+        target: "ROSTopic"
+        target_type: "std_msgs/Bool"
+        properties:
+          topic: enabled # full topic is /[controller name]/constraint/ContactConstraint/parameter/enabled
+      masterNodeName:
+        target: "ROSTopic"
+        target_type: "std_msgs/String"
+        properties:
+          topic: enabled # full topic is /[controller name]/constraint/ContactConstraint/parameter/masterNodeName
+
+      contactPoint:
+        x:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: x # full topic is /[controller name]/constraint/ContactConstraint/parameter/contactPoint/x
+        y:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: y # full topic is /[controller name]/constraint/ContactConstraint/parameter/contactPoint/y
+        z:
+          target: "ROSTopic"
+          target_type: "std_msgs/Float64"
+          properties:
+            topic: z # full topic is /[controller name]/constraint/ContactConstraint/parameter/contactPoint/z
+
+      contactPoint_vector:
+        target: "ROSTopic"
+        target_type: "std_msgs/Float64MultiArray"
+        properties:
+          topic: "contactPoint_vector" # full topic is: /[controller name]/constraint/ContactConstraint/parameter/contactPoint_vector
+          transport_hints: "tcp"

@@ -1,0 +1,150 @@
+header:
+  version: 2
+  description: Cartesian position and orientation control of stickbot_upperbody_10dof
+tasks:
+  - name: RightHandPosition
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_abductor_link
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+    # bindings:
+    # - parameters: [error]
+    #   direction: output
+    #   target:
+    #     type: ROSTopic
+    #     dataType: "std_msgs/Float64MultiArray"
+    #     properties:
+    #       topic: error
+    #       publish_rate: 100.0
+    #       queue_size: 2
+    #       latched: 0
+  - type: controlit/OrientQuaternionTask
+    name: RightHandOrientation
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_abductor_link  
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # w,x,y,z
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: Posture     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: kd
+        type: vector,
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: 0.0, #1.0
+      - {name: goalPosition, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: goalVelocity, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: goalAcceleration, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: error,    type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: errorDot, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  # events:
+  #   - name: converged
+  #     expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: RightHandOrientation
+       priority: 0
+       enabled: 1
+     - name: RightHandPosition
+       priority: 0
+       enabled: 1
+     - name: Posture
+       priority: 0
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: basePlateContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  active_constraints:
+    - name: basePlateContactConstraint
+      enabled: 1

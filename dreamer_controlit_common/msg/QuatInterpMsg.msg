@@ -1,0 +1,8 @@
+geometry_msgs/Quaternion rhStart
+geometry_msgs/Quaternion rhEnd
+
+geometry_msgs/Quaternion lhStart
+geometry_msgs/Quaternion lhEnd
+
+float64 rhProportion
+float64 lhProportion

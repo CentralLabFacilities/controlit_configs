@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>atlas_lower_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+  	    Contains ControlIt! configuration files for controlling the lower body of atlas.
+    </description>
+  
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+
+    <url>http://ros.org/wiki/atlas_lower_controlit</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <!-- Uses the gazebo plugin in hcrl_simulator -->
+    <depend>hcrl_simulator</depend>
+    <!-- <depend package="transmission_library"/> -->
+    <!-- <depend package="atlas_description"/> -->
+</package>
+
+

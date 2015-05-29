@@ -1,0 +1,1387 @@
+<robot name="atlas">
+    <link name="l_clav">
+        <inertial>
+            <mass value="3.45" />
+            <origin xyz="0 0.048 0.084" rpy="0 -0 0" />
+            <inertia ixx="0.011" ixy="0" ixz="0" iyy="0.009" iyz="-0.004" izz="0.004" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_clav.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_clav.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_farm">
+        <inertial>
+            <mass value="3.388" />
+            <origin xyz="0 -0.065 0" rpy="0 -0 0" />
+            <inertia ixx="0.00656" ixy="0" ixz="0" iyy="0.00358" iyz="0" izz="0.00656" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_farm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_farm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_foot">
+        <inertial>
+            <mass value="2.05" />
+            <origin xyz="0.027 0 -0.067" rpy="0 -0 0" />
+            <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.007" iyz="0" izz="0.008" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_foot.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <!--
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_foot.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+        -->
+        <collision>
+          <origin rpy="0 0 0 " xyz="0.049 0 -0.053"/>
+          <geometry name="l_foot">
+            <box size="0.27 0.1301 0.056"/>
+          </geometry>
+        </collision>
+    </link>
+    <link name="l_hand">
+        <inertial>
+            <mass value="2.509" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_hand.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_hand.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_larm">
+        <inertial>
+            <mass value="2.509" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_larm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_larm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_lglut">
+        <inertial>
+            <mass value="0.866" />
+            <origin xyz="0.0133341 0.0170484 -0.0312052" rpy="0 -0 0" />
+            <inertia ixx="0.000691326" ixy="-2.24344e-05" ixz="2.50508e-06" iyy="0.00126856" iyz="0.000137862" izz="0.00106487" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_lglut.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_lglut.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_lleg">
+        <inertial>
+            <mass value="5.479" />
+            <origin xyz="0.001 0 -0.187" rpy="0 -0 0" />
+            <inertia ixx="0.077" ixy="0" ixz="-0.003" iyy="0.076" iyz="0" izz="0.01" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_lleg.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_lleg.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_scap">
+        <inertial>
+            <mass value="3.012" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00319" ixy="0" ixz="0" iyy="0.00583" iyz="0" izz="0.00583" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_scap.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_scap.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_talus">
+        <inertial>
+            <mass value="0.125" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="1.01674e-05" ixy="0" ixz="0" iyy="8.42775e-06" iyz="0" izz="1.30101e-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_talus.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_talus.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_uarm">
+        <inertial>
+            <mass value="3.388" />
+            <origin xyz="0 -0.065 0" rpy="0 -0 0" />
+            <inertia ixx="0.00656" ixy="0" ixz="0" iyy="0.00358" iyz="0" izz="0.00656" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uarm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uarm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_uglut">
+        <inertial>
+            <mass value="0.648" />
+            <origin xyz="0.00529262 -0.00344732 0.00313046" rpy="0 -0 0" />
+            <inertia ixx="0.00074276" ixy="-3.79607e-08" ixz="-2.79549e-05" iyy="0.000688179" iyz="-3.2735e-08" izz="0.00041242" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uglut.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uglut.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="l_uleg">
+        <inertial>
+            <mass value="9.209" />
+            <origin xyz="0 0 -0.21" rpy="0 -0 0" />
+            <inertia ixx="0.09" ixy="0" ixz="0" iyy="0.09" iyz="0" izz="0.02" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uleg.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/l_uleg.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="ltorso">
+        <inertial>
+            <mass value="2.409" />
+            <origin xyz="-0.0112984 -3.15366e-06 0.0746835" rpy="0 -0 0" />
+            <inertia ixx="0.0039092" ixy="-5.04491e-08" ixz="-0.000342157" iyy="0.00341694" iyz="4.87119e-07" izz="0.00174492" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/ltorso.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/ltorso.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="mtorso">
+        <inertial>
+            <mass value="0.69" />
+            <origin xyz="-0.00816266 -0.0131245 0.0305974" rpy="0 -0 0" />
+            <inertia ixx="0.000454181" ixy="-6.10764e-05" ixz="3.94009e-05" iyy="0.000483282" iyz="5.27463e-05" izz="0.000444215" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/mtorso.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/mtorso.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="pelvis">
+        <inertial>
+            <mass value="17.882" />
+            <origin xyz="0.0111 0 0.0271" rpy="0 -0 0" />
+            <inertia ixx="0.1244" ixy="0.0008" ixz="-0.0007" iyy="0.0958" iyz="-0.0005" izz="0.1167" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/pelvis.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/pelvis.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_clav">
+        <inertial>
+            <mass value="3.45" />
+            <origin xyz="0 -0.048 0.084" rpy="0 -0 0" />
+            <inertia ixx="0.011" ixy="0" ixz="0" iyy="0.009" iyz="0.004" izz="0.004" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_clav.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_clav.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_farm">
+        <inertial>
+            <mass value="3.388" />
+            <origin xyz="0 0.065 0" rpy="0 -0 0" />
+            <inertia ixx="0.00656" ixy="0" ixz="0" iyy="0.00358" iyz="0" izz="0.00656" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_farm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_farm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_foot">
+        <inertial>
+            <mass value="2.05" />
+            <origin xyz="0.027 0 -0.067" rpy="0 -0 0" />
+            <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.007" iyz="0" izz="0.008" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_foot.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <!--
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_foot.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+        -->
+        <collision>
+          <origin rpy="0 0 0 " xyz="0.049 0 -0.053"/>
+          <geometry name="r_foot">
+            <box size="0.27 0.1301 0.056"/>
+          </geometry>
+        </collision>
+    </link>
+    <link name="r_hand">
+        <inertial>
+            <mass value="2.509" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_hand.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_hand.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_larm">
+        <inertial>
+            <mass value="2.509" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_larm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_larm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_lglut">
+        <inertial>
+            <mass value="0.866" />
+            <origin xyz="0.0133341 -0.0170484 -0.0312052" rpy="0 -0 0" />
+            <inertia ixx="0.000691326" ixy="2.24344e-05" ixz="2.50508e-06" iyy="0.00126856" iyz="-0.000137862" izz="0.00106487" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_lglut.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_lglut.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_lleg">
+        <inertial>
+            <mass value="5.479" />
+            <origin xyz="0.001 0 -0.187" rpy="0 -0 0" />
+            <inertia ixx="0.077" ixy="-0" ixz="-0.003" iyy="0.076" iyz="-0" izz="0.01" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_lleg.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_lleg.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_scap">
+        <inertial>
+            <mass value="3.012" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00319" ixy="0" ixz="0" iyy="0.00583" iyz="0" izz="0.00583" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_scap.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_scap.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_talus">
+        <inertial>
+            <mass value="0.125" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="1.01674e-05" ixy="0" ixz="0" iyy="8.42775e-06" iyz="0" izz="1.30101e-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_talus.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_talus.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_uarm">
+        <inertial>
+            <mass value="3.388" />
+            <origin xyz="0 0.065 0" rpy="0 -0 0" />
+            <inertia ixx="0.00656" ixy="0" ixz="0" iyy="0.00358" iyz="0" izz="0.00656" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uarm.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uarm.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_uglut">
+        <inertial>
+            <mass value="0.648" />
+            <origin xyz="0.00529262 0.00344732 0.00313046" rpy="0 -0 0" />
+            <inertia ixx="0.00074276" ixy="3.79607e-08" ixz="-2.79549e-05" iyy="0.000688179" iyz="3.2735e-08" izz="0.00041242" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uglut.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uglut.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="r_uleg">
+        <inertial>
+            <mass value="9.209" />
+            <origin xyz="0 0 -0.21" rpy="0 -0 0" />
+            <inertia ixx="0.09" ixy="0" ixz="0" iyy="0.09" iyz="0" izz="0.02" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uleg.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/r_uleg.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <!-- with backpack -->
+<!--     <link name="utorso">
+        <inertial>
+            <mass value="52.007" />
+            <origin xyz="-0.0923 0 0.3" rpy="0 -0 0" />
+            <inertia ixx="1.466" ixy="0.00362" ixz="0.336" iyy="1.51" iyz="0.001" izz="1.3" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso_pack.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso_pack.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link> -->
+    <!-- inertia without backpack -->
+    <link name="utorso">
+        <inertial>
+            <mass value="22.260" />
+            <origin xyz="0.0255 -0.001 0.2180" rpy="0 -0 0" />
+            <inertia ixx="0.708" ixy="0.001" ixz="0.004" iyy="0.367" iyz="0.002" izz="0.530" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso_pack.dae" scale="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://atlas_description/meshes_v3/utorso_pack.stl" scale="1 1 1" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="back_bkx" type="fixed">
+        <origin xyz="0 0 0.05" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="mtorso" />
+        <child link="utorso" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="200" velocity="12" lower="-0.698132" upper="0.698132" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.6981" soft_upper_limit="10.6981" />
+    </joint>
+    <joint name="back_bky" type="fixed">
+        <origin xyz="0 0 0.16197" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="ltorso" />
+        <child link="mtorso" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="206.843" velocity="12" lower="-0.610691" upper="0.438427" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.6107" soft_upper_limit="10.4384" />
+    </joint>
+    <joint name="back_bkz" type="fixed">
+        <origin xyz="-0.0125 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="pelvis" />
+        <child link="ltorso" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="124.016" velocity="12" lower="-0.663225" upper="0.663225" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.6632" soft_upper_limit="10.6632" />
+    </joint>
+    <joint name="l_arm_elx" type="fixed">
+        <origin xyz="0 0.119 0.00921" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="l_uarm" />
+        <child link="l_larm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="0" upper="2.35619" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="12.3562" />
+    </joint>
+    <joint name="l_arm_ely" type="fixed">
+        <origin xyz="0 0.187 0.016" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="l_scap" />
+        <child link="l_uarm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="0" upper="3.14159" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="13.1416" />
+    </joint>
+    <joint name="l_arm_shx" type="fixed">
+        <origin xyz="0 0.14035 0.19609" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="l_clav" />
+        <child link="l_scap" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="170" velocity="12" lower="-1.5708" upper="1.5708" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.5708" soft_upper_limit="11.5708" />
+    </joint>
+    <joint name="l_arm_shy" type="fixed">
+        <origin xyz="0.06441 0.13866 0.10718" rpy="0 -0 0" />
+        <axis xyz="0 0.5 0.866025" />
+        <parent link="utorso" />
+        <child link="l_clav" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="212" velocity="12" lower="-1.5708" upper="0.785398" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.5708" soft_upper_limit="10.7854" />
+    </joint>
+     <joint name="l_arm_wrx" type="fixed">
+        <origin xyz="0 0.119 0.00921" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="l_farm" />
+        <child link="l_hand" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="60" velocity="12" lower="-1.1781" upper="1.1781" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.1781" soft_upper_limit="11.1781" />
+    </joint>
+    <joint name="l_arm_wry" type="fixed">
+        <origin xyz="0 0.187 -0.00921" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="l_larm" />
+        <child link="l_farm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="0" upper="3.14159" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="13.1416" />
+    </joint>
+    <joint name="l_leg_akx" type="revolute">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="l_talus" />
+        <child link="l_foot" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="90" velocity="12" lower="-0.8" upper="0.8" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.8" soft_upper_limit="10.8" />
+    </joint>
+    <joint name="l_leg_aky" type="revolute">
+        <origin xyz="0 0 -0.422" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="l_lleg" />
+        <child link="l_talus" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="700" velocity="12" lower="-1" upper="0.7" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11" soft_upper_limit="10.7" />
+    </joint>
+    <joint name="l_leg_hpx" type="revolute">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="l_uglut" />
+        <child link="l_lglut" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="180" velocity="12" lower="-0.523599" upper="0.523599" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.5236" soft_upper_limit="10.5236" />
+    </joint>
+    <joint name="l_leg_hpy" type="revolute">
+        <origin xyz="0.05 0 -0.05" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="l_lglut" />
+        <child link="l_uleg" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="260" velocity="12" lower="-1.72072" upper="0.524821" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.7207" soft_upper_limit="10.5248" />
+    </joint>
+    <joint name="l_leg_hpz" type="revolute">
+        <origin xyz="0 0.089 0" rpy="0 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="pelvis" />
+        <child link="l_uglut" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="110" velocity="12" lower="-0.174533" upper="1.22173" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.1745" soft_upper_limit="11.2217" />
+    </joint>
+    <joint name="l_leg_kny" type="revolute">
+        <origin xyz="-0.05 0 -0.374" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="l_uleg" />
+        <child link="l_lleg" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="220" velocity="12" lower="0" upper="2.38569" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="12.3857" />
+    </joint>
+
+    <joint name="neck_ry" type="fixed">
+        <origin xyz="0.21672 0 0.53796" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="utorso" />
+        <child link="head" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="5" velocity="12" lower="-0.602139" upper="1.14494" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.6021" soft_upper_limit="11.1449" />
+    </joint>
+
+    <joint name="r_arm_elx" type="fixed">
+        <origin xyz="0 -0.119 0.00921" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="r_uarm" />
+        <child link="r_larm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="-2.35619" upper="0" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-12.3562" soft_upper_limit="10" />
+    </joint>
+    <joint name="r_arm_ely" type="fixed">
+        <origin xyz="0 -0.187 0.016" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="r_scap" />
+        <child link="r_uarm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="0" upper="3.14159" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="13.1416" />
+    </joint>
+    <joint name="r_arm_shx" type="fixed">
+        <origin xyz="0 -0.14035 0.19609" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="r_clav" />
+        <child link="r_scap" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="170" velocity="12" lower="-1.5708" upper="1.5708" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.5708" soft_upper_limit="11.5708" />
+    </joint>
+    <joint name="r_arm_shy" type="fixed">
+        <origin xyz="0.06441 -0.13866 0.10718" rpy="0 -0 0" />
+        <axis xyz="0 0.5 -0.866025" />
+        <parent link="utorso" />
+        <child link="r_clav" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="212" velocity="12" lower="-1.5708" upper="0.785398" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.5708" soft_upper_limit="10.7854" />
+    </joint>
+    <joint name="r_arm_wrx" type="fixed">
+        <origin xyz="0 -0.119 0.00921" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="r_farm" />
+        <child link="r_hand" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="60" velocity="12" lower="-1.1781" upper="1.1781" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.1781" soft_upper_limit="11.1781" />
+    </joint>
+    <joint name="r_arm_wry" type="fixed">
+        <origin xyz="0 -0.187 -0.00921" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="r_larm" />
+        <child link="r_farm" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="114" velocity="12" lower="0" upper="3.14159" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="13.1416" />
+    </joint>
+    <joint name="r_leg_akx" type="revolute">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="r_talus" />
+        <child link="r_foot" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="90" velocity="12" lower="-0.8" upper="0.8" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.8" soft_upper_limit="10.8" />
+    </joint>
+    <joint name="r_leg_aky" type="revolute">
+        <origin xyz="0 0 -0.422" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="r_lleg" />
+        <child link="r_talus" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="700" velocity="12" lower="-1" upper="0.7" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11" soft_upper_limit="10.7" />
+    </joint>
+    <joint name="r_leg_hpx" type="revolute">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="r_uglut" />
+        <child link="r_lglut" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="180" velocity="12" lower="-0.523599" upper="0.523599" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.5236" soft_upper_limit="10.5236" />
+    </joint>
+    <joint name="r_leg_hpy" type="revolute">
+        <origin xyz="0.05 0 -0.05" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="r_lglut" />
+        <child link="r_uleg" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="260" velocity="12" lower="-1.72072" upper="0.524821" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.7207" soft_upper_limit="10.5248" />
+    </joint>
+    <joint name="r_leg_hpz" type="revolute">
+        <origin xyz="0 -0.089 0" rpy="0 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="pelvis" />
+        <child link="r_uglut" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="110" velocity="12" lower="-1.22173" upper="0.174533" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.2217" soft_upper_limit="10.1745" />
+    </joint>
+    <joint name="r_leg_kny" type="revolute">
+        <origin xyz="-0.05 0 -0.374" rpy="0 -0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="r_uleg" />
+        <child link="r_lleg" />
+        <dynamics damping="0.1" friction="0" />
+        <limit effort="220" velocity="12" lower="0" upper="2.38569" />
+        <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10" soft_upper_limit="12.3857" />
+    </joint>
+
+    <!-- new situational awareness cameras -->
+    <link name="r_situational_awareness_camera_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="r_situational_awareness_camera_joint" type="fixed">
+      <parent link="utorso"/>
+      <child link="r_situational_awareness_camera_link"/> -->
+      <!-- if camera points x-forward, bottom towards front of robot, 15 degree yaw forwards from
+           lateral (+y) view -->
+      <origin xyz="0.216409 -0.121799 0.406759" rpy="1.57079633 0 -1.30899694"/>
+    </joint>
+    <joint name="r_situational_awareness_camera_optical_frame_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+      <parent link="r_situational_awareness_camera_link" />
+      <child link="r_situational_awareness_camera_optical_frame"/>
+    </joint>
+    <link name="r_situational_awareness_camera_optical_frame"/>
+
+    <link name="l_situational_awareness_camera_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="l_situational_awareness_camera_joint" type="fixed">
+      <parent link="utorso"/>
+      <child link="l_situational_awareness_camera_link"/>
+      <!-- if camera points x-forward, bottom towards front of robot, 15 degree yaw forwards from
+           lateral (+y) view -->
+      <origin xyz="0.216409 0.121799 0.406759" rpy="-1.57079633 0 1.30899694"/>
+    </joint>
+    <joint name="l_situational_awareness_camera_optical_frame_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+      <parent link="l_situational_awareness_camera_link" />
+      <child link="l_situational_awareness_camera_optical_frame"/>
+    </joint>
+    <link name="l_situational_awareness_camera_optical_frame"/>
+
+		<!-- TRANSMISSIONS-->
+  <!-- <transmission name="head_hokuyo_trans" type="loadable_transmissions/SimpleTransmission">
+    <joint name="hokuyo_joint"/>
+    <actuator name="hokuyo_motor"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="back_bkz_trans" type="loadable_transmissions/SimpleTransmission">
+    <joint name="back_bkz"/>
+    <actuator name="back_bkz_motor"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="back_bky_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="back_bky_motor"/>
+    <joint name="back_bky"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="back_bkx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="back_bkx_motor"/>
+    <joint name="back_bkx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_elx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_elx_motor"/>
+    <joint name="l_arm_elx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_ely_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_ely_motor"/>
+    <joint name="l_arm_ely"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_wrx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_wrx_motor"/>
+    <joint name="l_arm_wrx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_shx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_shx_motor"/>
+    <joint name="l_arm_shx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_shy_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_shy_motor"/>
+    <joint name="l_arm_shy"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_arm_wry_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_arm_wry_motor"/>
+    <joint name="l_arm_wry"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_kny_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_kny_motor"/>
+    <joint name="l_leg_kny"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_akx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_akx_motor"/>
+    <joint name="l_leg_akx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_hpy_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_hpy_motor"/>
+    <joint name="l_leg_hpy"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_hpx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_hpx_motor"/>
+    <joint name="l_leg_hpx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_aky_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_aky_motor"/>
+    <joint name="l_leg_aky"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="l_leg_hpz_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="l_leg_hpz_motor"/>
+    <joint name="l_leg_hpz"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="neck_ry_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="neck_ry_motor"/>
+    <joint name="neck_ry"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_elx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_elx_motor"/>
+    <joint name="r_arm_elx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_ely_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_ely_motor"/>
+    <joint name="r_arm_ely"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_wrx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_wrx_motor"/>
+    <joint name="r_arm_wrx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_shx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_shx_motor"/>
+    <joint name="r_arm_shx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_shy_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_shy_motor"/>
+    <joint name="r_arm_shy"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_arm_wry_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_arm_wry_motor"/>
+    <joint name="r_arm_wry"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_kny_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_kny_motor"/>
+    <joint name="r_leg_kny"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_akx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_akx_motor"/>
+    <joint name="r_leg_akx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_hpy_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_hpy_motor"/>
+    <joint name="r_leg_hpy"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_hpx_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_hpx_motor"/>
+    <joint name="r_leg_hpx"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_aky_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_aky_motor"/>
+    <joint name="r_leg_aky"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <transmission name="r_leg_hpz_trans" type="loadable_transmissions/SimpleTransmission">
+    <actuator name="r_leg_hpz_motor"/>
+    <joint name="r_leg_hpz"/>
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission> -->
+
+
+  <!-- imu -->
+  <!--<link name="imu_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="pelvis"/>
+    <child link="imu_link"/>
+    <origin xyz="0.05991527603 0 -0.01415" rpy="0 0 0"/>
+  </joint>-->
+
+<!--MULTISENSE_SL HEAD-->
+  <!-- Head Link Simple Collision Meshes -->
+  <link name="head">
+    <inertial>
+      <origin xyz="-0.075493 3.3383E-05 0.02774" rpy="0 0 0" />
+      <mass value="1.41984" />
+      <!--<inertia iyy="0.0041178" ixy="-1.5797E-06" iyz="-6.8415E-07" ixx="0.0039688" ixz="-0.00089293" izz="0.0035243" />-->
+      <inertia iyy="0.002080106" ixy="-1.5797E-06" iyz="-6.8415E-07" ixx="0.0036053766" ixz="-0.00089293" izz="0.001782985" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://multisense_sl_description/meshes/head.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="0.9098 0.44314 0.031373 1" />
+      </material>
+    </visual>
+  <collision group="default">
+    <origin xyz="-0.0503 0 -0.00195" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1311 0.12 0.0591"/>
+    </geometry>
+  </collision>
+  <collision group="other">
+    <origin xyz="-0.093 0 0.0868" rpy="0 0 0" />
+    <geometry>
+      <box size="0.0468 0.12 0.1184"/>
+    </geometry>
+  </collision>
+  </link>
+  <link name="hokuyo_link">
+    <inertial>
+      <origin xyz="0.012428 0.0004084 -0.0041835" rpy="0 0 0" />
+      <mass value="0.057654" /> -->
+      <!--<inertia iyy="4.2412E-05" ixy="4.9927E-08" iyz="-9.8165E-09" ixx="3.7174E-05" ixz="1.1015E-05" izz="4.167E-05" />-->
+      <!-- distribute iyy and izz equally between head and hokuyo_link given it's constrainted anyways -->
+      <!-- tweak ixx of hokuyo so it's larger, 1/10th of head ixx. -->
+      <inertia iyy="0.002080106" ixy="4.9927E-08" iyz="-9.8165E-09" ixx="0.0004005974" ixz="1.1015E-05" izz="0.001782985" />
+    </inertial>
+    <visual>
+      <!--origin xyz="0.065774 -0.001163 -0.08809" rpy="0 0 0" /-->
+      <!--origin xyz="0.045 -0.001163 -0.08809" rpy="-0.314 0 0" /-->
+      <origin xyz="0.045 -0.0261018277 -0.08342369" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://multisense_sl_description/meshes/head_camera.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="0.72941 0.35686 0.023529 1" />
+      </material>
+    </visual>
+  <collision group="default">
+    <origin xyz="0.01885 0 -0.02119" rpy="0 0 0" />
+    <geometry>
+      <box size="0.08 0.06 0.04238"/>
+    </geometry>
+  </collision>
+  <collision group="other">
+    <origin xyz="0.03 0 0.0235" rpy="0 0 0" />
+    <geometry>
+      <cylinder radius="0.024425" length="0.047"/>
+    </geometry>
+  </collision>
+  </link>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="-0.0446 0 0.0880" rpy="-0.314 0 0" />
+    <parent link="head" />
+    <child link="hokuyo_link" />
+    <axis xyz="1 0 0" />
+    <dynamics damping="0.01" friction="0"/>
+    <limit effort="114" velocity="12" lower="-2.35619" upper="0" />
+  </joint>
+
+  <!-- Hokuyo Laser -->
+  <joint name="head_hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.03 0 0.015" rpy="0 0 0"/>
+    <parent link="hokuyo_link"/>
+    <child link="head_hokuyo_frame"/>
+  </joint>
+  <link name="head_hokuyo_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="0.042428 0.0004084 0.0108165" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <!-- Stereo Camera -->
+  <joint name="left_camera_frame_joint" type="fixed">
+    <!-- optical frame collocated with tilting DOF -->
+    <origin xyz="0.0 0.035 -0.002"/>
+    <parent link="head"/>
+    <child link="left_camera_frame"/>
+  </joint>
+  <link name="left_camera_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.075493 0.035033383 0.02574"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="left_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="left_camera_frame" />
+    <child link="left_camera_optical_frame"/>
+  </joint>
+  <link name="left_camera_optical_frame"/>
+
+
+  <joint name="right_camera_frame_joint" type="fixed">
+    <origin xyz="0.0 -0.035 -0.002"/>
+    <parent link="head"/>
+    <child link="right_camera_frame"/>
+  </joint>
+  <link name="right_camera_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.075493 -0.034966617 0.02574"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="right_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="right_camera_frame" />
+    <child link="right_camera_optical_frame"/>
+  </joint>
+  <link name="right_camera_optical_frame"/>
+
+  <joint name="center_top_led_frame_joint" type="fixed">
+    <origin xyz="0.01125 0.0 0.0105"/>
+    <parent link="head"/>
+    <child link="center_top_led_frame"/>
+  </joint>
+  <link name="center_top_led_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.064243 0.000033383 0.03824" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="center_bottom_led_frame_joint" type="fixed">
+    <origin xyz="0.01125 0.0 -0.0155"/>
+    <parent link="head"/>
+    <child link="center_bottom_led_frame"/>
+  </joint>
+  <link name="center_bottom_led_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.064243 0.000033383 0.01224" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="left_led_frame_joint" type="fixed">
+    <origin xyz="-0.01443 0.07452 0.050346" rpy="0 -0.15 0.53"/>
+    <parent link="head"/>
+    <child link="left_led_frame"/>
+  </joint>
+  <link name="left_led_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.089923 0.074553383 0.078086" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="right_led_frame_joint" type="fixed">
+    <origin xyz="-0.01443 -0.07452 0.050346" rpy="0 -0.15 -0.53"/>
+    <parent link="head"/>
+    <child link="right_led_frame"/>
+  </joint>
+  <link name="right_led_frame">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.089923 -0.074486617 0.07908" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <!-- imu link -->
+  <link name="head_imu_link">
+    <inertial>
+      <mass value="1e-5" />
+      <!-- collocate with parent link and remove mass from it -->
+      <origin xyz="-0.122993 0.035033383 0.02774" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="head_imu_joint" type="fixed">
+    <parent link="head"/>
+    <child link="head_imu_link"/>
+    <!-- putting it at the same z-level as the stereo -->
+    <origin xyz="-0.0475 0.035 0.0" rpy="0 0 0"/>
+  </joint>
+
+<gazebo reference="back_bkx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="back_bky">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="back_bkz">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_elx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_ely">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_shx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_shy">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_wrx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_arm_wry">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_akx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_aky">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_hpx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_hpy">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_hpz">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="l_leg_kny">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="neck_ry">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_elx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_ely">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_shx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_shy">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_wrx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_arm_wry">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_akx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_aky">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_hpx">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_hpy">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_hpz">
+    <provideFeedback value="true"/>
+  </gazebo>
+  <gazebo reference="r_leg_kny">
+    <provideFeedback value="true"/>
+  </gazebo>
+
+  <gazebo version="1.2">
+    <!-- The following plugin connects the robot to the RAPid controller. -->
+    <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+    <!-- <plugin filename="libstick_bot_plugin.so" name="stick_bot_plugin"/> -->
+    <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+      <node>/sm_control_plugin</node>
+    </plugin>
+
+    <!-- The following plugin provides ground truth odometry -->
+    <plugin filename="libgazebo_ros_p3d.so" name="pos_plugin_ros">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1000.0</updateRate>
+      <bodyName>pelvis</bodyName>
+      <topicName>/atlas_lower/pose</topicName>
+      <frameName>world</frameName>
+      <rpyOffset>0 0 0</rpyOffset>
+      <xyzOffset>0 0 0</xyzOffset>
+    </plugin>
+  </gazebo>
+
+
+</robot>

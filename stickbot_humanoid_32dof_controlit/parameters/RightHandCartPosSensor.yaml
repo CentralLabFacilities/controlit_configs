@@ -1,0 +1,66 @@
+header:
+  version: 2
+  description: stickbot_32dof Cartesian position mobel-based sensor
+sensors:
+  - name: RightHandCartPosSensor
+    type: controlit/ModelBasedCartPosSensor  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: position
+        type: vector
+        value: [0, 0, 0]
+      - name: velocity
+        type: vector
+        value: [0, 0, 0]
+      - name: bodyName
+        type: string
+        # value: rigid6DoF
+        value: right_wrist_adductor   # this joint connects to link handmount_RIGHT
+      - name: bodyOffset
+        type: vector
+        value: [0, 0, 0]
+      - name: publishMarker
+        type: int
+        value: 1
+      - name: markerTopic
+        type: string
+        value: right_wrist_adductor/CartPos
+      - name: markerFrameBase
+        type: string
+        value: /world
+sensor_set:
+  type: sensor_set
+  name: stickbot_32dof_SensorSet
+  active_sensors:
+    - name: RightHandCartPosSensor
+      enabled: 1
+  bindings:
+    - parameters: [RightHandCartPosSensor.position]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandCartPosSensor/position
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightHandCartPosSensor.velocity]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandCartPosSensor/velocity
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightHandCartPosSensor.bodyName]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/String
+        properties:
+          topic: RightHandCartPosSensor/bodyName

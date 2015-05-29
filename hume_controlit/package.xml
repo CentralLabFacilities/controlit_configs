@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>hume_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains files related to the "hume" robot in the Human Centered Robotics Lab (HCRL).
+    </description>
+    
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+
+    <url>http://ros.org/wiki/hume</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <!-- Uses the gazebo plugin in hcrl_simulator -->
+    <depend>hcrl_simulator</depend>
+</package>

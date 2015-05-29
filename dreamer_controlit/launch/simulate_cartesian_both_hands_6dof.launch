@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find dreamer_controlit)/launch/simulate_base.xml"/>
+    <include file="$(find dreamer_controlit)/launch/load_dreamer_parameters_cartesian_both_hands_6dof.launch"/>
+    <!-- <node name="dreamer_controlit_interactive_markers" pkg="dreamer_controlit" type="DreamerInteractiveMarkers"/> -->
+</launch>
+

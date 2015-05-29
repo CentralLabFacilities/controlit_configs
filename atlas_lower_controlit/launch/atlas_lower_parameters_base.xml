@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+        textfile="$(find atlas_lower)/models/atlas_lower/urdf/atlas_lower.urdf"/>
+
+    <!-- Specify the model's base link name -->
+    <rosparam param="model_base_link_name">pelvis</rosparam>
+
+    <!-- Specify the servo clock type. -->
+    <!-- <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockROS</rosparam> -->
+    <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockChrono</rosparam>
+
+    <!-- Specify the servo clock frequency. -->
+    <rosparam param="servo_frequency">1000</rosparam>
+
+    <!-- Specify the robot interface type. -->
+    <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceSM</rosparam>
+    <!-- <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceROSTopic</rosparam> -->
+
+    <rosparam param="odometry_topic">/gazebo/root_link_odom</rosparam>
+
+    <!-- Two types of controllers are currently supported: Torque and Impedance -->
+    <rosparam param="whole_body_controller_type">controlit_wbc/WBOSC</rosparam>
+
+    <rosparam param="parameter_binding_factories">["controlit_binding_factory/BindingFactoryROS", "controlit_binding_factory/BindingFactorySM"]</rosparam>
+
+    <!-- Specify the log level and the log prefix fields -->
+    <rosparam param="log_level">DEBUG</rosparam>
+    <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>
+
+    <!-- The following enable/disable multi-threading in ControlIt! -->
+    <!--
+    <rosparam param="USE_SINGLE_THREADED_CONTROL_MODEL">true</rosparam>
+    <rosparam param="USE_SINGLE_THREADED_TASK_UPDATER">true</rosparam>
+    <rosparam param="USE_SINGLE_THREADED_SENSOR_UPDATER">true</rosparam>
+    -->
+
+    <!--
+       Here are some other parameters that should be set:
+
+       controlit_max_effort_command
+       controlit_torque_offsets
+       controlit_torque_scaling_factors
+       controlit_gravity_vector
+       controlit_ramp_up_time' does not exist
+       controlit_coupled_joint_groups
+       controlit_gravity_compensation_mask
+       controlit_effective_gain_pass_through_mask
+       controlit_model_delta_cutoff
+       controlit_model_blend_rate
+    -->
+
+</launch>

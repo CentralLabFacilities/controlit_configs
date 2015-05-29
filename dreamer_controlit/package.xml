@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>dreamer_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains files related to the "dreamer" robot in the Human Centered Robotics Lab (HCRL)
+        with only its right arm installed.
+    </description>
+    
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+
+    <url>http://ros.org/wiki/dreamer_controlit</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <depend>roscpp</depend>
+    <depend>dreamer</depend>
+    <depend>controlit_gazebo_plugins</depend>
+
+    <depend>interactive_marker</depend>
+    <depend>tf</depend>
+    
+</package>
+
+

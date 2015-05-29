@@ -1,0 +1,7 @@
+<launch>
+    <!-- Start controlit_exec with controller atlas_plain_controller -->
+    <node name="controlit_exec" pkg="controlit_exec" type="controlit_exec" output="screen" ns="atlas_lower_controller" respawn="false"/>
+
+    <!-- Start the robot state publisher, which generates the /tf transforms for rViz. -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>

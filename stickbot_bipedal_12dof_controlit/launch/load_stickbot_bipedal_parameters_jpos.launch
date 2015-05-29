@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>
+	<param name="robot_description"
+     command="$(find xacro)/xacro.py '$(find stickbot_bipedal_12dof)/models/stickbot_bipedal_12dof/xacro/stickbot_bipedal_12dof.xacro'"/>
+     
+	<group ns="stickbot_bipedal_12dof_controller/controlit">
+  		<include file="$(find stickbot_bipedal_12dof_controlit)/launch/stickbot_bipedal_parameters_base.xml"/>
+
+  		<param name="parameters" textfile="$(find stickbot_bipedal_12dof_controlit)/parameters/JointPositionControl.yaml"/>
+  	</group>
+</launch>

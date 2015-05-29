@@ -1,0 +1,108 @@
+header:
+  description: dreamer joint state control
+tasks:
+  - type: controlit/JointPositionTask  # Must Match the NAME of the task in the task_library
+    name: JointPositionTask                # Arbitrary instance name
+    parameters:
+      - name: kp
+        type: vector
+        value: [101, 101,
+                101, 101, 101, 101, 101, 101, 101,
+                101, 101, 101, 101, 101, 101, 101]
+      - name: kd
+        type: vector
+        value: [12, 12,
+                12, 12, 12, 12, 12, 12, 12,
+                12, 12, 12, 12, 12, 12, 12]
+      - name: maxVelocity
+        type: vector
+        value: [1000, 1000,
+                1000, 1000, 1000, 1000, 1000, 1000, 1000,
+                1000, 1000, 1000, 1000, 1000, 1000, 1000]
+      - name: goalPosition
+        type: vector
+
+        # Two arm reaching forward pose
+        value: [-0.04080748992593275, 0.4496654171422376,
+                0.7139679153641323, 0.07091282621704931, 0.02823216693053965, 1.4216574378060765, 0.4000449533273933, 0.08519887555570005, 0.045696714114215276,
+                0.7152925384750111, 0.06282027110984245, 0.04902012603488437, 1.4218366132263416, 0.006287012315892682, -0.02545861782641623, -0.001763580670118614]
+
+        # Hello World initial pose
+        # value: [0.08056904552849264, 0.2861049758882661,
+        #         -0.010528523429997882, 0.004243719401921808, -0.02506347992026381, -0.004871836140328156, -0.014662214675058571, -0.053428482893830065, -0.08104871644038436,
+        #         0.3815723223844092, 0.48403033421577923, 1.4153365495366055, 1.4645626612751492, 1.6116969165793185, 0.08984782618970932, -0.01980029420322893]
+
+      - name: goalVelocity
+        type: vector
+        value: [0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
+      - name: goalAcceleration
+        type: vector
+        value: [0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
+      - name: maxAcceleration
+        type: real
+        value: [0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
+    events:
+      - name: converged
+        expression: errorNorm < 55e-4 #err is a norm...it is positive
+      - name: quiescent
+        expression: errorDotNorm < 3e-2 #absolute value take in code
+compound_task:
+  type: compound_task
+  name: My compound task
+  # events:
+  #   - name: converged
+  #     expression: JointPositionTask.converged && JointPositionTask.quiescent
+  task_list:
+     - name: JointPositionTask
+       priority: 0
+       enabled: 1
+constraints:
+  - name: ContactConstraint
+    type: controlit/FlatContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+  - name: TorsoTransmission
+    type: controlit/TransmissionConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "torso_lower_pitch"
+      - name: slaveNodeName
+        type: string
+        value: "torso_upper_pitch"
+      - name: transmissionRatio
+        type: float
+        value: 1.0
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [TorsoTransmission.constraint_jacobian]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: JointPositionTask/constraint_jacobian
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1
+    - name: TorsoTransmission
+      enabled: 1

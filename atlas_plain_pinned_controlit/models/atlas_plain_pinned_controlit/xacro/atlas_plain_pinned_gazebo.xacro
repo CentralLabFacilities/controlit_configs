@@ -1,0 +1,14 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="atlas_legs_plain" >
+
+    <!-- gazebo uses model:// for the model path. -->
+    <property name="modelPath" value="model://atlas_plain" />
+
+    <xacro:include filename="$(find atlas_plain_pinned)/models/atlas_plain_pinned/xacro/atlas_plain_pinned.xacro" />
+
+    <gazebo version="1.2">
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+    </gazebo>
+</robot>

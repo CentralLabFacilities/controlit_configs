@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find trikey_controlit)/launch/simulate_base.xml"/>
+    <include file="$(find trikey_controlit)/launch/load_trikey_parameters_heading.launch"/>
+</launch>
+

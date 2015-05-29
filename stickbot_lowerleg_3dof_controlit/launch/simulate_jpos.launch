@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- Remap /smi/joint_states to /joint_states for RViz /tf transforms -->
+    <!-- <remap from="/smi/joint_states" to="/joint_states"/> -->
+    
+    <include file="$(find stickbot_lowerleg_3dof_controlit)/launch/gazebo.launch"/>
+    <include file="$(find stickbot_lowerleg_3dof_controlit)/launch/load_stickbot_lowerleg_3dof_parameters.launch"/>
+    <include file="$(find stickbot_lowerleg_3dof_controlit)/launch/start_controlit.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_lowerleg_3dof_controlit)/launch/rviz_configure.rviz"/>
+</launch>

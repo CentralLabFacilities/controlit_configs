@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<launch>
+	<group ns="stickbot_humanoid_32dof_controller">
+  		<include file="$(find stickbot_humanoid_32dof_controlit)/launch/stickbot_humanoid_32dof_params_base.xml"/>
+  		<param name="parameters" textfile="$(find stickbot_humanoid_32dof_controlit)/parameters/JointPositionControl.yaml"/>
+      <!-- <param name="sensorSet" textfile="$(find stickbot_humanoid_32dof_controlit)/parameters/RightHandCartPosSensor.yaml"/> -->
+      <!-- <param name="sensorSet" textfile="$(find stickbot_humanoid_32dof_controlit)/parameters/RightHandCartOriSensor.yaml"/> -->
+  	</group>
+</launch>

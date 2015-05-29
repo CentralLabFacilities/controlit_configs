@@ -1,0 +1,14 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b atlas_plain_pinned is a simplified version of Atlas that omits the BDI infrastructure and is pinned to the world.
+
+<!--
+Provide an overview of your package.
+-->
+
+-->
+
+
+*/

@@ -1,0 +1,16 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="atlas" >
+
+    <!-- rViz uses package:// for the model path. -->
+    <property name="modelPath" value="package://atlas_plain/models/atlas_plain" />
+
+    <xacro:include filename="$(find atlas_plain)/models/atlas_plain/xacro/atlas_plain_base.xacro" />
+    <!-- <xacro:include filename="$(find atlas_plain)/models/sandia_hands/xacro/sandia_hand_simple_shapes.urdf.xacro" /> -->
+
+    <!-- ControlIt does not control the fingers.  Thus, set them to be fixed in this model. -->
+    <!-- <xacro:sandia_hand side="right" parent="r_hand" reflect="1" joint_type="fixed" thumb_angle="0">
+        <origin xyz="-0.00179 -0.13516 0.01176" rpy="0 0 -1.57079"/>
+    </xacro:sandia_hand>
+    <xacro:sandia_hand side="left" parent="l_hand" reflect="-1" joint_type="fixed" thumb_angle="0">
+        <origin xyz="0.00179  0.13516 0.01176" rpy="0 0  1.57079"/>
+    </xacro:sandia_hand> -->
+</robot>

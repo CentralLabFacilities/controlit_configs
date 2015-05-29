@@ -1,0 +1,69 @@
+#include <drc/common/math_utilities.hpp>
+
+#include "util.hpp"
+
+using namespace std;
+using namespace YAML;
+
+namespace gazebo
+{
+
+int find_index(const sensor_msgs::JointState &state, const std::string &name)
+{
+	for (uint i = 0; i < state.name.size(); ++i)
+	{
+		if (state.name[i] == name)
+			return i;
+	}
+	return -1;
+}
+
+math::Vector3 nan_overlay(const math::Vector3 &orig, const math::Vector3 &command)
+{
+	math::Vector3 overlay;
+	overlay.x = std::isnan(command.x) ? orig.x : command.x;
+	overlay.y = std::isnan(command.y) ? orig.y : command.y;
+	overlay.z = std::isnan(command.z) ? orig.z : command.z;
+	return overlay;
+}
+
+math::Vector3 omega_to_rpy_dot(const math::Vector3 &rpy, const math::Vector3 &gz_omega)
+{
+	// Using Gwenn's Fix for calculating the time derivatives of roll, pitch, and yaw
+	// Can see derivation here: http://personal.maths.surrey.ac.uk/st/T.Bridges/SLOSH/3-2-1-Eulerangles.pdf   --  p. 6
+	Eigen::Vector3d omega(gz_omega.x, gz_omega.y, gz_omega.z),
+		rpydot;
+	double roll = rpy.x,
+		pitch = rpy.y;
+	Eigen::Matrix3d B;
+	B <<
+		1, sin(roll) * tan(pitch), cos(roll) * tan(pitch),
+		0, cos(roll), -sin(roll),
+		0, sin(roll) / cos(pitch), cos(roll) / cos(pitch);
+	rpydot = B * omega;
+	return math::Vector3(rpydot(0), rpydot(1), rpydot(2));
+}
+
+math::Vector3 rpy_dot_to_omega(const math::Vector3 &rpy, const math::Vector3 &gz_rpydot)
+{
+	Eigen::Vector3d rpydot(gz_rpydot.x, gz_rpydot.y, gz_rpydot.z);
+	double roll = rpy.x,
+		pitch = rpy.y;
+	Eigen::Matrix3d Binv;
+	Binv <<
+		1, 0, -sin(pitch),
+		0, cos(roll), cos(pitch) * sin(roll),
+		0, -sin(roll), cos(pitch) * cos(roll);
+	Eigen::Vector3d omega = Binv * rpydot;
+	return math::Vector3(omega(0), omega(1), omega(2));
+}
+
+string sdf_get_value(sdf::ElementPtr sdf, const string &key, const string &def)
+{
+	if (sdf->HasElement(key))
+		return sdf->GetElement(key)->Get<std::string>();
+	else
+		return def;
+}
+
+}

@@ -1,0 +1,23 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stickbot_leg_6dof" >
+    <xacro:include filename="$(find stickbot_leg_6dof)/models/stickbot_leg_6dof/xacro/stickbot_leg_6dof_base.xacro" />
+    <stickbot_leg_6dof />
+
+    <gazebo version="1.2">
+        <!-- <plugin filename="libstick_bot_plugin.so" name="stick_bot_plugin"/> -->
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+
+        <!-- The following plugin provides ground truth odometry -->
+        <!-- <plugin name="pos_plugin_ros" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>Foot</bodyName>
+            <topicName>/stickbot_leg_6dof_controller/pose</topicName>
+            <frameName>world</frameName>
+            <rpyOffset>0 0 0</rpyOffset>
+            <xyzOffset>0 0 0</xyzOffset>
+        </plugin> -->
+    </gazebo>
+</robot>

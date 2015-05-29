@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Specify the custom debug level -->
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find controlit_environment_config)/config/rosconsole.config"/>
+
+    <!-- Start controlit_exec with controller stickbot_lowerleg_3dof_controller -->
+    <node name="controlit_exec" pkg="controlit_exec" type="controlit_exec" output="screen" ns="stickbot_lowerleg_3dof_controller" respawn="false"/>
+
+    <!-- Start the robot state publisher, which generates the /tf transforms for rViz. -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+
+</launch>

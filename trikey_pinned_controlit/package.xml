@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>trikey_pinned_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains files related to the "trikey_pinned" robot in the Human Centered Robotics Lab (HCRL).
+        Generate the URDFs in package "trikey" prior to running the "trikey_pinned" simulation!
+    </description>
+    
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+    
+    <url>http://ros.org/wiki/trikey_pinned</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <depend>trikey</depend>
+</package>
+
+

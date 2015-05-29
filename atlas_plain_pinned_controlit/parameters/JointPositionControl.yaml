@@ -1,0 +1,152 @@
+header:
+  version: 2
+  description: atlas joint state control
+tasks:
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JPosTask     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: kd
+        type: vector,
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalPosition
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalAcceleration
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - {name: error, type: vector,
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+      - {name: errorDot, type: vector,
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+    events:
+      - name: converged
+        expression: errorNorm < 1e-3
+      - name: quiescent
+        expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  task_list:
+     - name: JPosTask
+       priority: 0
+       enabled: 1
+  bindings:
+    - parameters: [JPosTask.actualVelocity]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/actualVelocity
+          publish_rate: 100.0
+          queue_size: 1
+          latched: 0
+    - parameters: [JPosTask.actualPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/actualPosition
+          publish_rate: 100.0
+          queue_size: 1
+          latched: 0
+    - parameters: [JPosTask.currentGoalAcceleration]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/currentGoalAcceleration
+          publish_rate: 100.0
+          queue_size: 1
+          latched: 0
+    - parameters: [JPosTask.PDCommand]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/PDCommand
+          publish_rate: 100.0
+          queue_size: 1
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.goalVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/goalVelocity
+    - parameters: [JPosTask.goalAcceleration]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/goalAcceleration
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+  events:
+    - name: converged
+      expression: JPosTask.converged && JPosTask.quiescent
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"  # Should be the parent of the constrained link
+        # value: "pelvis"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1

@@ -1,0 +1,324 @@
+header:
+  version: 2
+  description: atlas joint state control
+tasks:
+  - type: controlit/COMTask
+    name: COMTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalPosition
+        type: vector
+        value: [0.03, 0, 0.35]  # x-axis is forward, y-axis is to the left, z is up
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0]
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+      - name: kp
+        type: vector
+        # value: [4, 4, 4]
+        value: [10, 10, 10]
+      - name: kd
+        type: vector
+        # value: [4, 4, 4]
+        value: [6, 6, 6]
+      - name: maxVelocity
+        type: vector
+        # value: [.1, .1, .1]
+        value: [0.2, 0.2, 0.2]
+      - name: maxAcceleration
+        type: vector
+        value: [0, 0, 0]
+      - name: error
+        type: vector
+        value: [0, 0, 0]
+      - name: errorDot
+        type: vector
+        value: [0, 0, 0]
+      - name: worldCOM
+        type: vector
+        value: [0, 0, 0]
+      - name: frameName
+        type: string
+        value: "world"
+  - type: controlit/JointPositionTask
+    name: JPosTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+      - name: kd
+        type: vector
+        value: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalPosition
+        type: vector
+        value: [0.0,   # l_leg_hpz
+                0.0,   # l_leg_hpx
+                0.0,   # l_leg_hpy
+                0.6,   # l_leg_kny
+                -0.3,  # l_leg_aky
+                0.0,   # l_leg_akx
+                0.0,   # r_leg_hpz
+                0.0,   # r_leg_hpx
+                0.0,   # r_leg_hpy
+                0.6,   # r_leg_kny
+                -0.3,  # r_leg_aky
+                0.0]   # r_leg_akx
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  - type: controlit/GenericInternalForceTask
+    name: InternalForceTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: actualFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  #   events:
+  #     - name: converged
+  #       expression: errorNorm < 1e-3
+  #     - name: quiescent
+        expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  task_list:
+     - name: COMTask
+       priority: 0
+       enabled: 1
+     - name: JPosTask
+       priority: 1
+       enabled: 1
+     - name : InternalForceTask
+       priority: 2
+       enabled: 1
+  bindings:
+    - parameters: [COMTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/goalPosition
+    - parameters: [COMTask.goalVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/goalVelocity
+    - parameters: [COMTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/kp
+    - parameters: [COMTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/kd
+    - parameters: [COMTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.worldCOM]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/worldCOM
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+    - parameters: [InternalForceTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.goalFint]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/goalFint
+    - parameters: [InternalForceTask.actualFint]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/actualFint
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+
+  # events:
+  #   - name: converged
+  #     expression: JPosTask.converged && JPosTask.quiescent
+constraints:
+  - type: controlit/FlatContactConstraintSensed
+    name: LeftContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "l_leg_akx"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.056]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.056]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.056]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+
+  - type: controlit/FlatContactConstraintSensed
+    name: RightContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "r_leg_akx"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.056]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.056]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.056]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: LeftContactConstraint
+      enabled: 1
+    - name: RightContactConstraint
+      enabled: 1

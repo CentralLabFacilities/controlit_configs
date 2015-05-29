@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+	<group ns="atlas_lower_controller">
+  		<include file="$(find atlas_lower)/launch/atlas_lower_parameters_base.xml"/>
+  		<param name="parameters" textfile="$(find atlas_lower)/parameters/COMPositionControl.yaml"/>
+  	</group>
+</launch>

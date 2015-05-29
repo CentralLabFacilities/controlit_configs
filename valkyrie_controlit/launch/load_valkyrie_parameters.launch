@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<launch>
+    <group ns="stickbot_lowerleg_3dof_controller/controlit">
+        <!-- Load the robot description parameter -->
+        <param name="robot_description" textfile="$(find stickbot_lowerleg_3dof)/models/stickbot_lowerleg_3dof/urdf/stickbot_lowerleg_3dof.urdf"/>
+
+        <!-- Specify the servo clock type. -->
+        <!-- <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockROS</rosparam> -->
+        <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockChrono</rosparam>
+
+        <!-- Specify the servo clock frequency. -->
+        <rosparam param="servo_frequency">1000</rosparam>
+
+        <!-- Specify the robot interface type. -->
+        <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceSM</rosparam>
+        <!-- <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceROSTopic</rosparam> -->
+
+        <param name="parameters" textfile="$(find stickbot_lowerleg_3dof)/parameters/JointPositionControl.yaml"/>
+
+        <!-- Two types of controllers are currently supported: Torque and Impedance -->
+        <rosparam param="whole_body_controller_type">controlit_wbc/WBOSC</rosparam>
+
+        <rosparam param="odometry_topic">/gazebo/root_link_odom</rosparam>
+
+        <rosparam param="parameter_binding_factories">["controlit_binding_factory/BindingFactoryROS", "controlit_binding_factory/BindingFactorySM"]</rosparam>
+
+        <!-- Specify the log level and the log prefix fields -->
+        <rosparam param="log_level">DEBUG</rosparam>
+        <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>
+    </group>
+</launch>

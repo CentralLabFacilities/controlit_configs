@@ -1,0 +1,31 @@
+header:
+  version: 2
+  description: Model based sensors (including odometry) for Trikey
+sensors:
+  - type: controlit/TrikeyOdometrySensor
+    name: TrikeyOdometrySensor
+    parameters:
+      - name: wheel0name
+        type: string
+        value: "base_to_wheel_j0"
+      - name: wheel1name
+        type: string
+        value: "base_to_wheel_j1"
+      - name: wheel2name
+        type: string
+        value: "base_to_wheel_j2"
+      - name: wheelRadius
+        type: real
+        value: 0.102
+      - name: baseRadius
+        type: real
+        value: 0.24
+      - name: odometryTopic
+        type: string
+        value: "/trikey/pose"
+sensor_set:
+  type: sensor_set
+  name: TrikeySensorSet
+  active_sensors:
+    - name: TrikeyOdometrySensor
+      enabled: 1

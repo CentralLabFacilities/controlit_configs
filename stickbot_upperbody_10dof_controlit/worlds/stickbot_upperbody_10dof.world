@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <gui>
+      <camera name="user_camera">
+        <pose>2.05978 -1.18605 1.2526 0 0.172 2.58</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <physics type="ode">
+      <gravity>0 0 -9.8</gravity>
+      <!-- <ode>
+        <solver>
+          <type>quick</type>
+          <iters>40</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.0001</max_step_size> -->
+      <bullet>
+        <solver>
+          <min_step_size>0.00001</min_step_size>
+          <iters>200</iters>
+          <sor>1.4</sor>
+        </solver>
+      </bullet>
+      <real_time_update_rate>4000</real_time_update_rate>
+      <max_step_size>0.00025</max_step_size>
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- The robot to be simulated -->
+    <include>
+      <pose>0 0 0.71 0 0 0</pose>
+      <uri>model://stickbot_upperbody_10dof_controlit</uri>
+    </include>
+  </world>
+</sdf>

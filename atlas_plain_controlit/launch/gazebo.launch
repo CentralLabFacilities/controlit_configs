@@ -1,0 +1,129 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+
+    <!-- Set the parameters used by the Sandia Hands -->
+
+    <!-- Proportional Gains -->
+    <param name="/sandia_hands/gains/left_f0_j0/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f0_j1/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f0_j2/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f1_j0/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f1_j1/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f1_j2/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f2_j0/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f2_j1/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f2_j2/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f3_j0/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f3_j1/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/left_f3_j2/p"  type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f0_j0/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f0_j1/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f0_j2/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f1_j0/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f1_j1/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f1_j2/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f2_j0/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f2_j1/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f2_j2/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f3_j0/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f3_j1/p" type="double" value="100"/>
+    <param name="/sandia_hands/gains/right_f3_j2/p" type="double" value="100"/>
+
+    <!-- Integral Gains -->
+    <param name="/sandia_hands/gains/left_f0_j0/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f0_j1/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f0_j2/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j0/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j1/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j2/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j0/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j1/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j2/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j0/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j1/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j2/i"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j0/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j1/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j2/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j0/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j1/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j2/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j0/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j1/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j2/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j0/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j1/i" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j2/i" type="double" value="0"/>
+
+    <!-- Derivative Gains (change in position error over time gain)-->
+    <param name="/sandia_hands/gains/left_f0_j0/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f0_j1/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f0_j2/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j0/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j1/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f1_j2/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j0/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j1/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f2_j2/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j0/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j1/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/left_f3_j2/d"  type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j0/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j1/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f0_j2/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j0/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j1/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f1_j2/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j0/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j1/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f2_j2/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j0/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j1/d" type="double" value="0"/>
+    <param name="/sandia_hands/gains/right_f3_j2/d" type="double" value="0"/>
+
+    <!-- i_clamp Value -->
+    <param name="/sandia_hands/gains/left_f0_j0/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f0_j1/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f0_j2/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f1_j0/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f1_j1/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f1_j2/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f2_j0/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f2_j1/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f2_j2/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f3_j0/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f3_j1/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/left_f3_j2/i_clamp"  type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f0_j0/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f0_j1/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f0_j2/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f1_j0/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f1_j1/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f1_j2/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f2_j0/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f2_j1/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f2_j2/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f3_j0/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f3_j1/i_clamp" type="double" value="1000"/>
+    <param name="/sandia_hands/gains/right_f3_j2/i_clamp" type="double" value="1000"/>
+
+
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+     command="$(find xacro)/xacro.py '$(find atlas_plain_controlit)/models/atlas_plain_controlit/xacro/atlas_plain_with_sandia_hands_controlit.xacro'"/>
+
+    <group ns="atlas_plain_controller">
+        <!-- Set the parameters used by the SMControlPlugin. -->
+        <rosparam param="ControlItSMGazeboPlugin/JointOrder">["back_bkz", "back_bky", "back_bkx", "l_arm_shy", "l_arm_shx", "l_arm_ely", "l_arm_elx", "l_arm_wry", "l_arm_wrx", "neck_ry", "r_arm_shy", "r_arm_shx", "r_arm_ely", "r_arm_elx", "r_arm_wry", "r_arm_wrx", "l_leg_hpz", "l_leg_hpx", "l_leg_hpy", "l_leg_kny", "l_leg_aky", "l_leg_akx", "r_leg_hpz", "r_leg_hpx", "r_leg_hpy", "r_leg_kny", "r_leg_aky", "r_leg_akx"]</rosparam>
+        
+        <!-- Start gazebo with robot. -->
+        <node args="$(find atlas_plain_controlit)/worlds/atlas_plain.world"
+            name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="atlas_plain_controller"/>
+    </group>
+
+    <!-- Start a watchdog that ensures the shared memory is deallocated when the application is terminated. -->
+    <node name="watchdog" pkg="shared_memory_interface" type="watchdog" output="screen" ns="/" respawn="false"/>
+</launch>

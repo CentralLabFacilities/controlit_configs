@@ -1,0 +1,80 @@
+/*
+ * Util.hh
+ *
+ *  Created on: Jan 15, 2013
+ *      Author: eacousineau
+ */
+
+#ifndef UTIL_HH_
+#define UTIL_HH_
+
+#include <gazebo/common/Time.hh>
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/common/Events.hh>
+
+#include <gazebo/common/Console.hh>
+#include <gazebo/sensors/sensors.hh>
+
+#include <gazebo/physics/physics.hh>
+#include <gazebo/transport/TransportTypes.hh>
+#include <gazebo/msgs/MessageTypes.hh>
+
+#include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
+#include <std_msgs/Float64.h>
+
+// #include <drc/common/container_utilities.hpp>
+#include <rapid/addons/yaml/yaml_utilities.hpp>
+// #include <drc/common/assert_error.hpp>
+// #include <drc/common/string_utilities.hpp>
+
+namespace gazebo {
+
+// Put this in drc_common?
+int find_index(const sensor_msgs::JointState &state, const std::string &name);
+
+math::Vector3 nan_overlay(const math::Vector3 &orig, const math::Vector3 &command);
+math::Vector3 rpy_dot_to_omega(const math::Vector3 &rpy, const math::Vector3 &gz_rpydot);
+math::Vector3 omega_to_rpy_dot(const math::Vector3 &rpy, const math::Vector3 &gz_omega);
+
+std::string sdf_get_value(sdf::ElementPtr sdf, const std::string &key, const std::string &def = "");
+	template <typename T>
+T sdf_get_value(sdf::ElementPtr sdf, const std::string &key, const T &def)
+{
+	if (sdf->HasElement(key))
+	{
+		std::string value = sdf->GetElement(key)->Get<std::string>();
+		return boost::lexical_cast<T>(value);
+	}
+	else
+		return def;
+}
+
+
+class WorldNestedPause
+{
+	physics::WorldPtr world;
+	bool wasPaused;
+public:
+	inline WorldNestedPause(physics::WorldPtr world)
+		: world(world), wasPaused(world->IsPaused())
+	{
+		world->SetPaused(true);
+	}
+	inline ~WorldNestedPause()
+	{
+		world->SetPaused(wasPaused);
+	}
+};
+
+namespace easy {
+
+using namespace std;
+using namespace YAML;
+// using namespace drc::common;
+
+} // namespace easy
+
+} // namespace gazebo
+
+#endif /* UTIL_HH_ */

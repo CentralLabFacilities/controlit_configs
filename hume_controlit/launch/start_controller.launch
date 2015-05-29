@@ -1,0 +1,7 @@
+<launch>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/" args="hume_controller"/>
+
+</launch>

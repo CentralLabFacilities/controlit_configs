@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="dreamer_testbed">
+
+    <!-- Define the joint types. This specifies the joints that are controlled by WBOSC. -->
+    <property name="EYE_JOINT_TYPE" value="fixed" />
+
+    <property name="RIGHT_HAND_JOINT_TYPE" value="revolute" />
+    <property name="LEFT_GRIPPER_JOINT_TYPE" value="revolute" />
+
+    <property name="JOINT_TYPE_TORSO_YAW"               value="fixed" />
+    <property name="JOINT_TYPE_TORSO_LOWER_PITCH"       value="revolute" />
+    <property name="JOINT_TYPE_TORSO_UPPER_PITCH"       value="revolute" />
+    
+    <property name="JOINT_TYPE_LOWER_NECK_PITCH"        value="fixed" />
+    <property name="JOINT_TYPE_UPPER_NECK_YAW"          value="fixed" />
+    <property name="JOINT_TYPE_UPPER_NECK_ROLL"         value="fixed" />
+    <property name="JOINT_TYPE_UPPER_NECK_PITCH"        value="fixed" />
+    
+    <property name="JOINT_TYPE_LEFT_SHOULDER_EXTENSOR"  value="revolute" />
+    <property name="JOINT_TYPE_LEFT_SHOULDER_ABDUCTOR"  value="revolute" />
+    <property name="JOINT_TYPE_LEFT_SHOULDER_ROTATOR"   value="revolute" />
+    <property name="JOINT_TYPE_LEFT_ELBOW"              value="revolute" />
+    <property name="JOINT_TYPE_LEFT_WRIST_ROTATOR"      value="revolute" />
+    <property name="JOINT_TYPE_LEFT_WRIST_PITCH"        value="revolute" />
+    <property name="JOINT_TYPE_LEFT_WRIST_YAW"          value="revolute" />
+    
+    <property name="JOINT_TYPE_RIGHT_SHOULDER_EXTENSOR" value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_SHOULDER_ABDUCTOR" value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_SHOULDER_ROTATOR"  value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_ELBOW"             value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_WRIST_ROTATOR"     value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_WRIST_PITCH"       value="revolute" />
+    <property name="JOINT_TYPE_RIGHT_WRIST_YAW"         value="revolute" />
+
+    <!-- Gazebo uses model:// for the model path. -->
+    <property name="modelPath" value="model://dreamer" />
+
+    <xacro:include filename="$(find dreamer_testbed)/models/dreamer_testbed/xacro/dreamer_testbed_base.xacro" />
+
+    <gazebo version='1.2'>
+
+        <!-- The following plugin connects the RAPid controller to Gazebo -->
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <!-- <plugin name="dreamer_no_left_arm_plugin" filename="libdreamer_no_left_arm_plugin.so"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+
+        <!-- The following plugin provides ground-truth odometry -->
+        <!-- <plugin filename="libgazebo_ros_p3d.so" name="pos_plugin_ros">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>panplate</bodyName>
+            <topicName>/dreamer_no_left_arm/pose</topicName>
+            <frameName>world</frameName>
+            <rpyOffset>0 0 0</rpyOffset>
+            <xyzOffset>0 0 1.0</xyzOffset>
+        </plugin> -->
+
+        <!-- The following plugin pins the robot to the world. -->
+   <!--  <plugin filename="libPinPlugin.so" name="PinPlugin">
+        <node>/pin_plugin</node>
+    </plugin> -->
+
+    <!-- The following plugin enables the hands to be controlled. -->
+    <plugin filename="libdreamer_hand_poscom_plugin.so" name="RightHandPosComPlugin"/>
+
+    <!-- The following plugin enables the cameras to be controlled. -->
+    <plugin filename="libdreamer_testbed_plugin.so" name="TestbedCameraControlPlugin"/>
+
+    <!-- The following plugin mimics the internal transmission. -->
+    <plugin filename="libdreamer_slave_joint_plugin.so" name="DreamerSlaveJointPlugin"/>
+
+    <!-- The following plugin controls the eyes. -->
+    <plugin filename="libdreamer_eye_plugin.so" name="DreamerEyePlugin"/>
+  </gazebo>
+
+</robot>

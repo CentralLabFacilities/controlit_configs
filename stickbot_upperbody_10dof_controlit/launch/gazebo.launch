@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+     command="$(find xacro)/xacro.py '$(find stickbot_upperbody_10dof)/models/stickbot_upperbody_10dof/xacro/stickbot_upperbody_10dof.xacro'"/>
+
+    <!-- Set the parameter used by pin plugin -->
+    <param name="/pin_plugin/yaml" value="fixed: [stickbot_upperbody_10dof_base]"/>
+
+    <!-- Start gazebo with robot. -->
+    <node args="$(find stickbot_upperbody_10dof_controlit)/worlds/stickbot_upperbody_10dof.world"
+      name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="stickbot_upperbody_10dof_controller"/>
+
+    <!-- Start a shared memory manager. -->
+    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
+        output="screen" ns="/" respawn="false"/>
+</launch>

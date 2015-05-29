@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>valkyrie_upperbody_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains files related to the "valkyrie_upperbody" robot.
+    </description>
+
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+    
+    <url>http://ros.org/wiki/valkyrie_upperbody_controlit</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <depend>valkyrie_upperbody</depend>
+    <depend>controlit_gazebo_plugins</depend>
+</package>
+
+

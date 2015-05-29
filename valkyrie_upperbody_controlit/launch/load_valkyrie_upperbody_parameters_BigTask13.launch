@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<launch>
+	<group ns="valkyrie_upperbody_controller">
+  		<include file="$(find valkyrie_upperbody_controlit)/launch/valkyrie_upperbody_param_base.xml"/>
+  		<param name="parameters" textfile="$(find valkyrie_upperbody_controlit)/parameters/BigTask13_Control.yaml"/>
+ 		<!-- <param name="sensorSet" textfile="$(find valkyrie_upperbody_controlit)/parameters/RightWristCartPosSensor.yaml"/> -->
+ 	</group>
+</launch>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>controlit_gazebo_plugins</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains Gazebo plugins used by ControlIt! to communicate with the robots in simulation.
+    </description>
+
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+
+    <url>http://ros.org/wiki/controlit_gazebo_plugins</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <depend>hcrl_simulator</depend>
+
+    <depend>controlit_core</depend>
+    <depend>controlit_task_library</depend>
+    <depend>controlit_constraint_library</depend>
+    <depend>controlit_robot_interface_library</depend>
+    <depend>controlit_sensor_library</depend>
+
+    <depend>controlit_dependency_addons</depend>
+    <depend>geometry_msgs</depend>
+    <depend>sensor_msgs</depend>
+
+    <depend>shared_memory_interface</depend>
+</package>

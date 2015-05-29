@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="dreamer">
+
+    <xacro:include filename="$(find dreamer)/models/dreamer/xacro/dreamer_gazebo.xacro" />
+
+    <gazebo version="1.2">
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+    </gazebo>
+</robot>
+

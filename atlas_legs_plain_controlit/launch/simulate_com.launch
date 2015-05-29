@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find atlas_legs_plain_controlit)/launch/load_atlas_legs_plain_parameters_com.launch"/>
+    <include file="$(find atlas_legs_plain_controlit)/launch/simulate_base.xml"/>
+</launch>
+

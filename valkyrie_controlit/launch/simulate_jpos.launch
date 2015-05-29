@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find stickbot_lowerleg_3dof)/launch/gazebo.launch"/>
+    <include file="$(find stickbot_lowerleg_3dof)/launch/load_stickbot_lowerleg_3dof_parameters.launch"/>
+    <include file="$(find stickbot_lowerleg_3dof)/launch/start_controlit_controller.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_lowerleg_3dof)/launch/rviz_configure.rviz"/>
+</launch>

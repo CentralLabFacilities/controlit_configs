@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find valkyrie_upperbody_controlit)/launch/simulate_base.xml"/>
+    <include file="$(find valkyrie_upperbody_controlit)/launch/load_valkyrie_upperbody_parameters_jpos.launch"/>
+</launch>
+

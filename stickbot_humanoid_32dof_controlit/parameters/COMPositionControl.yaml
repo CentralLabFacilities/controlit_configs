@@ -1,0 +1,334 @@
+header:
+  version: 2
+  description: humanoid stick bot joint state control
+tasks:
+  - type: controlit/COMTask
+    name: COMTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalPosition
+        type: vector
+        value: [0, 0, 0.35]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0]
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+      - name: kp
+        type: vector
+        # value: [4, 4, 4]
+        value: [10, 10, 10]
+      - name: kd
+        type: vector
+        # value: [4, 4, 4]
+        value: [6, 6, 6]
+      - name: maxVelocity
+        type: vector
+        # value: [.1, .1, .1]
+        value: [0.2, 0.2, 0.2]
+      - name: maxAcceleration
+        type: vector
+        value: [0, 0, 0]
+      - name: error
+        type: vector
+        value: [0, 0, 0]
+      - name: errorDot
+        type: vector
+        value: [0, 0, 0]
+      - name: worldCOM
+        type: vector
+        value: [0, 0, 0]
+      - name: frameName
+        type: string
+        value: "world"
+  - type: controlit/JointPositionTask
+    name: JPosTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: kd
+        type: vector,
+        # Over-damp the torso joints to prevent oscillations that occured when wrist extensors were added
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 40, 40, 40, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalPosition
+        type: vector
+        value: [0.0,   # left hip joint 1
+                0.8,   # left hip extensor
+                0.0,   # left hip aductor
+                -1.5,  # left knee
+                0.71,  # left ankle pitch
+                0.0,   # left ankle roll
+                0.0,   # right hip joint 1
+                0.8,   # right hip extensor
+                0.0,   # right hip aductor
+                -1.5,  # right knee (positive for flexion)?
+                0.71,  # right ankle pitch (negative for flexion)?
+                0.0,   # right ankle roll
+                0.0,   # waist rotation
+                0.0,   # torso extensor
+                0.0,   # chest extensor
+                0.0,   # left shoulder extensor
+                0.0,   # left_shoulder_adductor
+                0.0,   # left_shoulder_rotator
+                1.0,   # left_elbow_extensor
+                0.0,   # left_wrist_rotator
+                0.0,   # left_wrist_extensor
+                0.0,   # left_wrist_adductor
+                0.0,   # neck rotator
+                0.0,   # neck extensor
+                0.0,   # neck_adductor
+                0.0,   # right shoulder extensor
+                0.0,   # right_shoulder_adductor
+                0.0,   # right_shoulder_rotator
+                1.0,   # right_elbow_extensor
+                0.0,   # right_wrist_rotator
+                0.0,   # right_wrist_extensor
+                0.0]   # right_wrist_adductor
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalAcceleration
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  - type: controlit/GenericInternalForceTask
+    name: InternalForceTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: actualFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    events:
+      - name: converged
+        expression: errorNorm < 1e-3
+      - name: quiescent
+        expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  bindings:
+    - parameters: [COMTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.worldCOM]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/worldCOM
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/goalPosition
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+
+    - parameters: [InternalForceTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.goalFint]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/goalFint
+    - parameters: [InternalForceTask.actualFint]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/actualFint
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+  events:
+    - name: converged
+      expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: COMTask
+       priority: 0
+       enabled: 1
+     - name: JPosTask
+       priority: 1
+       enabled: 1
+     - name : InternalForceTask
+       priority: 2
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraintSensed
+    name: LeftContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "leftAnkleRoll"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.04]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+
+  - type: controlit/FlatContactConstraintSensed
+    name: RightContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rightAnkleRoll"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.04]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: LeftContactConstraint
+      enabled: 1
+    - name: RightContactConstraint
+      enabled: 1

@@ -1,0 +1,80 @@
+header:
+  # version: 2.0
+  version: 2
+  description: stick bot 3dof joint state control
+tasks:
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JPosTask     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [50, 50, 50]
+      - name: kd
+        type: vector,
+        value: [15, 15, 15]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0]
+      - name: goalPosition
+        type: vector
+        value: [0.0,  # ankle roll
+                0.3,  # ankle pitch
+                -0.5] # knee
+      - name: goalVelocity
+        type: vector
+        value: [0.0,
+                0.0,
+                0.0]
+      - name: goalAcceleration
+        type: vector
+        value: [0.0,
+                0.0,
+                0.0]
+      - {name: error, type: vector, value: [
+                0.0,
+                0.0,
+                0.0]}
+      - {name: errorDot, type: vector, value: [
+                0.0,
+                0.0,
+                0.0]}
+    events:
+      - name: converged
+        expression: errorNorm < 0.05
+      - name: quiescent
+        expression: errorDotNorm < 0.01
+compound_task:
+  type: compound_task
+  name: My compound task
+  task_list:
+     - name: JPosTask
+       priority: 0
+       enabled: 1
+  events:
+    - name: converged
+      expression: JPosTask.converged && JPosTask.quiescent
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"  # Should be the parent of the constrained link
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1

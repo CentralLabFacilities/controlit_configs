@@ -1,0 +1,452 @@
+header:
+  version: 2
+  description: dreamer joint state control
+tasks:
+  - name: RightHandPosition
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+  - type: controlit/OrientQuaternionTask
+    name: RightHandOrientation
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # w,x,y,z
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+  # - type: rapid/QuaternionOrientationTask
+  #   name: RightHandOrientation
+  #   parameters:
+  #     - name: kp
+  #       type: real
+  #       value: 100
+  #     - name: kd
+  #       type: real
+  #       value: 20
+  #     - name: maxVelocity
+  #       type: real
+  #       value: 100.0
+  #     - name: bodyName  # the coordinate frame of the current heading
+  #       type: string
+  #       value: m3joint_ma10_j6
+  #     - name: frameName  # the coordinate frame of the goal heading
+  #       type: string
+  #       value: world
+  #     - name: latchOn
+  #       type: real
+  #       value: 0
+  #     - name: resetLatch
+  #       type: real
+  #       value: 0
+  #     - name: goalPosition      # w,x,y,z
+  #       type: vector
+  #       value: [0, 1.0, 0.0, 0.0]
+  #     - name: goalVelocity           # in frameName's frame
+  #       type: vector
+  #       value: [0.0, 0.0, 0.0]
+  - type: controlit/OrientVectorToVectorTask
+    name: ChestOrientation
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: torso_pitch_2
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: bodyFrameVector      # in bodyName's frame
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: goalVector           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 1.0]
+  - type: controlit/OrientVectorToVectorTask
+    name: HeadOrientation
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: eye_pitch
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: bodyFrameVector      # in bodyName's frame
+        type: vector
+        value: [1.0, 0.0, 0.0]
+      - name: goalVector           # in frameName's frame
+        type: vector
+        value: [1.0, 0.0, -0.1]
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JPosTask     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [81, 81, 81, 81, 81, 81, 81, 81, 81, 81, 81, 81, 81, 81]
+      - name: kd
+        type: vector
+        value: [18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18]
+      - name: maxVelocity
+        type: vector
+        value: [6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28, 6.28]
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalPosition
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: error
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: errorDot
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    events:
+      # - name: converged
+      #   expression: errorNorm < 55e-4 #err is a norm...it is positive
+      # - name: quiescent
+      #   expression: errorDotNorm < 3e-2 #absolute value take in code
+compound_task:
+  type: compound_task
+  name: My compound task
+  bindings:
+    - parameters: [RightHandOrientation.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandOrientation/goalPosition
+    - parameters: [RightHandOrientation.actualPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightHandOrientation/actualPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightHandOrientation.actualWorldPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightHandOrientation/actualWorldPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightHandOrientation.errorQuaternion]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightHandOrientation/errorQuaternion
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    # - parameters: [RightHandOrientation.goalPosition]
+    #   direction: input
+    #   target:
+    #     type: ROSTopic
+    #     dataType: std_msgs/Float64MultiArray
+    #     properties:
+    #       topic: RightHandOrientation/goalPosition
+    # - parameters: [RightHandOrientation.frameQuaternion]
+    #   direction: output
+    #   target:
+    #     type: ROSTopic
+    #     dataType: "std_msgs/Float64MultiArray"
+    #     properties:
+    #       topic: RightHandOrientation/frameQuaternion
+    #       publish_rate: 100.0
+    #       queue_size: 2
+    #       latched: 0
+    # - parameters: [RightHandOrientation.bodyQuaternion]
+    #   direction: output
+    #   target:
+    #     type: ROSTopic
+    #     dataType: "std_msgs/Float64MultiArray"
+    #     properties:
+    #       topic: RightHandOrientation/bodyQuaternion
+    #       publish_rate: 100.0
+    #       queue_size: 2
+    #       latched: 0
+    # - parameters: [RightHandOrientation.errorQuaternion]
+    #   direction: output
+    #   target:
+    #     type: ROSTopic
+    #     dataType: "std_msgs/Float64MultiArray"
+    #     properties:
+    #       topic: RightHandOrientation/errorQuaternion
+    #       publish_rate: 100.0
+    #       queue_size: 2
+    #       latched: 0
+    - parameters: [RightHandPosition.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandPosition/goalPosition
+    - parameters: [RightHandPosition.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPosition/kp
+    - parameters: [RightHandPosition.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPosition/kd
+    - parameters: [RightFingerHeading.goalVector]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightFingerHeading/goalVector
+    - parameters: [RightHandPosition.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPosition/error
+    - parameters: [RightPalmHeading.goalVector]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightPalmHeading/goalVector
+    - parameters: [RightHandPosition.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPosition/error
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kp
+    - parameters: [JPosTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kd
+    - parameters: [JPosTask.maxVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/maxVelocity
+
+  events:
+    # - name: converged
+    #   expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: RightHandPosition
+       priority: 0
+       enabled: 1
+     - name: RightHandOrientation
+       priority: 0
+       enabled: 1
+     - name: ChestOrientation
+       priority: 0
+       enabled: 1
+     - name: HeadOrientation
+       priority: 0
+       enabled: 1
+     - name: JPosTask
+       priority: 1
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+  - type: controlit/TransmissionConstraint
+    name: J1J2Transmission
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "torso_pitch_1"
+      - name: slaveNodeName
+        type: string
+        value: "torso_pitch_2"
+      - name: transmissionRatio
+        type: float
+        value: 1.0
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1
+    - name: J1J2Transmission
+      enabled: 1

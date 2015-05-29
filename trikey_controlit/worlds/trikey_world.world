@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <gui>
+      <camera name="user_camera">
+        <pose>-1.66034 -0.521469 0.783444 0 0.3 0.3</pose>
+      </camera>
+    </gui>
+    <!-- NOTE: ODE physics most stable when using physical omni wheel models-->
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>200</iters>
+          <sor>1.2</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>0.01</contact_max_correcting_vel>
+          <contact_surface_layer>0.0001</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>2000</real_time_update_rate>
+      <max_step_size>0.0005</max_step_size>
+       <!-- <bullet>
+        <solver>
+          <min_step_size>0.00001</min_step_size>
+          <iters>200</iters>
+          <sor>1.4</sor>
+        </solver>
+      </bullet>
+      <real_time_update_rate>4000</real_time_update_rate>
+      <max_step_size>0.00025</max_step_size> -->
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <!-- <uri>model://ground_plane</uri> -->
+      <uri>model://hcrl_ground_plane</uri>
+    </include>
+
+
+
+    <include>
+      <pose>0 0 0.001 0 0 0</pose>  <!-- This controls the initial position and orientation of the robot in the world: x y z r p y -->
+      <uri>model://trikey_controlit</uri>
+    </include>
+
+
+  </world>
+</sdf>

@@ -1,0 +1,60 @@
+header:
+  version: 2
+  description: upper body stick bot 10DoF joint state control
+tasks:
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JointPosition     # Arbitrary instance name
+    parameters:
+      - {name: enabled, type: integer, value: 1}
+      - {name: useDefaultBindings, type: integer, value: 1}
+      - {name: kp, type: vector, value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]}
+      - {name: kd, type: vector, value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20]}
+      - {name: maxVelocity,  type: vector, value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]}
+      - {name: goalPosition, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: goalVelocity, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+      - {name: goalAcceleration, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+    # bindings:
+    #   - parameter: PDCommand
+    #     direction: output
+    #     target:
+    #       type: ROSTopic
+    #       dataType: std_msgs/Float64MultiArray
+    #       properties:
+    #         topic: JointPosition/PDCommand_Manual
+    #         publish_rate: 100.0
+    #         queue_size: 1
+    #         latched: 0
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  events:
+    - name: converged
+      expression: JointPosition.converged && JointPosition.quiescent
+  task_list:
+     - name: JointPosition
+       priority: 0
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: basePlateContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  active_constraints:
+    - name: basePlateContactConstraint
+      enabled: 1

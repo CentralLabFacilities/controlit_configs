@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+    <group ns="trikey_controller">
+        <include file="$(find trikey_controlit)/launch/trikey_parameters_base.xml"/>
+        <param name="parameters" textfile="$(find trikey_controlit)/parameters/HeadingControl.yaml"/>
+    </group>
+</launch>

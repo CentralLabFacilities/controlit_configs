@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+    <!-- Start gazebo with robot. -->
+    <node args="$(find trikey_controlit)/worlds/trikey_world.world"
+    	name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="trikey_controller"/>
+
+    <!-- The following is commented out because Trikey is currently configured to use UDP. -->
+    <!-- Start a shared memory manager. -->
+    <!-- <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
+        output="screen" ns="/" respawn="false"/> -->
+</launch>

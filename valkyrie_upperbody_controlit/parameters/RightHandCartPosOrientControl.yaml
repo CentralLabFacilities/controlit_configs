@@ -1,0 +1,252 @@
+header:
+  version: 2
+  description: Valkyrie Upperbody joint state control
+tasks:
+  - name: JPosTask     # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: kd
+        type: vector
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalPosition
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: error
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: errorDot
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    events:
+      # - name: converged
+      #   expression: errorNorm < 55e-4 #err is a norm...it is positive
+      # - name: quiescent
+      #   expression: errorDotNorm < 3e-2 #absolute value take in code
+  - name: RightHandPosition
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+
+  - name: RightPalmOrientation
+    type: controlit/OrientVectorToVectorTask
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: bodyFrameVector      # in bodyName's frame
+        type: vector
+        value: [1.0, 0.0, 0.0]
+      - name: goalVector           # in frameName's frame
+        type: vector
+        value: [0.0, -0.0, 1.0]
+compound_task:
+  type: compound_task
+  name: My compound task
+  bindings:
+
+    - parameters: [RightHandPosition.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandPosition/goalPosition
+    - parameters: [RightHandPosition.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPosition/kp
+    - parameters: [RightHandPosition.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPosition/kd
+    - parameters: [RightHandPosition.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPosition/error
+
+    - parameters: [RightPalmOrientation.goalVector]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightPalmOrientation/goalVector
+
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kp
+    - parameters: [JPosTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kd
+    - parameters: [JPosTask.maxVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/maxVelocity
+
+  events:
+    # - name: converged
+    #   expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: RightHandPosition
+       priority: 0
+       enabled: 1
+     - name: RightPalmOrientation
+       priority: 1
+       enabled: 1
+     - name: JPosTask
+       priority: 2
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1

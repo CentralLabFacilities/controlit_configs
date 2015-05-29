@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+  <include file="$(find stickbot_upperbody_10dof_controlit)/launch/stickbot_upperbody_10dof_params_base.xml"/>
+
+  <param name="/stickbot_upperbody_10dof_controller/controlit/parameters" textfile="$(find stickbot_upperbody_10dof_controlit)/parameters/JointPositionControl.yaml"/>
+
+</launch>

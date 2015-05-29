@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>atlas_plain_pinned_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+      	Contains files related to the "atlas_plain_pinned_controlit" robot.
+    </description>
+
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+    
+    <url>http://ros.org/wiki/atlas_plain_pinned_controlit</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <depend>atlas_plain_pinned</depend>
+    <depend>controlit_gazebo_plugins</depend>
+</package>

@@ -1,0 +1,300 @@
+header:
+  version: 2
+  description: Dreamer both hands Cartesian position control
+tasks:
+  - name: RightHandPosition
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 76
+      - name: kd
+        type: real
+        value: 3
+      - name: maxVelocity
+        type: real
+        value: 1000
+      - name: bodyName  # the coordinate frame of the current position
+        type: string
+        value: right_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+
+        # these are the values used by UTA-WBC
+        # value: [0.45, -0.25, 1.1]
+
+        value: [0.033912978219317776, -0.29726881641499886, 0.82]
+
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+
+  - name: LeftHandPosition
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 76
+      - name: kd
+        type: real
+        value: 3
+      - name: maxVelocity
+        type: real
+        value: 1000
+      - name: bodyName  # the coordinate frame of the current position
+        type: string
+        value: left_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+
+        # these are the values used by UTA-WBC
+        # value: [0.45, 0.25, 1.1]
+
+        value: [0.033912978219317776, 0.29726881641499886, 0.82]
+
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] # in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+
+  - name: RightHandOrientation
+    type: controlit/OrientQuaternionTask
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalOrientation      # w,x,y,z
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+
+  - name: LeftHandOrientation
+    type: controlit/OrientQuaternionTask
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: left_wrist_yaw
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalOrientation      # w,x,y,z
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [0, 1.0, 0.0, 0.0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+
+  - name: Posture     # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    parameters:
+      - name: kp
+        type: vector
+
+        # these are values Liang settled on doing joint-by-joint integration testing
+        #value: [10, 10, 10, 10, 10, 100, 100, # left arm
+        #        10, 20, 20, 10, 10, 50, 50]   # right arm
+
+        # these are the values used by UTA-WBC
+        # value: [30.0, 30.0,                                 # torso
+        #         30.0, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0,   # left arm 
+        #         30.0, 30.0, 30.0, 20.0, 20.0, 30.0, 30.0]   # right arm
+
+        value: [60.0, 60.0,                                 # torso
+                60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0,   # left arm 
+                60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0]   # right arm
+
+      - name: kd
+        type: vector
+
+        # these are the values used by UTA-WBC
+        value: [3, 3,                  # torso
+                3, 3, 3, 3, 3, 3, 3,   # left arm
+                3, 3, 3, 3, 3, 3, 3]   # right arm
+
+        # these are values Liang settled on doing joint-by-joint integration testing
+        # value: [2, 2, 2, 2, 2, 20, 20,       # left arm
+        #         2, 2, 2, 2, 2, 5, 5]         # right arm
+
+      - name: maxVelocity
+        type: vector
+        value: [1000, 1000,                                  # torso
+                1000, 1000, 1000, 1000, 1000, 1000, 1000,    # left arm 
+                1000, 1000, 1000, 1000, 1000, 1000, 1000]    # right arm
+
+      - name: goalPosition
+        type: vector
+
+        # these are the values used by UTA-WBC
+        # value: [0.0, 0.0,                                # torso
+        #         0.0, 0.0, 0.0, 1.57, 0.0, 0.0, 0.0,      # left arm
+        #         0.0, 0.0, 0.0, 1.57, 0.0, 0.0, 0.0]      # right arm
+
+        value: [0.0, 0.0,                                              # torso
+                0.0, 0.174532925, 0.0, 0.174532925, 0.0, 0.0, 0.0,     # left arm
+                0.0, 0.174532925, 0.0, 0.174532925, 0.0, 0.0, 0.0]     # right arm
+
+      - name: goalVelocity
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+      - name: goalAcceleration
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+      - name: error
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+      - name: errorDot
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+    events:
+      - name: converged
+        expression: errorNorm < 55e-4 #err is a norm...it is positive
+      - name: quiescent
+        expression: errorDotNorm < 3e-2 #absolute value take in code
+compound_task:
+  type: compound_task
+  name: My compound task
+  events:
+    - name: converged
+      expression: Posture.converged && Posture.quiescent
+  task_list:
+     - name: RightHandPosition
+       priority: 0
+       enabled: 1
+     - name: LeftHandPosition
+       priority: 0
+       enabled: 1
+     - name: RightHandOrientation
+       priority: 1
+       enabled: 1
+     - name: LeftHandOrientation
+       priority: 1
+       enabled: 1
+     - name: Posture
+       priority: 2
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+  - name: TorsoTransmission
+    type: controlit/TransmissionConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "torso_lower_pitch"
+      - name: slaveNodeName
+        type: string
+        value: "torso_upper_pitch"
+      - name: transmissionRatio
+        type: float
+        value: 1.0
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  bindings:
+    - parameter: ContactConstraint.constraintJacobian
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: ContactConstraint/constraintJacobian
+          publish_rate: 100.0
+          queue_size: 1
+          latched: 0
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1
+    - name: TorsoTransmission
+      enabled: 1

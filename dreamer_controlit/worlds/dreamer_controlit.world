@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <gui>
+      <camera name="user_camera">
+        <pose>1.98288 -1.12461 1.82823 0 0.172 2.58</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+
+      <!-- 
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>40</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode> 
+      -->
+      
+      <bullet>
+        <solver>
+          <min_step_size>0.00001</min_step_size>
+          <iters>200</iters>
+          <sor>1.4</sor>
+        </solver>
+      </bullet>
+
+      <real_time_update_rate>4000</real_time_update_rate>
+      <max_step_size>0.00025</max_step_size>
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- The robot to be simulated -->
+    <include>
+      <pose>0 0 0 0 0 0</pose>  <!-- This controls the initial position and orientation of the robot in the world: x y z r p y -->
+      <uri>model://dreamer_controlit</uri>
+    </include>
+
+    <!-- <include>
+      <pose>0.75 0 0 0 0 1.57</pose>
+      <uri>model://table</uri>
+    </include>
+
+    <include>
+      <pose>0.5 0 1.02 0 0 0.0</pose>
+      <uri>model://beer</uri>
+    </include>
+
+    <include>
+      <pose>0.844024 0.572196 1.04785 0 -0 0</pose>
+      <uri>model://bowl</uri>
+    </include>
+
+    <include>
+      <pose>0.5 -0.5 1 0 -0 0</pose>
+      <uri>model://door_handle</uri>
+    </include>
+
+    <include>
+      <pose>0.5 -0.6 1 0 -0 0</pose>
+      <uri>model://cinder_block</uri>
+    </include>
+
+    <include>
+      <pose>0.5 0.3 1.0 0 0 0.0</pose>
+      <uri>model://drill</uri>
+    </include>
+
+    <include>
+      <pose>0.5 0.2 1.0 0 0 0.0</pose>
+      <uri>model://hammer</uri>
+    </include>
+
+    <include>
+      <pose>0.662818 -0.039459 1 0 -0 0</pose>
+      <uri>model://saucepan</uri>
+    </include>
+
+    <include>
+      <pose>0.6 0.5 1 0 -0 0</pose>
+      <uri>model://wooden_peg</uri>
+    </include>
+
+    -->
+  </world>
+</sdf>

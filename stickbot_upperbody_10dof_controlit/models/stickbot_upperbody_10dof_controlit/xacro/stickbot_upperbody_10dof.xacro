@@ -1,0 +1,27 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stickbot_upperbody_10dof" >
+    <xacro:include filename="$(find stickbot_upperbody_10dof)/models/stickbot_upperbody_10dof/xacro/stickbot_upperbody_10dof_base.xacro" />
+    <stickbot_upperbody_10dof />
+
+    <gazebo version="1.2">
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <!-- <plugin filename="libdreamer_plugin.so" name="upperbody_stickbot_plugin"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+
+        <plugin filename="libPinPlugin.so" name="PinPlugin">
+            <pin_root_link>1</pin_root_link>
+        </plugin>
+
+        <!-- The following plugin provides ground truth odometry -->
+        <!-- <plugin name="pos_plugin_ros" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>base_plate</bodyName>
+            <topicName>/stickbot_upperbody_10dof/pose</topicName>
+            <frameName>world</frameName>
+            <rpyOffset>0 0 0</rpyOffset>
+            <xyzOffset>0 0 0</xyzOffset>
+        </plugin> -->
+  </gazebo>
+</robot>

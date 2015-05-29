@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stickbot_humanoid_32dof" >
+    <xacro:include filename="$(find stickbot_humanoid_32dof)/models/stickbot_humanoid_32dof/xacro/stickbot_humanoid_32dof_base.xacro" />
+    <stickbot_humanoid_32dof />
+    <gazebo version="1.2">
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+
+        <!-- The following plugin provides ground truth odometry -->
+        <!-- <plugin name="pos_plugin_ros" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>pelvis</bodyName>
+            <topicName>/stickbot_humanoid_32dof_controller/pose</topicName>
+            <frameName>world</frameName>
+            <rpyOffset>0 0 0</rpyOffset>
+            <xyzOffset>0 0 0</xyzOffset>
+        </plugin> -->
+    </gazebo>
+</robot>

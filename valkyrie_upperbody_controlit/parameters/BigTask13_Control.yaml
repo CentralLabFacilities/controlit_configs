@@ -1,0 +1,1180 @@
+header:
+  version: 2
+  description: Valkyrie Upperbody joint state control
+tasks:
+  - name: JPosTask     # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: kd
+        type: vector
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalPosition
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: error
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: errorDot
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    events:
+      # - name: converged
+      #   expression: errorNorm < 55e-4 #err is a norm...it is positive
+      # - name: quiescent
+      #   expression: errorDotNorm < 3e-2 #absolute value take in code
+  - name: RightHandPositionX
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]]
+
+  - name: LeftHandPositionX
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]]
+
+  - name: RightHandPositionY
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+
+  - name: LeftHandPositionY
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+
+  - name: RightHandPositionZ
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 1]]
+
+  - name: LeftHandPositionZ
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftWrist
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 1]]
+
+  - name: LeftElbowPositionX
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]]
+
+  - name: RightElbowPositionX
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]]
+
+  - name: LeftElbowPositionY
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+
+  - name: RightElbowPositionY
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+
+  - name: LeftElbowPositionZ
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: LeftElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 1]]
+
+  - name: RightElbowPositionZ
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: RightElbowExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 1]]
+
+  - name: HeadPositionX
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: UpperNeckExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]]
+
+  - name: HeadPositionY
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 64
+      - name: kd
+        type: real
+        value: 16
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: UpperNeckExtensor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.075, -0.35, 1.25]
+      - name: goalVelocity      # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+
+compound_task:
+  type: compound_task
+  name: My compound task
+  bindings:
+
+    - parameters: [LeftHandPositionX.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftHandPositionX/goalPosition
+    - parameters: [LeftHandPositionX.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionX/kp
+    - parameters: [LeftHandPositionX.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionX/kd
+    - parameters: [LeftHandPositionX.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftHandPositionX/error
+
+    - parameters: [RightHandPositionX.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandPositionX/goalPosition
+    - parameters: [RightHandPositionX.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionX/kp
+    - parameters: [RightHandPositionX.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionX/kd
+    - parameters: [RightHandPositionX.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPositionX/error
+
+    - parameters: [LeftHandPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftHandPositionY/goalPosition
+    - parameters: [LeftHandPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionY/kp
+    - parameters: [LeftHandPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionY/kd
+    - parameters: [LeftHandPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftHandPositionY/error
+
+    - parameters: [RightHandPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandPositionY/goalPosition
+    - parameters: [RightHandPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionY/kp
+    - parameters: [RightHandPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionY/kd
+    - parameters: [RightHandPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPositionY/error
+
+    - parameters: [LeftHandPositionZ.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftHandPositionZ/goalPosition
+    - parameters: [LeftHandPositionZ.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionZ/kp
+    - parameters: [LeftHandPositionZ.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftHandPositionZ/kd
+    - parameters: [LeftHandPositionZ.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftHandPositionZ/error
+
+    - parameters: [RightHandPositionZ.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightHandPositionZ/goalPosition
+    - parameters: [RightHandPositionZ.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionZ/kp
+    - parameters: [RightHandPositionZ.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightHandPositionZ/kd
+    - parameters: [RightHandPositionZ.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightHandPositionZ/error
+
+    - parameters: [RightElbowPositionX.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightElbowPositionX/goalPosition
+    - parameters: [RightElbowPositionX.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionX/kp
+    - parameters: [RightElbowPositionX.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionX/kd
+    - parameters: [RightElbowPositionX.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightElbowPositionX/error
+
+    - parameters: [LeftElbowPositionX.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftElbowPositionX/goalPosition
+    - parameters: [LeftElbowPositionX.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionX/kp
+    - parameters: [LeftElbowPositionX.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionX/kd
+    - parameters: [LeftElbowPositionX.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftElbowPositionX/error
+
+    - parameters: [RightElbowPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightElbowPositionY/goalPosition
+    - parameters: [RightElbowPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionY/kp
+    - parameters: [RightElbowPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionY/kd
+    - parameters: [RightElbowPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightElbowPositionY/error
+
+    - parameters: [LeftElbowPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftElbowPositionY/goalPosition
+    - parameters: [LeftElbowPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionY/kp
+    - parameters: [LeftElbowPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionY/kd
+    - parameters: [LeftElbowPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftElbowPositionY/error
+
+    - parameters: [RightElbowPositionZ.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightElbowPositionZ/goalPosition
+    - parameters: [RightElbowPositionZ.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionZ/kp
+    - parameters: [RightElbowPositionZ.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightElbowPositionZ/kd
+    - parameters: [RightElbowPositionZ.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightElbowPositionZ/error
+
+    - parameters: [LeftElbowPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftElbowPositionY/goalPosition
+    - parameters: [LeftElbowPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionY/kp
+    - parameters: [LeftElbowPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftElbowPositionY/kd
+    - parameters: [LeftElbowPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftElbowPositionY/error
+
+    - parameters: [HeadPositionX.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: HeadPositionX/goalPosition
+    - parameters: [HeadPositionX.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: HeadPositionX/kp
+    - parameters: [HeadPositionX.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: HeadPositionX/kd
+    - parameters: [HeadPositionX.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadPositionX/error
+
+    - parameters: [HeadPositionY.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: HeadPositionY/goalPosition
+    - parameters: [HeadPositionY.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: HeadPositionY/kp
+    - parameters: [HeadPositionY.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: HeadPositionY/kd
+    - parameters: [HeadPositionY.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: HeadPositionY/error
+
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+    - parameters: [JPosTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kp
+    - parameters: [JPosTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/kd
+    - parameters: [JPosTask.maxVelocity]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/maxVelocity
+
+  events:
+    # - name: converged
+    #   expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: LeftHandPositionX
+       priority: 0
+       enabled: 1
+     - name: RightHandPositionX
+       priority: 0
+       enabled: 1
+
+     - name: LeftHandPositionY
+       priority: 1
+       enabled: 1
+     - name: RightHandPositionY
+       priority: 1
+       enabled: 1
+
+     - name: LeftHandPositionZ
+       priority: 2
+       enabled: 1
+     - name: RightHandPositionZ
+       priority: 2
+       enabled: 1
+
+     - name: LeftElbowPositionX
+       priority: 3
+       enabled: 1
+     - name: RightElbowPositionX
+       priority: 3
+       enabled: 1
+
+     - name: LeftElbowPositionY
+       priority: 4
+       enabled: 1
+     - name: RightElbowPositionY
+       priority: 4
+       enabled: 1
+
+     - name: LeftElbowPositionZ
+       priority: 5
+       enabled: 1
+     - name: RightElbowPositionZ
+       priority: 5
+       enabled: 1
+
+     # - name: HeadPositionX
+     #   priority: 6
+     #   enabled: 1
+     # - name: HeadPositionY
+     #   priority: 6
+     #   enabled: 1
+
+     - name: JPosTask
+       priority: 6
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraint
+    name: ContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rigid6DoF"
+      - name: contactPoint
+        type: vector
+        value: [0, 0, 0]
+      - name: enabled
+        type: integer
+        value: 1
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: ContactConstraint
+      enabled: 1

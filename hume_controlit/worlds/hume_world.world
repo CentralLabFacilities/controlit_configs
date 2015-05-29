@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <gui>
+      <camera name="user_camera">
+        <pose>-2.47106 -2.21105 1.97089 0 0.372 0.743998</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>40</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <!--
+        The real_time_update_rate controls the update rate of the physics engine.
+        The product of real_time_update_rate and max_time_step determine the target
+        real time factor, though for computationally demanding simulations, the
+        target real-time update rate may not be achieved.
+      -->
+      <real_time_update_rate>1000</real_time_update_rate>
+      <!-- <max_step_size>0.001</max_step_size> -->
+      <!-- <max_step_size>0.0005</max_step_size> --> <!-- real-time factor of 0.5 -->
+      <max_step_size>0.0002</max_step_size> <!-- real-time factor of 0.2 -->
+      <!-- <max_step_size>0.0001</max_step_size> -->  <!-- real-time factor of 0.1 -->
+
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- The robot to be simulated -->
+    <include>
+      <pose>0 0 0 0 0 0</pose>  <!-- This controls the initial position and orientation of the robot in the world: x y z r p y -->
+      <uri>model://hume</uri>
+    </include>
+  </world>
+</sdf>

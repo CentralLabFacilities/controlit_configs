@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find trikey_pinned_controlit)/launch/gazebo.launch"/>
+    <include file="$(find trikey_pinned_controlit)/launch/load_trikey_pinned_parameters.launch"/>
+    <include file="$(find trikey_pinned_controlit)/launch/start_controlit.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find trikey_pinned_controlit)/launch/rviz_configure.rviz"/>
+    
+</launch>
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+	<group ns="atlas_legs_plain_controller">
+  		<include file="$(find atlas_legs_plain_controlit)/launch/atlas_legs_plain_parameters_base.xml"/>
+  		<param name="parameters" textfile="$(find atlas_legs_plain_controlit)/parameters/JointPositionControl.yaml"/>
+  	</group>
+</launch>

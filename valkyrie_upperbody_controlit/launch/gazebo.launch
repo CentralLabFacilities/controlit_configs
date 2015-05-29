@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+    <!-- Load the robot description parameter. -->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find valkyrie_upperbody_controlit)/models/valkyrie_upperbody_controlit/xacro/valkyrie_upperbody_controlit.xacro'"/>
+
+    <!-- Start gazebo with the robot. -->
+    <node args="$(find valkyrie_upperbody_controlit)/worlds/valkyrie_upperbody.world"
+        name="gazebo" pkg="hcrl_simulator" type="run_gazebo"/>
+
+    <!-- Start a watchdog that ensures the shared memory is deallocated when the application is terminated. -->
+    <!-- <node name="SMWatchdog" pkg="shared_memory_interface" type="watchdog" output="screen" ns="/" respawn="false"/> -->
+</launch>

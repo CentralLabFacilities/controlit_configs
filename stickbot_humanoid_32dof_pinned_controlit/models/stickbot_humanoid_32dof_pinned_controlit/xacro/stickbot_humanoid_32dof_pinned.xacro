@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="stickbot_humanoid_32dof_pinned">
+
+  <xacro:include filename="$(find stickbot_humanoid_32dof_pinned)/models/stickbot_humanoid_32dof_pinned/xacro/stickbot_humanoid_32dof_pinned.xacro" />
+
+  <!-- Add the Gazebo plugins! -->
+  <gazebo version='1.2'>
+    <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+    <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+      <node>/sm_control_plugin</node>
+    </plugin>
+  </gazebo>
+
+</robot>

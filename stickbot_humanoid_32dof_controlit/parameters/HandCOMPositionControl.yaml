@@ -1,0 +1,683 @@
+header:
+  version: 2
+  description: humanoid stick bot joint state control
+tasks:
+  - name: RightArmCartesianPositionTask
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 10
+      - name: kd
+        type: real
+        value: 4
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.15180417579690852, -0.18507059795744202, 0.802338564271228]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+  - type: controlit/OrientQuaternionTask
+    name: RightArmOriQuatTask
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: right_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # w,x,y,z
+        type: vector
+        value: [0.8787118494278933, -0.0008382589763612181, 0.477350973438069, -0.0009116768220535133]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [1,0,0,0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+  - name: LeftArmCartesianPositionTask
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
+    parameters:
+      - name: kp
+        type: vector
+        value: 10
+      - name: kd
+        type: real
+        value: 4
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: left_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
+        type: vector
+        value: [-0.14939884473941475, 0.1860233660746471, 0.8003902013037729]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+  - type: controlit/OrientQuaternionTask
+    name: LeftArmOriQuatTask
+    parameters:
+      - name: kp
+        type: real
+        value: 100
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: left_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # w,x,y,z
+        type: vector
+        value: [0.8787106649734258, -0.0006943294783869571, 0.47734964846452504, -0.0020972075075540234]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [1,0,0,0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+  - type: controlit/COMTask
+    name: COMTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalPosition
+        type: vector
+        value: [0, 0, 0.35]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0]
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0]]
+      - name: kp
+        type: vector
+        # value: [4, 4, 4]
+        value: [10, 10, 10]
+      - name: kd
+        type: vector
+        # value: [4, 4, 4]
+        value: [6, 6, 6]
+      - name: maxVelocity
+        type: vector
+        # value: [.1, .1, .1]
+        value: [0.2, 0.2, 0.2]
+      - name: maxAcceleration
+        type: vector
+        value: [0, 0, 0]
+      - name: error
+        type: vector
+        value: [0, 0, 0]
+      - name: errorDot
+        type: vector
+        value: [0, 0, 0]
+      - name: worldCOM
+        type: vector
+        value: [0, 0, 0]
+      - name: frameName
+        type: string
+        value: "world"
+  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    name: JPosTask     # Arbitrary instance name
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: kp
+        type: vector
+        # value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+      - name: kd
+        type: vector
+        # Over-damp the torso joints to prevent oscillations that occured when wrist extensors were added
+        # value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 40, 40, 40, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+        value: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+      - name: maxVelocity
+        type: vector
+        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      - name: maxAcceleration
+        type: real
+        value: 0.0, #1.0
+      - name: goalPosition
+        type: vector
+        value: [0.0,   # left hip joint 1
+                0.8,   # left hip extensor
+                0.0,   # left hip aductor
+                -1.5,  # left knee
+                0.71,  # left ankle pitch
+                0.0,   # left ankle roll
+                0.0,   # right hip joint 1
+                0.8,   # right hip extensor
+                0.0,   # right hip aductor
+                -1.5,  # right knee (positive for flexion)?
+                0.71,  # right ankle pitch (negative for flexion)?
+                0.0,   # right ankle roll
+                0.0,   # waist rotation
+                0.0,   # torso extensor
+                0.0,   # chest extensor
+                0.0,   # left shoulder extensor
+                0.0,   # left_shoulder_adductor
+                0.0,   # left_shoulder_rotator
+                1.0,   # left_elbow_extensor
+                0.0,   # left_wrist_rotator
+                0.0,   # left_wrist_extensor
+                0.0,   # left_wrist_adductor
+                0.0,   # neck rotator
+                0.0,   # neck extensor
+                0.0,   # neck_adductor
+                0.0,   # right shoulder extensor
+                0.0,   # right_shoulder_adductor
+                0.0,   # right_shoulder_rotator
+                1.0,   # right_elbow_extensor
+                0.0,   # right_wrist_rotator
+                0.0,   # right_wrist_extensor
+                0.0]   # right_wrist_adductor
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalAcceleration
+        type: vector
+        value: [0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0]
+  - type: controlit/GenericInternalForceTask
+    name: InternalForceTask
+    parameters:
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: actualFint
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    events:
+      - name: converged
+        expression: errorNorm < 1e-3
+      - name: quiescent
+        expression: errorDotNorm < 1e-3
+compound_task:
+  type: compound_task
+  name: My compound task
+  bindings:
+    - parameters: [RightArmCartesianPositionTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightArmCartesianPositionTask/goalPosition
+    - parameters: [RightArmCartesianPositionTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightArmCartesianPositionTask/kp
+    - parameters: [RightArmCartesianPositionTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: RightArmCartesianPositionTask/kd
+    - parameters: [RightArmCartesianPositionTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: RightArmCartesianPositionTask/error
+    - parameters: [RightArmCartesianPositionTask.enabled]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Int32
+        properties:
+          topic: RightArmCartesianPositionTask/enabled
+    - parameters: [RightArmOriQuatTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: RightArmOriQuatTask/goalPosition
+    # - parameters: [RightArmOriQuatTask.controlPoint]
+    #   direction: input
+    #   target:
+    #     type: ROSTopic
+    #     dataType: std_msgs/Float64MultiArray
+    #     properties:
+    #       topic: RightArmOriQuatTask/controlPoint
+    - parameters: [RightArmOriQuatTask.actualPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightArmOriQuatTask/actualPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightArmOriQuatTask.actualWorldPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightArmOriQuatTask/actualWorldPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [RightArmOriQuatTask.errorQuaternion]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: RightArmOriQuatTask/errorQuaternion
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [LeftArmCartesianPositionTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftArmCartesianPositionTask/goalPosition
+    - parameters: [LeftArmCartesianPositionTask.kp]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftArmCartesianPositionTask/kp
+    - parameters: [LeftArmCartesianPositionTask.kd]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: LeftArmCartesianPositionTask/kd
+    - parameters: [LeftArmCartesianPositionTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          latched: 0
+          publish_rate: 10
+          queue_size: 1
+          topic: LeftArmCartesianPositionTask/error
+    - parameters: [LeftArmCartesianPositionTask.enabled]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Int32
+        properties:
+          topic: LeftArmCartesianPositionTask/enabled
+    - parameters: [LeftArmOriQuatTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: std_msgs/Float64MultiArray
+        properties:
+          topic: LeftArmOriQuatTask/goalPosition
+    # - parameters: [LeftArmOriQuatTask.controlPoint]
+    #   direction: input
+    #   target:
+    #     type: ROSTopic
+    #     dataType: std_msgs/Float64MultiArray
+    #     properties:
+    #       topic: LeftArmOriQuatTask/controlPoint
+    - parameters: [LeftArmOriQuatTask.actualPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: LeftArmOriQuatTask/actualPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [LeftArmOriQuatTask.actualWorldPosition]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: LeftArmOriQuatTask/actualWorldPosition
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [LeftArmOriQuatTask.errorQuaternion]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: LeftArmOriQuatTask/errorQuaternion
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.worldCOM]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/worldCOM
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [COMTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: COMTask/goalPosition
+    - parameters: [JPosTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [JPosTask.goalPosition]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: JPosTask/goalPosition
+
+    - parameters: [InternalForceTask.error]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/error
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.errorDot]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64"
+        properties:
+          topic: InternalForceTask/errorDot
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+    - parameters: [InternalForceTask.goalFint]
+      direction: input
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/goalFint
+    - parameters: [InternalForceTask.actualFint]
+      direction: output
+      target:
+        type: ROSTopic
+        dataType: "std_msgs/Float64MultiArray"
+        properties:
+          topic: InternalForceTask/actualFint
+          publish_rate: 100.0
+          queue_size: 2
+          latched: 0
+  # events:
+  #   - name: converged
+  #     expression: JPosTask.converged && JPosTask.quiescent
+  task_list:
+     - name: COMTask
+       priority: 0
+       enabled: 1
+     - name: RightArmCartesianPositionTask
+       priority: 1
+       enabled: 1
+     - name: RightArmOriQuatTask
+       priority: 1
+       enabled: 1      
+     - name: LeftArmCartesianPositionTask
+       priority: 1
+       enabled: 1
+     - name: LeftArmOriQuatTask
+       priority: 1
+       enabled: 1                
+     - name: JPosTask
+       priority: 2
+       enabled: 1
+     - name : InternalForceTask
+       priority: 3
+       enabled: 1
+constraints:
+  - type: controlit/FlatContactConstraintSensed
+    name: LeftContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "leftAnkleRoll"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.04]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+  - type: controlit/FlatContactConstraintSensed
+    name: RightContactConstraint
+    parameters:
+      - name: masterNodeName
+        type: string
+        value: "rightAnkleRoll"
+      - name: goalLocalCOP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      - name: goalWorldCOP         # ignored b/c goalCOPFrame = 1 (local)
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: localCOP             # since rxnForceCOM is not set, this is the estimated local COP
+        type: vector
+        value: [0.0, 0.0, -0.04]
+      # - name: worldCOP
+      #   type: vector
+      #   value: [0.0, 0.0, 0.0]
+      - name: contactNormal
+        type: vector
+        value: [0.0, 0.0, 1.0]
+      - name: contactPlanePoint    # any point in the plane of contact *other* than the COP
+        type: vector
+        value: [0.5, 0.5, -0.04]
+      - name: rxnForceCOM
+        type: vector
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      - name: reactionForceFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+      - name: enabled
+        type: integer
+        value: 1
+      - name: goalCOPFrame
+        type: int
+        value: 1        # 0 = world, 1 = local
+constraint_set:
+  type: constraint_set
+  name: My Constraint Set
+  # bindings:
+  #   - parameters: [RightFootContact.worldCOP]
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/COP
+  #         publish_rate: 100.0
+  #         queue_size: 2
+  #         latched: 0
+  #   - parameters: [RightFootContact.rxnForceCOM]
+  #     direction: input
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: /RightAnkle/contact/Wrench
+  active_constraints:
+    - name: LeftContactConstraint
+      enabled: 1
+    - name: RightContactConstraint
+      enabled: 1

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find dreamer_controlit)/launch/simulate_base.xml"/>
+    <include file="$(find dreamer_controlit)/launch/load_dreamer_parameters_jpos.launch"/>
+</launch>
+

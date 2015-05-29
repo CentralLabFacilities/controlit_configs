@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<launch>
+    <group ns="trikey_pinned_controller/controlit">
+        <!-- Load the robot description parameter. -->
+        <!-- This is used by the robot hardware interface and by the Gazebo plugin. -->
+        <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find trikey_pinned_controlit)/models/trikey_pinned_controlit/xacro/trikey_pinned_controlit.xacro'"/>
+
+        <!-- Specify the servo clock type. -->
+        <!-- <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockROS</rosparam> -->
+        <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockChrono</rosparam>
+
+        <!-- Specify the servo clock frequency. -->
+        <rosparam param="servo_frequency">1000</rosparam>
+
+        <!-- Specify the robot interface type. -->
+        <!-- <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceSM</rosparam> -->
+        <!-- <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceROSTopic</rosparam> -->
+        <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceUDP</rosparam>
+
+        <!-- Specify the odometry topic -->
+        <!-- <rosparam param="odometry_topic">/gazebo/root_link_odom</rosparam> -->
+        <rosparam param="odometry_topic">/trikey_pinned/gazebo/root_link_odom</rosparam>
+
+        <!-- Two types of controllers are currently supported: Torque and Impedance -->
+        <rosparam param="whole_body_controller_type">controlit_wbc/WBOSC</rosparam>
+
+        <rosparam param="parameter_binding_factories">["controlit_binding_factory/BindingFactoryROS", "controlit_binding_factory/BindingFactorySM"]</rosparam>
+
+
+        <param name="parameters" textfile="$(find trikey_pinned_controlit)/parameters/JointPositionControl.yaml"/>
+
+        <!-- Specify the log level and the log prefix fields -->
+        <rosparam param="log_level">DEBUG</rosparam>
+        <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>
+    </group>
+</launch>

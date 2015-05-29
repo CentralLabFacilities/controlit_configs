@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find dreamer_controlit)/models/dreamer_controlit/xacro/dreamer_controlit_rviz.xacro'"/>
+
+    <!-- Start gazebo with robot. -->
+    <node args="$(find dreamer_controlit)/worlds/dreamer_controlit.world"
+        name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="dreamer_controller"/>
+
+    <!-- Start a shared memory manager. -->
+    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" output="screen" ns="/" respawn="false"/>
+
+    <!-- Set the parameters used by the SMControlPlugin. -->
+    <group ns="dreamer_controller">
+        <rosparam param="ControlItSMGazeboPlugin/JointOrder">[
+            <!-- "torso_yaw", -->
+            "torso_lower_pitch",
+            "torso_upper_pitch",
+
+            "left_shoulder_extensor",
+            "left_shoulder_abductor",
+            "left_shoulder_rotator",
+            "left_elbow",
+            "left_wrist_rotator",
+            "left_wrist_pitch",
+            "left_wrist_yaw",
+
+            "right_shoulder_extensor",
+            "right_shoulder_abductor",
+            "right_shoulder_rotator",
+            "right_elbow",
+            "right_wrist_rotator",
+            "right_wrist_pitch",
+            "right_wrist_yaw",
+
+            <!-- "lower_neck_pitch",
+            "upper_neck_yaw",
+            "upper_neck_roll",
+            "upper_neck_pitch"-->
+        ]
+        </rosparam>
+
+        <rosparam param="ControlItSMGazeboPlugin/UnactuatedJoints">["torso_upper_pitch"]</rosparam>
+    </group>
+
+</launch>

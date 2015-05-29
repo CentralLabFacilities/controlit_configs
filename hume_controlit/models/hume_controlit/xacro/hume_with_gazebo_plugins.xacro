@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="hume">
+
+  <xacro:include filename="$(find hume)/models/hume/xacro/hume_base.xacro" />
+
+  <gazebo version='1.2'>
+    <!-- <plugin name="hume_plugin" filename="libhume_plugin.so"/> -->
+    <plugin filename="libPinPlugin.so" name="PinPlugin">
+        <node>/pin_plugin</node>
+    </plugin>
+  </gazebo>
+
+</robot>
+

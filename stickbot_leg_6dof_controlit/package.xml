@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>stickbot_leg_6dof_controlit</name>
+  
+    <version>0.0.0</version>
+
+    <description>
+        Contains files related to the "stickbot_leg_6dof" robot.
+    </description>
+
+    <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
+
+    <author>Chien-Liang Fok</author>
+    <author>Gwendolyn Johnson</author>
+    <author>J.D. Yamokoski</author>
+    
+    <license>LGPLv2.1</license>
+    
+    <url>http://ros.org/wiki/stickbot_leg_6dof_controlit</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <!-- Uses the gazebo plugin in hcrl_simulator -->
+    <depend>controlit_gazebo_plugins</depend>
+    <depend>stickbot_leg_6dof</depend>
+</package>
+
+

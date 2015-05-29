@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="/atlas_lower_controller/robot_description" textfile="$(find atlas_lower)/models/atlas_lower/urdf/atlas_lower.urdf"/>
+    <include file="$(find atlas_lower)/launch/load_atlas_lower_parameters_com.launch"/>
+    <include file="$(find atlas_lower)/launch/start_controlit_controller.launch"/>
+</launch>
+

@@ -1,0 +1,24 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stickbot_bipedal_12dof" >
+    <xacro:include filename="$(find stickbot_bipedal_12dof)/models/stickbot_bipedal_12dof/xacro/stickbot_bipedal_12dof_base.xacro" />
+
+    <stickbot_bipedal_12dof />
+
+    <gazebo version="1.2">
+        <!-- <plugin filename="libstick_bot_plugin.so" name="stick_bot_plugin"/> -->
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+
+        <!-- The following plugin provides ground truth odometry -->
+        <!-- <plugin name="pos_plugin_ros" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>pelvis</bodyName>
+            <topicName>/stickbot_bipedal_12dof_controller/pose</topicName>
+            <frameName>world</frameName>
+            <rpyOffset>0 0 0</rpyOffset>
+            <xyzOffset>0 0 0</xyzOffset>
+        </plugin> -->
+    </gazebo>
+</robot>

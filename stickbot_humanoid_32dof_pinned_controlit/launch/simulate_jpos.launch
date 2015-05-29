@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find stickbot_humanoid_32dof_pinned_controlit)/launch/gazebo.launch"/>
+    <include file="$(find stickbot_humanoid_32dof_pinned_controlit)/launch/load_stickbot_humanoid_params_jpos.launch"/>
+    <include file="$(find stickbot_humanoid_32dof_pinned_controlit)/launch/start_controlit.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_humanoid_32dof_pinned_controlit)/launch/rviz_configure.rviz"/>
+</launch>
+

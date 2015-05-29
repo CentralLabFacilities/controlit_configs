@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find stickbot_bipedal_12dof_controlit)/launch/gazebo.launch"/>
+    <include file="$(find stickbot_bipedal_12dof_controlit)/launch/start_controlit.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_bipedal_12dof_controlit)/launch/rviz_configure.rviz"/>
+</launch>
+

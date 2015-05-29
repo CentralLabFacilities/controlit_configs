@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find stickbot_humanoid_32dof_controlit)/launch/simulate_base.xml"/>
+    <include file="$(find stickbot_humanoid_32dof_controlit)/launch/load_stickbot_humanoid_params_hand_com.launch"/>
+</launch>
+

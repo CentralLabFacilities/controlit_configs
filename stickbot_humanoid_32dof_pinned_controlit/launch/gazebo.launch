@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Enable simulation time -->
+    <param name="/use_sim_time" type="bool" value="true"/>
+
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find stickbot_humanoid_32dof_pinned)/models/stickbot_humanoid_32dof_pinned/xacro/stickbot_humanoid_32dof_pinned.xacro'"/>
+
+    <!-- Start gazebo with robot. -->
+    <node args="$(find stickbot_humanoid_32dof_pinned_controlit)/worlds/stickbot_humanoid_32dof_pinned.world"
+        name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="stickbot_humanoid_32dof_pinned_controller"/>
+
+    <!-- Start a shared memory manager. -->
+    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
+        output="screen" ns="/" respawn="false"/>
+</launch>

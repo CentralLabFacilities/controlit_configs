@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<launch>
+	<group ns="dreamer_controller/controlit">
+  		<include file="$(find dreamer_no_left_arm)/launch/dreamer_no_left_arm_param_base.xml"/>
+  		<param name="parameters" textfile="$(find dreamer_no_left_arm)/parameters/RightHandCartesianControl.yaml"/>
+  		<param name="sensorSet" textfile="$(find dreamer_no_left_arm)/parameters/RightWristCartPosSensor.yaml"/>
+  	</group>
+</launch>

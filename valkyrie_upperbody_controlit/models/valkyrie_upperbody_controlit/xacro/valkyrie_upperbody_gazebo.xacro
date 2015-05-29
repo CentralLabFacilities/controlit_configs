@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="dreamer">
+
+    <xacro:include filename="$(find valkyrie_upperbody)/models/valkyrie_upperbody/xacro/valkyrie_upperbody_gazebo.xacro" />
+
+    <gazebo version='1.2'>
+
+        <!-- The following plugin connects the RAPid controller to Gazebo -->
+        <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
+        <!-- <plugin name="dreamer_plugin" filename="libdreamer_plugin.so"/> -->
+        <plugin filename="libSMControlPlugin.so" name="SMControlPlugin">
+            <node>/sm_control_plugin</node>
+        </plugin>
+    </gazebo>
+</robot>
+

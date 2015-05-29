@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="dreamer">
+    <!-- RViz uses package:// for the model path. -->
+    <property name="modelPath" value="package://valkyrie/models/valkyrie" />
+
+    <xacro:include filename="$(find valkyrie)/models/valkyrie/xacro/valkyrie_colors.xacro" />
+    <xacro:include filename="$(find valkyrie)/models/valkyrie/xacro/valkyrie_upperbody_base.xacro" />
+</robot>
+

@@ -1,0 +1,11 @@
+<launch>
+    <!-- Start controlit_exec with controller trikey_controller -->
+    <node name="controlit_exec" pkg="controlit_exec" type="controlit_exec" output="screen" ns="trikey_controller" respawn="false"/>
+
+    <!-- Load the robot description parameter.  This is used by the robot_state_publisher. -->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find trikey_controlit)/models/trikey_controlit/xacro/trikey_controlit.xacro'"/>
+
+    <!-- Start the robot state publisher, which generates the /tf transforms for rViz. -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>
