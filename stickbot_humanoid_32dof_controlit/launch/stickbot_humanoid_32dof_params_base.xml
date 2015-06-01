@@ -2,7 +2,7 @@
 <launch>
     <!-- Load the robot description parameter-->
     <param name="robot_description"
-     command="$(find xacro)/xacro.py '$(find stickbot_humanoid_32dof)/models/stickbot_humanoid_32dof/xacro/stickbot_humanoid_32dof.xacro'"/>>
+     command="$(find xacro)/xacro.py '$(find stickbot_humanoid_32dof)/models/stickbot_humanoid_32dof/xacro/stickbot_humanoid_32dof.xacro'"/>
 
     <!-- Specify the servo clock type. -->
     <!-- <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockROS</rosparam> -->

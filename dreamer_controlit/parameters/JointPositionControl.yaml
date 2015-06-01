@@ -90,17 +90,6 @@ constraints:
 constraint_set:
   type: constraint_set
   name: My Constraint Set
-  # bindings:
-  #   - parameters: [TorsoTransmission.constraint_jacobian]
-  #     direction: output
-  #     target:
-  #       type: ROSTopic
-  #       dataType: "std_msgs/Float64MultiArray"
-  #       properties:
-  #         topic: JointPositionTask/constraint_jacobian
-  #         publish_rate: 100.0
-  #         queue_size: 2
-  #         latched: 0
   active_constraints:
     - name: ContactConstraint
       enabled: 1

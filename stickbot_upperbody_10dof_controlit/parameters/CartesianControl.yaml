@@ -40,17 +40,6 @@ tasks:
         value: [[1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 1]]
-    # bindings:
-    # - parameters: [error]
-    #   direction: output
-    #   target:
-    #     type: ROSTopic
-    #     dataType: "std_msgs/Float64MultiArray"
-    #     properties:
-    #       topic: error
-    #       publish_rate: 100.0
-    #       queue_size: 2
-    #       latched: 0
   - type: controlit/OrientQuaternionTask
     name: RightHandOrientation
     parameters:
@@ -75,7 +64,7 @@ tasks:
       - name: resetLatch
         type: real
         value: 0
-      - name: goalPosition      # w,x,y,z
+      - name: goalOrientation      # w,x,y,z
         type: vector
         value: [0, 1.0, 0.0, 0.0]
       - name: controlPoint      # w,x,y,z, fixed offset in body frame
