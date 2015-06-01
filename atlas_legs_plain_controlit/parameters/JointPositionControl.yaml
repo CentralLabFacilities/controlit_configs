@@ -52,78 +52,6 @@ compound_task:
      - name: JPosTask
        priority: 0
        enabled: 1
-  bindings:
-    - parameters: [JPosTask.actualVelocity]
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/actualVelocity
-          publish_rate: 100.0
-          queue_size: 1
-          latched: 0
-    - parameters: [JPosTask.actualPosition]
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/actualPosition
-          publish_rate: 100.0
-          queue_size: 1
-          latched: 0
-    - parameters: [JPosTask.currentGoalAcceleration]
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/currentGoalAcceleration
-          publish_rate: 100.0
-          queue_size: 1
-          latched: 0
-    - parameters: [JPosTask.PDCommand]
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/PDCommand
-          publish_rate: 100.0
-          queue_size: 1
-          latched: 0
-    - parameters: [JPosTask.goalPosition]
-      direction: input
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/goalPosition
-    - parameters: [JPosTask.goalVelocity]
-      direction: input
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/goalVelocity
-    - parameters: [JPosTask.goalAcceleration]
-      direction: input
-      target:
-        type: ROSTopic
-        dataType: std_msgs/Float64MultiArray
-        properties:
-          topic: JPosTask/goalAcceleration
-    - parameters: [JPosTask.error]
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: "std_msgs/Float64MultiArray"
-        properties:
-          topic: JPosTask/error
-          publish_rate: 100.0
-          queue_size: 2
-          latched: 0
   # events:
   #   - name: converged
   #     expression: JPosTask.converged && JPosTask.quiescent
@@ -155,24 +83,6 @@ constraints:
 constraint_set:
   type: constraint_set
   name: My Constraint Set
-  # bindings:
-  #   - parameters: [RightFootContact.worldCOP]
-  #     direction: output
-  #     target:
-  #       type: ROSTopic
-  #       dataType: "std_msgs/Float64MultiArray"
-  #       properties:
-  #         topic: /RightAnkle/contact/COP
-  #         publish_rate: 100.0
-  #         queue_size: 2
-  #         latched: 0
-  #   - parameters: [RightFootContact.rxnForceCOM]
-  #     direction: input
-  #     target:
-  #       type: ROSTopic
-  #       dataType: "std_msgs/Float64MultiArray"
-  #       properties:
-  #         topic: /RightAnkle/contact/Wrench
   active_constraints:
     - name: LeftContactConstraint
       enabled: 1
