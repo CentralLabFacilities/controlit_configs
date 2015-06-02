@@ -1,8 +1,12 @@
 <?xml version="1.0" ?>
 <launch>
-	<group ns="stickbot_humanoid_32dof_pinned_controller">
-  		<include file="$(find stickbot_humanoid_32dof_pinned_controlit)/launch/stickbot_humanoid_32dof_pinned_params_base.xml"/>
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+           command="$(find xacro)/xacro.py '$(find stickbot_humanoid_32dof_pinned)/models/stickbot_humanoid_32dof_pinned/xacro/stickbot_humanoid_32dof_pinned.xacro'"/>
 
-  		<param name="parameters" textfile="$(find stickbot_humanoid_32dof_pinned_controlit)/parameters/JointPositionControl.yaml"/>
+    <group ns="stickbot_humanoid_32dof_pinned_controller/controlit">
+        <include file="$(find stickbot_humanoid_32dof_pinned_controlit)/launch/stickbot_humanoid_32dof_pinned_params_base.xml"/>
+
+        <param name="parameters" textfile="$(find stickbot_humanoid_32dof_pinned_controlit)/parameters/JointPositionControl.yaml"/>
     </group>
 </launch>
