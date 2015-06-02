@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <include file="$(find atlas_plain_controlit)/launch/gazebo.launch"/>
-    <include file="$(find atlas_plain_controlit)/launch/load_atlas_plain_parameters_com.launch"/>
-    <include file="$(find atlas_plain_controlit)/launch/start_controlit.launch"/>
-    <node name="rviz" pkg="rviz" type="rviz"/>
-</launch>
-
