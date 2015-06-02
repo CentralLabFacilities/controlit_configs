@@ -10,12 +10,12 @@ tasks:
         value: 1
       - name: kp
         type: vector
-        value: [100, 100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100, 100,
-                100, 100, 100,
-                100, 100, 100, 100, 100, 100, 100,
-                100, 100, 100,
-                100, 100, 100, 100, 100, 100, 100]
+        value: [100, 100, 100, 100, 100, 100,       # left leg
+                100, 100, 100, 100, 100, 100,       # right leg
+                100, 100, 100,                      # torso
+                100, 100, 100, 100, 100, 100, 100,  # left arm
+                100, 100, 100,                      # neck
+                100, 100, 100, 100, 100, 100, 100]  # right arm
       - name: kd
         type: vector,
         # Over-damp the torso joints to prevent oscillations that occured when wrist extensors were added
