@@ -7,7 +7,7 @@
     <param name="/pin_plugin/yaml" value="fixed: [trikey_pinned_base]"/>
 
     <!-- Start gazebo with robot. -->
-    <node args="$(find trikey_pinned_controlit)/worlds/trikey_pinned_world.world" name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="trikey_pinned_controller"/>
+    <node args="$(find trikey_pinned_controlit)/worlds/trikey_pinned_world.world" name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo" ns="trikey_pinned_controller"/>
 
     <!-- The following is commented out because Trikey is currently configured to use UDP. -->
     <!-- Start a shared memory manager. -->

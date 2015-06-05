@@ -99,10 +99,10 @@ tasks:
       - name: goalPosition
         type: vector
         value: [0.0,   # back_bkz
-                0.0,  # back_bky
+                0.0,   # back_bky
                 0.0,   # back_bkx
                 0.0,   # l_arm_shy
-                0.0,  # l_arm_shx
+                0.0,   # l_arm_shx
                 0.0,   # l_arm_ely
                 0.0,   # l_arm_elx
                 0.0,   # l_arm_wry
@@ -111,22 +111,25 @@ tasks:
                 0.0,   # r_arm_shy
                 0.0,   # r_arm_shx
                 0.0,   # r_arm_ely
-                0.0,  # r_arm_elx
+                0.0,   # r_arm_elx
                 0.0,   # r_arm_wry
                 0.0,   # r_arm_wrx
                 0.0,   # l_leg_hpz
                 0.0,   # l_leg_hpx
                 0.0,   # l_leg_hpy
-                0.0,  # l_leg_kny
-                0.0, # l_leg_aky
+                0.0,   # l_leg_kny
+                0.0,   # l_leg_aky
                 0.0,   # l_leg_akx
                 0.0,   # r_leg_hpz
                 0.0,   # r_leg_hpx
                 0.0,   # r_leg_hpy
-                0.0,  # r_leg_kny
-                0.0, # r_leg_aky
+                0.0,   # r_leg_kny
+                0.0,   # r_leg_aky
                 0.0]   # r_leg_akx
       - name: goalVelocity
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      - name: goalAcceleration
         type: vector
         value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 

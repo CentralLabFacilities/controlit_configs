@@ -3,7 +3,6 @@
     <!-- Enable simulation time -->
     <param name="/use_sim_time" type="bool" value="true"/>
 
-
     <!-- Set the parameters used by the Sandia Hands -->
 
     <!-- Proportional Gains -->
@@ -121,9 +120,10 @@
         
         <!-- Start gazebo with robot. -->
         <node args="$(find atlas_plain_controlit)/worlds/atlas_plain.world"
-            name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="atlas_plain_controller"/>
+            name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo" ns="atlas_plain_controller"/>
     </group>
 
-    <!-- Start a watchdog that ensures the shared memory is deallocated when the application is terminated. -->
-    <node name="watchdog" pkg="shared_memory_interface" type="watchdog" output="screen" ns="/" respawn="false"/>
+    <!-- Start a shared memory manager. -->
+    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
+        output="screen" ns="/" respawn="false"/>
 </launch>

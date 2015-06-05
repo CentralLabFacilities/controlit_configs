@@ -10,7 +10,7 @@
             "r_leg_aky", "r_leg_akx"]</rosparam>
         
         <!-- Start gazebo with robot. -->
-        <node args="$(find atlas_lower)/worlds/atlas_lower.world" name="gazebo" pkg="hcrl_simulator" type="run_$(arg gzname)"/>
+        <node args="$(find atlas_lower)/worlds/atlas_lower.world" name="gazebo" pkg="controlit_simulation_gazebo" type="run_$(arg gzname)"/>
     </group>
     
     <!-- Load the robot description parameter-->

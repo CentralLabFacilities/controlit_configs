@@ -9,7 +9,7 @@
 
     <!-- Start gazebo with robot. -->
     <node args="$(find stickbot_lowerleg_3dof_controlit)/worlds/stickbot_lowerleg_3dof_controlit.world"
-        name="gazebo" pkg="hcrl_simulator" type="run_gazebo" ns="stickbot_lowerleg_3dof_controller"/>
+        name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh" ns="stickbot_lowerleg_3dof_controller"/>
 
     <!-- Start a shared memory manager. -->
     <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 

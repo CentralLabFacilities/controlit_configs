@@ -1,8 +1,12 @@
 <?xml version="1.0" ?>
 <launch>
-	<group ns="atlas_plain_controller">
-  		<include file="$(find atlas_plain_controlit)/launch/atlas_plain_parameters_base.xml"/>
+    <!-- Load the robot description parameter-->
+    <param name="robot_description"
+        command="$(find xacro)/xacro.py '$(find atlas_plain_controlit)/models/atlas_plain_controlit/xacro/atlas_plain_with_sandia_hands_controlit.xacro'"/>
 
-  		<param name="parameters" textfile="$(find atlas_plain_controlit)/parameters/COMPositionControl.yaml"/>
-  	</group>
+    <group ns="atlas_plain_controller/controlit">
+        <include file="$(find atlas_plain_controlit)/launch/atlas_plain_parameters_base.xml"/>
+
+        <param name="parameters" textfile="$(find atlas_plain_controlit)/parameters/COMPositionControl.yaml"/>
+    </group>
 </launch>
