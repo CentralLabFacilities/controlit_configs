@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>controlit_gazebo_plugins</name>
+    <name>controlit_simulation_gazebo</name>
   
     <version>0.0.0</version>
 
@@ -19,8 +19,8 @@
     <url>http://ros.org/wiki/controlit_gazebo_plugins</url>
 
     <buildtool_depend>catkin</buildtool_depend>
-    
-    <depend>hcrl_simulator</depend>
+
+    <build_depend>message_generation</build_depend>
 
     <depend>controlit_core</depend>
     <depend>controlit_task_library</depend>

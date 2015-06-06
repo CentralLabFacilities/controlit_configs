@@ -20,6 +20,6 @@
 
     <buildtool_depend>catkin</buildtool_depend>
     
-    <!-- Uses the gazebo plugin in hcrl_simulator -->
-    <depend>hcrl_simulator</depend>
+    <!-- Uses the gazebo plugin in controlit_simulation_gazebo -->
+    <depend>controlit_simulation_gazebo</depend>
 </package>

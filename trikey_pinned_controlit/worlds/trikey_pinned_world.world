@@ -42,7 +42,7 @@
     <!-- A ground plane -->
     <include>
       <!-- <uri>model://ground_plane</uri> -->
-      <uri>model://hcrl_ground_plane</uri>
+      <uri>model://controlit_ground_plane</uri>
     </include>
 
     <include>

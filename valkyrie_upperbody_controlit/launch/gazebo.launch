@@ -9,7 +9,7 @@
 
     <!-- Start gazebo with the robot. -->
     <node args="$(find valkyrie_upperbody_controlit)/worlds/valkyrie_upperbody.world"
-        name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo"/>
+        name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh"/>
 
     <!-- Start a watchdog that ensures the shared memory is deallocated when the application is terminated. -->
     <!-- <node name="SMWatchdog" pkg="shared_memory_interface" type="watchdog" output="screen" ns="/" respawn="false"/> -->

@@ -20,8 +20,8 @@
 
     <buildtool_depend>catkin</buildtool_depend>
     
-    <!-- Uses the gazebo plugin in hcrl_simulator -->
-    <depend>controlit_gazebo_plugins</depend>
+    <!-- Uses the gazebo plugin in controlit_simulation_gazebo -->
+    <depend>controlit_simulation_gazebo</depend>
     <depend>stickbot_leg_6dof</depend>
 </package>
 

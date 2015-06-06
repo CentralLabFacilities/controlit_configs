@@ -9,7 +9,7 @@
 
     <!-- Start gazebo with robot. -->
     <node args="$(find atlas_legs_plain_controlit)/worlds/atlas_legs_plain.world"
-        name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo" ns="atlas_legs_plain_controller"/>
+        name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh" ns="atlas_legs_plain_controller"/>
 
     <!-- Start a shared memory manager. -->
     <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 

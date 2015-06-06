@@ -47,7 +47,7 @@
     </include>
     <!-- A ground plane -->
     <include>
-      <uri>model://hcrl_ground_plane</uri>
+      <uri>model://controlit_ground_plane</uri>
     </include>
     <!-- The robot to be simulated -->
     <include>

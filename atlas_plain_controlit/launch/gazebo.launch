@@ -120,7 +120,7 @@
         
         <!-- Start gazebo with robot. -->
         <node args="$(find atlas_plain_controlit)/worlds/atlas_plain.world"
-            name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo" ns="atlas_plain_controller"/>
+            name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh" ns="atlas_plain_controller"/>
     </group>
 
     <!-- Start a shared memory manager. -->

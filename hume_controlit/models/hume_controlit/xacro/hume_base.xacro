@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="hume">
 
-  <xacro:include filename="$(find hcrl_simulator)/models/generic_models.xml" />
+  <xacro:include filename="$(find controlit_models_common)/models/generic_models.xml" />
 
   <!-- ===== DUMMY 'BASE' LINK ==== -->
   <xacro:virtual_link name="hume_base"

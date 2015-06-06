@@ -9,7 +9,7 @@
 
     <!-- Start gazebo with robot. -->
     <node args="$(find stickbot_leg_6dof_controlit)/worlds/stickbot_leg_6dof.world"
-      name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo" ns="stickbot_leg_6dof_controller"/>
+      name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh" ns="stickbot_leg_6dof_controller"/>
 
     <!-- Start a shared memory manager. -->
     <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
