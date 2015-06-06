@@ -38,21 +38,15 @@ tasks:
         type: vector
         value: [0.0,   # left hip joint 1
                 0.8,   # left hip extensor
-                0.0,   # left hip extensor
                 0.0,   # left hip aductor
                 -1.5,  # left knee
                 0.71,  # left ankle pitch
-                0.0,   # left knee
-                0.0,   # left ankle pitch
                 0.0,   # left ankle roll
                 0.0,   # right hip joint 1
                 0.8,   # right hip extensor
-                0.0,   # right hip extensor
                 0.0,   # right hip aductor
                 -1.5,  # right knee (positive for flexion)?
                 0.71,  # right ankle pitch (negative for flexion)?
-                0.0,   # right knee (positive for flexion)?
-                0.0,   # right ankle pitch (negative for flexion)?
                 0.0,   # right ankle roll
                 0.0,   # waist rotation
                 0.0,   # torso extensor
@@ -61,7 +55,6 @@ tasks:
                 0.0,   # left_shoulder_adductor
                 0.0,   # left_shoulder_rotator
                 1.0,   # left_elbow_extensor
-                0.0,   # left_elbow_extensor
                 0.0,   # left_wrist_rotator
                 0.0,   # left_wrist_extensor
                 0.0,   # left_wrist_adductor
@@ -72,7 +65,6 @@ tasks:
                 0.0,   # right_shoulder_adductor
                 0.0,   # right_shoulder_rotator
                 1.0,   # right_elbow_extensor
-                0.0,   # right_elbow_extensor
                 0.0,   # right_wrist_rotator
                 0.0,   # right_wrist_extensor
                 0.0]   # right_wrist_adductor
