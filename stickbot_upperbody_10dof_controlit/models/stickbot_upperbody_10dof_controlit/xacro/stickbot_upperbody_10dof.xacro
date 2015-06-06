@@ -2,6 +2,37 @@
     <xacro:include filename="$(find stickbot_upperbody_10dof)/models/stickbot_upperbody_10dof/xacro/stickbot_upperbody_10dof_base.xacro" />
     <stickbot_upperbody_10dof />
 
+    <gazebo reference="waist_rotator">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="torso_lower_pitch">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="torso_upper_pitch">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_shoulder_extensor">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_shoulder_abductor">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_shoulder_rotator">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_elbow_extensor">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_wrist_rotator">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_wrist_extensor">
+        <provideFeedback value="true"/>
+    </gazebo>
+    <gazebo reference="right_wrist_abductor">
+        <provideFeedback value="true"/>
+    </gazebo>
+
     <gazebo version="1.2">
         <!-- <plugin filename="libRAPidPlugin.so" name="RAPid_plugin"/> -->
         <!-- <plugin filename="libdreamer_plugin.so" name="upperbody_stickbot_plugin"/> -->
