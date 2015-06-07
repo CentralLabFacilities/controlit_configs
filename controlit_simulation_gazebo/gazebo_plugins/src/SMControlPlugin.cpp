@@ -35,7 +35,8 @@ class SMControlPlugin: public ModelPlugin
 public:
     SMControlPlugin() :
         rcvdCmd(false),
-        rcvdRTT(false)
+        rcvdRTT(false),
+        isFirstSend(true)
     {
         noCmdErrLastPrintTime = ros::Time::now(); // initialization
     }
@@ -560,6 +561,29 @@ public:
     // Called by the world update start event
     void OnUpdate(const common::UpdateInfo & /*_info*/)
     {
+        if (isFirstSend)
+        {
+            // auto timestamp = std::chrono::system_clock::now();
+            // std::time_t tt = std::chrono::system_clock::to_time_t(timestamp);
+            // //std::tm tm = *std::localtime(&time_stamp);
+            // char time_stamp_str[255];
+            // std::strftime(time_stamp_str, 255, "%H:%M:%S", std::localtime(&tt));
+
+            char buffer[30];
+            struct timeval tv;
+            time_t curtime;
+
+            gettimeofday(&tv, NULL); 
+            curtime=tv.tv_sec;
+          
+            strftime(buffer,30,"%m-%d-%Y  %T.", localtime(&curtime));
+            // printf("%s%ld\n",buffer,tv.tv_usec);
+
+            std::cerr << "SMControlPlugin (" << getpid() << "): Sending first state at time:"
+                << buffer << tv.tv_usec << std::endl;
+
+            isFirstSend = false;
+        }
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Starting OnUpdate method." << std::endl;
         sendOdometry();
@@ -684,6 +708,8 @@ private:
       sensor_msgs::JointState jointStateMsg;
 
       ros::Time noCmdErrLastPrintTime;
+
+      bool isFirstSend;
 };
 
 // Register this plugin with the simulator
