@@ -37,6 +37,7 @@ public:
         rcvdCmd(false),
         rcvdRTT(false),
         isFirstSend(true)
+        // idleThreadOn(false)
     {
         noCmdErrLastPrintTime = ros::Time::now(); // initialization
     }
@@ -222,7 +223,46 @@ public:
         // Initialize the joint state message and write it to shared memory
         initJointStateMsg();
         sendJointState();
+
+        // Wait for messages to arrive to ensure connection 
+        // is initialized prior to starting the controller.
+        bool shInitialized = false, rcvdCmdMsg = false, rcvdRTTMsg = false;
+
+        while (!shInitialized)
+        {
+            std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Waiting for messages..." << std::endl;
+
+            if (!cmdSubscriber.waitForMessage(cmdMsg, 1))
+            {
+                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message not received..." << std::endl;
+            }
+            else
+            {
+                rcvdCmdMsg = true;
+                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message received." << std::endl;
+            }
+
+            if (!rttTxSubscriber.waitForMessage(rttMsg, 1))
+            {
+                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message not received..." << std::endl;
+            }
+            else
+            {
+                rcvdRTTMsg = true;
+                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message received." << std::endl;
+            }
+
+            shInitialized = rcvdCmdMsg && rcvdRTTMsg;
+
+            if (!shInitialized)
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        }
+        
+        
   
+        // thread = std::thread(&SMControlPlugin::idleLoop, this);
         std::cerr << "SMControlPlugin::Load: Done loading plugin." << std::endl;
     }
 
@@ -561,6 +601,7 @@ public:
     // Called by the world update start event
     void OnUpdate(const common::UpdateInfo & /*_info*/)
     {
+        // idleThreadOn = false;
         if (isFirstSend)
         {
             // auto timestamp = std::chrono::system_clock::now();
@@ -606,6 +647,23 @@ public:
         // }
         // std::cerr << "SMControlPlugin: Sending Robot State:" << std::endl << ss.str();
     }
+
+    // void idleLoop()
+    // {
+
+    //     while(idleThreadOn)
+    //     {
+    //         odometryPublisher.publish(odomMsg);
+
+    //         robotStatePublisher.publish(jointStateMsg);
+
+    //         rttMutex.lock();
+    //         rttRxPublisher.publish(rttMsg);
+    //         rttMutex.unlock();
+
+    //         std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    //     }
+    // }
 
 private:
       /*!
@@ -710,6 +768,10 @@ private:
       ros::Time noCmdErrLastPrintTime;
 
       bool isFirstSend;
+
+      // std::thread thread;
+
+      // bool idleThreadOn;
 };
 
 // Register this plugin with the simulator
