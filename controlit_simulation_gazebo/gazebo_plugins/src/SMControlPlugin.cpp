@@ -202,8 +202,9 @@ public:
         rttRxPublisher.advertise("/rtt_rx");
   
         std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Setting up /cmd subscriber" << std::endl;
-        
         cmdSubscriber.subscribe("/cmd", boost::bind(&SMControlPlugin::commandCallback, this, _1));
+
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Setting up /rtt_tx subscriber" << std::endl;
         rttTxSubscriber.subscribe("/rtt_tx", boost::bind(&SMControlPlugin::rttCallback, this, _1));
   
         // Initialize the rtt_rx value to be zero and publish an initial message
@@ -365,9 +366,9 @@ public:
         }
 
         // Publish the odometry information
-        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending odometry..." << std::endl;
+        // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending odometry..." << std::endl;
         odometryPublisher.publish(odomMsg);
-        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending odometry." << std::endl;
+        // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending odometry." << std::endl;
     }
 
     /*!
@@ -481,16 +482,16 @@ public:
         }
   
         // Write the joint state to shared memory
-        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending joint state..." << std::endl;
+        // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending joint state..." << std::endl;
         robotStatePublisher.publish(jointStateMsg);
-        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending joint state." << std::endl;
+        // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending joint state." << std::endl;
     }
 
     void rttCallback(std_msgs::Int64 & msg)
     {
         if (!rcvdInitRTTMsg)
         {
-            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial message" << std::endl;
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial RTT message" << std::endl;
             rcvdInitRTTMsg = true;
         }
         else
@@ -509,7 +510,7 @@ public:
     {
         if (!rcvdInitCmdMsg)
         {
-            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial message" << std::endl;
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial cmd message" << std::endl;
             rcvdInitCmdMsg = true;
         }
         else
@@ -633,7 +634,7 @@ public:
     // Called by the world update start event
     void OnUpdate(const common::UpdateInfo & /*_info*/)
     {
-        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Method Called!" << std::endl;
+        // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Method Called!" << std::endl;
 
         if (isFirstSend)
         {
@@ -654,8 +655,8 @@ public:
         }
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Starting OnUpdate method." << std::endl;
-        sendJointState();
 
+        sendJointState();
         sendOdometry();
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Done sending joint state." << std::endl;
@@ -808,11 +809,6 @@ private:
        * Whether the initial RTT message was received.
        */
       bool rcvdInitRTTMsg;
-
-
-      // std::thread thread;
-
-      // bool idleThreadOn;
 };
 
 // Register this plugin with the simulator
