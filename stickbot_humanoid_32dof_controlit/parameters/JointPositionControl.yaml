@@ -10,8 +10,8 @@ tasks:
         value: 1
       - name: kp
         type: vector
-        value: [20, 20, 20, 20, 20, 20,         # left leg
-                20, 20, 20, 20, 20, 20,         # right leg
+        value: [60, 60, 60, 60, 60, 60,         # left leg
+                60, 60, 60, 60, 60, 60,         # right leg
                 20, 40, 40,                        # torso
                 20, 20, 20, 20, 20, 20, 20,    # left arm
                 20, 20, 20,                        # neck
@@ -37,16 +37,16 @@ tasks:
       - name: goalPosition
         type: vector
         value: [0.0,   # left hip joint 1
-                0.8,   # left hip extensor
+                0.0,   # left hip extensor
                 0.0,   # left hip aductor
-                -1.5,  # left knee
-                0.71,  # left ankle pitch
+                0.0,  # left knee
+                0.0,  # left ankle pitch
                 0.0,   # left ankle roll
                 0.0,   # right hip joint 1
-                0.8,   # right hip extensor
+                0.0,   # right hip extensor
                 0.0,   # right hip aductor
-                -1.5,  # right knee (positive for flexion)?
-                0.71,  # right ankle pitch (negative for flexion)?
+                0.0,  # right knee (positive for flexion)?
+                0.0,  # right ankle pitch (negative for flexion)?
                 0.0,   # right ankle roll
                 0.0,   # waist rotation
                 0.0,   # torso extensor
