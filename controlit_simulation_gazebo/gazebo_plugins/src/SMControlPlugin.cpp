@@ -30,13 +30,21 @@ namespace gazebo {
 #define STICTION_THRESHOLD_VELOCITY 0.1
 #define STICTION_THRESHOLD_FORCE 10
 
+// Parameters for shared memory subscribers
+#define LISTEN_TO_ROS_TOPIC false
+#define USE_POLLING false
+
 class SMControlPlugin: public ModelPlugin
 {
 public:
     SMControlPlugin() :
+        cmdSubscriber(LISTEN_TO_ROS_TOPIC, USE_POLLING),
+        rttTxSubscriber(LISTEN_TO_ROS_TOPIC, USE_POLLING),
         rcvdCmd(false),
         rcvdRTT(false),
-        isFirstSend(true)
+        isFirstSend(true),
+        rcvdInitCmdMsg(false),
+        rcvdInitRTTMsg(false)
         // idleThreadOn(false)
     {
         noCmdErrLastPrintTime = ros::Time::now(); // initialization
@@ -78,14 +86,14 @@ public:
         std::vector<std::string> jointOrderNameInSM;
   
         // Check if the user specified an alternative number of DOFs and joint order.  
-        ROS_INFO_STREAM("Checking ROS parameter " << this->rosNode->getNamespace() << "/ControlItSMGazeboPlugin/JointOrder for joint order...");
+        ROS_INFO_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": Checking ROS parameter " << this->rosNode->getNamespace() << "/ControlItSMGazeboPlugin/JointOrder for joint order...");
         XmlRpc::XmlRpcValue jointOrderList;
         if(this->rosNode->getParam("ControlItSMGazeboPlugin/JointOrder", jointOrderList))
         {
             ROS_ASSERT(jointOrderList.getType() == XmlRpc::XmlRpcValue::TypeArray);
     
             num_joints = jointOrderList.size();
-            ROS_INFO_STREAM("SMControlPlugin (" << getpid() << "), " << __func__ << ": Using alternate number of DOFs: " << num_joints);
+            ROS_INFO_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": Using alternate number of DOFs: " << num_joints);
             
             // Store the joint order in jointOrderNameInSM, which is a vector of strings
             for(int32_t ii = 0; ii < jointOrderList.size(); ++ii)
@@ -105,7 +113,7 @@ public:
                 {
                     if(jointListGazebo[jj]->GetName().compare(jointOrderNameInSM[ii]) == 0)
                     {
-                        std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Shared memory joint " << ii << " (" << jointOrderNameInSM[ii] << ") is Gazebo joint index " << jj << std::endl;
+                        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Shared memory joint " << ii << " (" << jointOrderNameInSM[ii] << ") is Gazebo joint index " << jj << std::endl;
           
                         joint_index_sm_to_gazebo_map.push_back(jj);
                         jointFound = true;
@@ -114,7 +122,7 @@ public:
       
                 if(!jointFound)
                 {
-                    ROS_ERROR_STREAM("SMControlPlugin (" << getpid() << "), " << __func__ << ": Unable to get Gazebo index for joint " << ii << " named " << jointOrderNameInSM[ii]);
+                    ROS_ERROR_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": Unable to get Gazebo index for joint " << ii << " named " << jointOrderNameInSM[ii]);
                     ros::shutdown();
                     return;
                 }
@@ -138,7 +146,7 @@ public:
                 size_t gazeboIndex = joint_index_sm_to_gazebo_map[ii];
                 ss << "  " << ii << ": " << jointListGazebo[gazeboIndex]->GetName() << "\n";
             }
-            std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": jointOrderNameInSM:\n" << ss.str() << std::endl;
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": jointOrderNameInSM:\n" << ss.str() << std::endl;
         }
   
         // Check if a list of actuated joint is provided.  If it is, load it.
@@ -183,22 +191,22 @@ public:
             {
                 ss << "  - Joint \"" << jointListGazebo[ii]->GetName() << "\" " << (unactuated_joint_mask[ii] == 1 ? "is NOT actuable" : "is actuable") << std::endl;  
             }
-            std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": unactuated_joint_mask:" << std::endl << ss.str();
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": unactuated_joint_mask:" << std::endl << ss.str();
         }
         
         // Declare the shared memory I/O ports
-        std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Setting up /joint_states publisher" << std::endl;
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Setting up /joint_states publisher" << std::endl;
         robotStatePublisher.advertise("/joint_states");
   
-        std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Setting up /rtt_rx publisher" << std::endl;
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Setting up /rtt_rx publisher" << std::endl;
         rttRxPublisher.advertise("/rtt_rx");
   
-        std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Setting up /cmd subscriber" << std::endl;
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Setting up /cmd subscriber" << std::endl;
         
         cmdSubscriber.subscribe("/cmd", boost::bind(&SMControlPlugin::commandCallback, this, _1));
         rttTxSubscriber.subscribe("/rtt_tx", boost::bind(&SMControlPlugin::rttCallback, this, _1));
   
-        // Initialize the rtt_rx value to be zero
+        // Initialize the rtt_rx value to be zero and publish an initial message
         rttMsg.data = 0;
         rttRxPublisher.publish(rttMsg);
   
@@ -206,11 +214,11 @@ public:
         // std::cerr << "SMControlPlugin::Load: Accessing odometry topic from ROS parameter: " << this->rosNode->getNamespace() << "/odometry_topic" << std::endl;
         if(this->rosNode->getParam("controlit/odometry_topic", rootLinkOdomTopic))
         {
-            std::cerr << "SMControlPlugin::Load: Publishing to odometry topic " << rootLinkOdomTopic << std::endl;
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Publishing to odometry topic " << rootLinkOdomTopic << std::endl;
         }
         else
         {
-            std::cerr << "SMControlPlugin::Load: No odometry topic specified on ROS parameter " 
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": No odometry topic specified on ROS parameter " 
                       << this->rosNode->getNamespace() << "/controlit/odometry_topic.  "
                       << "Defaulting to ROS topic /gazebo/root_link_odom" << std::endl;
             rootLinkOdomTopic = "/gazebo/root_link_odom";
@@ -224,46 +232,44 @@ public:
         initJointStateMsg();
         sendJointState();
 
-        // Wait for messages to arrive to ensure connection 
-        // is initialized prior to starting the controller.
-        bool shInitialized = false, rcvdCmdMsg = false, rcvdRTTMsg = false;
+        // // Wait for messages to arrive to ensure connection 
+        // // is initialized prior to starting the controller.
+        // bool shInitialized = false, rcvdCmdMsg = false, rcvdRTTMsg = false;
 
-        while (!shInitialized)
-        {
-            std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Waiting for messages..." << std::endl;
+        // while (!shInitialized)
+        // {
+        //     std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Waiting for messages..." << std::endl;
 
-            if (!cmdSubscriber.waitForMessage(cmdMsg, 1))
-            {
-                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message not received..." << std::endl;
-            }
-            else
-            {
-                rcvdCmdMsg = true;
-                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message received." << std::endl;
-            }
+        //     if (!cmdSubscriber.waitForMessage(cmdMsg, 1))
+        //     {
+        //         std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message not received..." << std::endl;
+        //     }
+        //     else
+        //     {
+        //         rcvdCmdMsg = true;
+        //         std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial command message received." << std::endl;
+        //     }
 
-            if (!rttTxSubscriber.waitForMessage(rttMsg, 1))
-            {
-                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message not received..." << std::endl;
-            }
-            else
-            {
-                rcvdRTTMsg = true;
-                std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message received." << std::endl;
-            }
+        //     if (!rttTxSubscriber.waitForMessage(rttMsg, 1))
+        //     {
+        //         std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message not received..." << std::endl;
+        //     }
+        //     else
+        //     {
+        //         rcvdRTTMsg = true;
+        //         std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ << ": Initial RTT TX message received." << std::endl;
+        //     }
 
-            shInitialized = rcvdCmdMsg && rcvdRTTMsg;
+        //     shInitialized = rcvdCmdMsg && rcvdRTTMsg;
 
-            if (!shInitialized)
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            }
-        }
+        //     if (!shInitialized)
+        //     {
+        //         std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        //     }
+        // }
         
-        
-  
         // thread = std::thread(&SMControlPlugin::idleLoop, this);
-        std::cerr << "SMControlPlugin::Load: Done loading plugin." << std::endl;
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done loading plugin." << std::endl;
     }
 
     /*!
@@ -352,8 +358,16 @@ public:
             if (!isLegit) { assert(false); }
         }
   
+        {
+            #if PRINT_STATE_SENT
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Publishing odometry message..." << std::endl;
+            #endif
+        }
+
         // Publish the odometry information
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending odometry..." << std::endl;
         odometryPublisher.publish(odomMsg);
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending odometry." << std::endl;
     }
 
     /*!
@@ -406,17 +420,17 @@ public:
     
             if(std::isnan(position) || std::isnan(position))
             {
-                ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): sendJointState: NAN or INF position found");
+                ROS_WARN_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": NAN or INF position found");
                 position = 0;
             }
             if(std::isnan(velocity) || std::isnan(velocity))
             {
-                ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): sendJointState: NAN or INF velocity found");
+                ROS_WARN_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": NAN or INF velocity found");
                 velocity = 0;
             }
             if(std::isnan(torque) || std::isnan(torque))
             {
-                ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): sendJointState: NAN or INF torque found");
+                ROS_WARN_STREAM("SMControlPlugin-" << getpid() << "::" << __func__ << ": NAN or INF torque found");
                 torque = 0;
             }
     
@@ -439,7 +453,7 @@ public:
         {
             #if PRINT_STATE_SENT
             std::stringstream ss;
-            ss << "SMControlPlugin (" << getpid() << "): sendJointState: Sending:\n"
+            ss << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending:\n"
     
             << " - positions: [";
             for (size_t ii = 0; ii < joints.size(); ii++)
@@ -467,28 +481,46 @@ public:
         }
   
         // Write the joint state to shared memory
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending joint state..." << std::endl;
         robotStatePublisher.publish(jointStateMsg);
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending joint state." << std::endl;
     }
 
     void rttCallback(std_msgs::Int64 & msg)
     {
-        rttMutex.lock();
+        if (!rcvdInitRTTMsg)
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial message" << std::endl;
+            rcvdInitRTTMsg = true;
+        }
+        else
+        {
+            rttMutex.lock();
 
-        // std::cerr << "SMControlPlugin: rttCallback: received rtt tx = " << msg.data << std::endl;
-        rttMsg = msg;
-        rcvdRTT = true;
+            rttMsg = msg;
+            rcvdRTT = true;
 
-        rttMutex.unlock();
+            rttMutex.unlock();
+        }
+
     }
 
     void commandCallback(std_msgs::Float64MultiArray & msg)
     {
-        cmdMutex.lock();
+        if (!rcvdInitCmdMsg)
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": received initial message" << std::endl;
+            rcvdInitCmdMsg = true;
+        }
+        else
+        {
+            cmdMutex.lock();
 
-        cmdMsg = msg;
-        rcvdCmd = true;
+            cmdMsg = msg;
+            rcvdCmd = true;
         
-        cmdMutex.unlock();
+            cmdMutex.unlock();
+        }
     }
 
     /*!
@@ -538,12 +570,12 @@ public:
                     if (cmdMsg.data[ii] >= 1e3) isLegit = false;
                 }    
                 if (!isLegit)
-                    std::cerr << "SMControlPlugin (" << getpid() << "): Questionable values in command:" << std::endl << printCmd();
+                    std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Questionable values in command:" << std::endl << printCmd();
             }
     
             // Print command received (useful for debugging purposes)
             #if PRINT_COMMAND_RECEIVED
-            std::cerr << "SMControlPlugin (" << getpid() << "): Read command:" << std::endl << printCmd();
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Read command:" << std::endl << printCmd();
             #endif
           
         }
@@ -556,7 +588,7 @@ public:
 
                 if ((ros::Time::now() - noCmdErrLastPrintTime).toSec() > 1.0)
                 {
-                    std::cerr << "SMControlPlugin (" << getpid() << "): Did not get command." << std::endl;
+                    std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Did not get command." << std::endl;
                     noCmdErrLastPrintTime = ros::Time::now();
                 }
             }
@@ -601,15 +633,10 @@ public:
     // Called by the world update start event
     void OnUpdate(const common::UpdateInfo & /*_info*/)
     {
-        // idleThreadOn = false;
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Method Called!" << std::endl;
+
         if (isFirstSend)
         {
-            // auto timestamp = std::chrono::system_clock::now();
-            // std::time_t tt = std::chrono::system_clock::to_time_t(timestamp);
-            // //std::tm tm = *std::localtime(&time_stamp);
-            // char time_stamp_str[255];
-            // std::strftime(time_stamp_str, 255, "%H:%M:%S", std::localtime(&tt));
-
             char buffer[30];
             struct timeval tv;
             time_t curtime;
@@ -620,16 +647,17 @@ public:
             strftime(buffer,30,"%m-%d-%Y  %T.", localtime(&curtime));
             // printf("%s%ld\n",buffer,tv.tv_usec);
 
-            std::cerr << "SMControlPlugin (" << getpid() << "): Sending first state at time:"
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending first state at time:"
                 << buffer << tv.tv_usec << std::endl;
 
             isFirstSend = false;
         }
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Starting OnUpdate method." << std::endl;
-        sendOdometry();
-        // std::cerr << "SMControlPlugin (" << getpid() << "): Done sending odometry." << std::endl;
         sendJointState();
+
+        sendOdometry();
+
         // std::cerr << "SMControlPlugin (" << getpid() << "): Done sending joint state." << std::endl;
         receiveCmd();
         // std::cerr << "SMControlPlugin (" << getpid() << "): Done receiving command." << std::endl;
@@ -651,18 +679,17 @@ public:
     // void idleLoop()
     // {
 
-    //     while(idleThreadOn)
-    //     {
-    //         odometryPublisher.publish(odomMsg);
+        // while(true)
+        // {
+        //     std::cerr << "SMControlPlugin (" << getpid() << "), " << __func__ 
+        //         << ": Idle phase: Sending odometry, joint state, and RTT RX messages..." << std::endl;
 
-    //         robotStatePublisher.publish(jointStateMsg);
+        //     odometryPublisher.publish(odomMsg);
+        //     robotStatePublisher.publish(jointStateMsg);
+        //     rttRxPublisher.publish(rttMsg);
 
-    //         rttMutex.lock();
-    //         rttRxPublisher.publish(rttMsg);
-    //         rttMutex.unlock();
-
-    //         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    //     }
+        //     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        // }
     // }
 
 private:
@@ -767,7 +794,21 @@ private:
 
       ros::Time noCmdErrLastPrintTime;
 
+      /*!
+       * Whether this is the first time we're sending robot state.
+       */
       bool isFirstSend;
+      
+      /*!
+       * Whether the initial command message was received.
+       */
+      bool rcvdInitCmdMsg;
+
+      /*!
+       * Whether the initial RTT message was received.
+       */
+      bool rcvdInitRTTMsg;
+
 
       // std::thread thread;
 
