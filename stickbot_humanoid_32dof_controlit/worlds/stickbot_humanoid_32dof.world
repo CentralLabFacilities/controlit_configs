@@ -45,7 +45,7 @@
     </include>
     <!-- The robot to be simulated -->
     <include>
-      <pose>0 0 0.71 0 0 0</pose>
+      <pose>0 0 0.73 0 0 0</pose>
       <uri>model://stickbot_humanoid_32dof_controlit</uri>
     </include>
   </world>
