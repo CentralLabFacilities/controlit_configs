@@ -539,6 +539,12 @@ public:
      */
     void receiveCmd()
     {
+        while (!rcvdCmd)
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Waiting for cmd to arrive..." << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        }
+
         cmdMutex.lock();
   
         // If a command was received, transmit it to Gazebo
