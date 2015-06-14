@@ -24,13 +24,13 @@
       </ode>
       <real_time_update_rate>1000</real_time_update_rate>
       <max_step_size>0.0001</max_step_size> -->
-      <bullet>
+      <!-- <bullet>
         <solver>
           <min_step_size>0.00001</min_step_size>
           <iters>200</iters>
           <sor>1.4</sor>
         </solver>
-      </bullet>
+      </bullet> -->
       <real_time_update_rate>2000</real_time_update_rate>
       <max_step_size>0.0005</max_step_size>
       <!-- <max_step_size>0.00005</max_step_size> -->  <!-- real-time factor: 0.1 -->
