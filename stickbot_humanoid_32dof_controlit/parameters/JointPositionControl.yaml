@@ -12,34 +12,19 @@ tasks:
         type: vector
         value: [100, 100, 100, 100, 100, 100,        # left leg
                 100, 100, 100, 100, 100, 100,        # right leg
-                100, 100, 100, # torso
-                100, 100, 100, 100, 100, 100, 100,
-                100, 100, 100,
-                100, 100, 100, 100, 100, 100, 100]
-        # value: [60, 60, 60, 60, 60, 60,         # left leg
-        #         60, 60, 60, 60, 60, 60,         # right leg
-        #         20, 40, 40,                        # torso
-        #         20, 20, 20, 20, 20, 20, 20,    # left arm
-        #         20, 20, 20,                        # neck
-        #         20, 20, 20, 20, 20, 20, 20]    # right arm
-        # value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
-        # value: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+                100, 100, 100,                       # torso
+                100, 100, 100, 100, 100, 100, 100,   # left arm
+                100, 100, 100,                       # neck
+                100, 100, 100, 100, 100, 100, 100]   # right arm
       - name: kd
         type: vector
         # Over-damp the torso and knee joints to prevent oscillations
-        value: [20, 20, 20, 20, 20, 20,           # left leg
-                20, 20, 20, 20, 20, 20,           # right leg
-                20, 40, 40, # torso
-                20, 20, 20, 20, 20, 20, 20,
-                20, 20, 20,
-                20, 20, 20, 20, 20, 20, 20]
-        # value: [4, 4, 4, 4, 4, 4,           # left leg
-        #         4, 4, 4, 4, 4, 4,           # right leg
-        #         4, 8, 8,                       # hip
-        #         4, 4, 4, 4, 4, 4, 4,       # left arm
-        #         4, 4, 4,                       # neck
-        #         4, 4, 4, 4, 4, 4, 4]       # right arm
-        # value: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+        value: [20, 20, 20, 20, 20, 20,              # left leg
+                20, 20, 20, 20, 20, 20,              # right leg
+                20, 50, 50,                          # torso
+                20, 20, 20, 20, 20, 20, 20,          # left arm
+                20, 20, 20,                          # neck
+                20, 20, 20, 20, 20, 20, 20]          # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
@@ -48,41 +33,12 @@ tasks:
         value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
-        value: [0.0,   # left hip joint 1
-                0.8, #0.2, #0.3, #0.8,   # left hip extensor
-                0.0,   # left hip aductor
-                -1.5, #-0.325, #-0.65, #-1.5,  # left knee
-                0.71, #0.15, #0.0, #0.35, #0.71,  # left ankle pitch
-                0.0,   # left ankle roll
-                0.0,   # right hip joint 1
-                0.8, #0.2, #0.3, #0.8,   # right hip extensor
-                0.0,   # right hip aductor
-                -1.5, #-0.325, #-0.65, #-1.5,  # right knee (positive for flexion)?
-                0.71, #0.15, #0.35, # 0.71,  # right ankle pitch (negative for flexion)?
-                0.0,  # right ankle roll
-                0.0,  # waist rotation
-                0.0,  # torso lower pitch
-                0.0,  # torso upper pitch
-                0.0, 0.1, 0.0, 0.1, 0.0, 0.0, 0.0,
-                0.0, 0.0, 0.0,
-                0.0, -0.1, 0.0, 0.1, 0.0, 0.0, 0.0]
-                # 0.0,   # left shoulder extensor
-                # 0.0,   # left_shoulder_adductor
-                # 0.0,   # left_shoulder_rotator
-                # 1.0,   # left_elbow_extensor
-                # 0.0,   # left_wrist_rotator
-                # 0.0,   # left_wrist_extensor
-                # 0.0,   # left_wrist_adductor
-                # 0.0,   # neck rotator
-                # 0.0,   # neck extensor
-                # 0.0,   # neck_adductor
-                # 0.0,   # right shoulder extensor
-                # 0.0,   # right_shoulder_adductor
-                # 0.0,   # right_shoulder_rotator
-                # 1.0,   # right_elbow_extensor
-                # 0.0,   # right_wrist_rotator
-                # 0.0,   # right_wrist_extensor
-                # 0.0]   # right_wrist_adductor
+        value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
+                0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # right leg
+                0.0, 0.0, 0.0,                       # torso
+                0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
+                0.0, 0.0, 0.0,                       # neck
+                0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
       - name: goalVelocity
         type: vector
         value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -101,11 +57,11 @@ tasks:
       - name: actualFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    events:
-      - name: converged
-        expression: errorNorm < 1e-3
-      - name: quiescent
-        expression: errorDotNorm < 1e-3
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
   name: My compound task

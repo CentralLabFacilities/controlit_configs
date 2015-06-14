@@ -227,11 +227,21 @@ public:
         odometryPublisher.advertise(rootLinkOdomTopic);
   
         // Initialize the odometry state in the shared memory
-        sendOdometry();
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending initial odometry message" << std::endl;
+        if (!odometryPublisher.publish(odomMsg))
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR Sending initial odometry message" << std::endl;
+            assert(false);
+        }
   
         // Initialize the joint state message and write it to shared memory
+        std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending initial joint state message" << std::endl;
         initJointStateMsg();
-        sendJointState();
+        if (!robotStatePublisher.publish(jointStateMsg))
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR Sending initial joint state message" << std::endl;
+            assert(false);
+        }
 
         // // Wait for messages to arrive to ensure connection 
         // // is initialized prior to starting the controller.
@@ -276,7 +286,7 @@ public:
     /*!
      * Obtains the latest root link odometry state and save it into shared memory.
      */
-    void sendOdometry()
+    bool sendOdometry()
     {
         // Root link odometry
         gazebo::physics::Link_V links = this->model->GetLinks();
@@ -342,21 +352,21 @@ public:
         {
             // Check for legit odometry values
             bool isLegit = true;
-            if(std::abs(odomMsg.pose.pose.position.x) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.position.x: " << odomMsg.pose.pose.position.x); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.position.y) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.position.y: " << odomMsg.pose.pose.position.y); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.position.z) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.position.z: " << odomMsg.pose.pose.position.z); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.orientation.w) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.orientation.w: " << odomMsg.pose.pose.orientation.w); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.orientation.x) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.orientation.x: " << odomMsg.pose.pose.orientation.x); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.orientation.y) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.orientation.y: " << odomMsg.pose.pose.orientation.y); isLegit = false; }
-            if(std::abs(odomMsg.pose.pose.orientation.z) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.pose.pose.orientation.z: " << odomMsg.pose.pose.orientation.z); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.linear.x) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.twist.twist.linear.x: " << odomMsg.twist.twist.linear.x); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.linear.y) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.twist.twist.linear.y: " << odomMsg.twist.twist.linear.y); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.linear.z) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for odomMsg.twist.twist.linear.z: " << odomMsg.twist.twist.linear.z); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.angular.x) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for: odomMsg.twist.twist.angular.x: " << odomMsg.twist.twist.angular.x); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.angular.y) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for: odomMsg.twist.twist.angular.y: " << odomMsg.twist.twist.angular.y); isLegit = false; }
-            if(std::abs(odomMsg.twist.twist.angular.z) >= 1e3) {ROS_WARN_STREAM("SMControlPlugin (" << getpid() << "): " << __func__ << ": Odometry contained questionable value for: odomMsg.twist.twist.angular.z: " << odomMsg.twist.twist.angular.z); isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.position.x) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.position.x: " << odomMsg.pose.pose.position.x << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.position.y) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.position.y: " << odomMsg.pose.pose.position.y << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.position.z) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.position.z: " << odomMsg.pose.pose.position.z << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.orientation.w) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.orientation.w: " << odomMsg.pose.pose.orientation.w << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.orientation.x) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.orientation.x: " << odomMsg.pose.pose.orientation.x << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.orientation.y) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.orientation.y: " << odomMsg.pose.pose.orientation.y << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.pose.pose.orientation.z) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.pose.pose.orientation.z: " << odomMsg.pose.pose.orientation.z << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.linear.x) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.twist.twist.linear.x: " << odomMsg.twist.twist.linear.x << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.linear.y) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.twist.twist.linear.y: " << odomMsg.twist.twist.linear.y << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.linear.z) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for odomMsg.twist.twist.linear.z: " << odomMsg.twist.twist.linear.z << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.angular.x) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for: odomMsg.twist.twist.angular.x: " << odomMsg.twist.twist.angular.x << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.angular.y) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for: odomMsg.twist.twist.angular.y: " << odomMsg.twist.twist.angular.y << std::endl; isLegit = false; }
+            if(std::abs(odomMsg.twist.twist.angular.z) >= 1e3) {std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR: Odometry contained questionable value for: odomMsg.twist.twist.angular.z: " << odomMsg.twist.twist.angular.z << std::endl; isLegit = false; }
     
-            if (!isLegit) { assert(false); }
+            if (!isLegit) return false;
         }
   
         {
@@ -367,7 +377,7 @@ public:
 
         // Publish the odometry information
         // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending odometry..." << std::endl;
-        odometryPublisher.publish(odomMsg);
+        return odometryPublisher.publish(odomMsg);
         // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending odometry." << std::endl;
     }
 
@@ -400,7 +410,7 @@ public:
     /*!
      * Obtains the latest joint state save it into shared memory.
      */
-    void sendJointState()
+    bool sendJointState()
     {
         gazebo::physics::Joint_V joints = this->model->GetJoints();
   
@@ -483,7 +493,7 @@ public:
   
         // Write the joint state to shared memory
         // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending joint state..." << std::endl;
-        robotStatePublisher.publish(jointStateMsg);
+        return robotStatePublisher.publish(jointStateMsg);
         // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Done sending joint state." << std::endl;
     }
 
@@ -656,8 +666,17 @@ public:
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Starting OnUpdate method." << std::endl;
 
-        sendJointState();
-        sendOdometry();
+        if (!sendJointState())
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR Sending joint state message" << std::endl;
+            assert(false);
+        }
+        
+        if (!sendOdometry())
+        {
+            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": ERROR Sending odometry message" << std::endl;
+            assert(false);
+        }
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Done sending joint state." << std::endl;
         receiveCmd();
