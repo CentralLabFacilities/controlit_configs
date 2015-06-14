@@ -18,7 +18,7 @@ tasks:
                 100, 100, 100, 100, 100, 100, 100]   # right arm
       - name: kd
         type: vector
-        # Over-damp the torso and knee joints to prevent oscillations
+        # Over-damp the torso joints to prevent oscillations
         value: [20, 20, 20, 20, 20, 20,              # left leg
                 20, 20, 20, 20, 20, 20,              # right leg
                 20, 50, 50,                          # torso
