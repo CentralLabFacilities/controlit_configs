@@ -5,9 +5,9 @@ tasks:
   - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     name: JPosTask     # Arbitrary instance name
     parameters:
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
       - name: kp
         type: vector
         value: [10,
@@ -92,7 +92,7 @@ compound_task:
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraint
     name: ContactConstraint
@@ -103,12 +103,12 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
     - name: ContactConstraint
-      enabled: 1
+      enableState: 2
