@@ -1,14 +1,9 @@
 header:
-  # version: 2.0
-  version: 2
   description: stick bot 3dof joint state control
 tasks:
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JPosTask     # Arbitrary instance name
+  - name: JPosTask                    # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
         value: [50, 50, 50]
@@ -36,14 +31,6 @@ tasks:
         value: [0.0,
                 0.0,
                 0.0]
-      - {name: error, type: vector, value: [
-                0.0,
-                0.0,
-                0.0]}
-      - {name: errorDot, type: vector, value: [
-                0.0,
-                0.0,
-                0.0]}
     events:
       - name: converged
         expression: errorNorm < 0.05
@@ -55,7 +42,7 @@ compound_task:
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 2
   events:
     - name: converged
       expression: JPosTask.converged && JPosTask.quiescent
@@ -65,16 +52,13 @@ constraints:
     parameters:
       - name: masterNodeName
         type: string
-        value: "rigid6DoF"  # Should be the parent of the constrained link
+        value: "rigid6DoF"  # The parent joint of the constrained link
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
     - name: ContactConstraint
-      enabled: 1
+      enableState: 2
