@@ -5,9 +5,9 @@ tasks:
   - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     name: JPosTask     # Arbitrary instance name
     parameters:
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100,        # left leg
@@ -48,9 +48,9 @@ tasks:
   - type: controlit/GenericInternalForceTask
     name: InternalForceTask
     parameters:
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
       - name: goalFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -71,10 +71,10 @@ compound_task:
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 1
      - name : InternalForceTask
        priority: 1
-       enabled: 1
+       enableState: 1
 constraints:
   - type: controlit/FlatContactConstraintSensed
     name: LeftContactConstraint
@@ -106,9 +106,9 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -143,9 +143,9 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -154,6 +154,6 @@ constraint_set:
   name: My Constraint Set
   active_constraints:
     - name: LeftContactConstraint
-      enabled: 1
+      enableState: 2
     - name: RightContactConstraint
-      enabled: 1
+      enableState: 2

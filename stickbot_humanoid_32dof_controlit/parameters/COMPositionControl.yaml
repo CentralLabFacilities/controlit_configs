@@ -1,13 +1,13 @@
 header:
   version: 2
-  description: humanoid stick bot joint state control
+  description: humanoid stick bot control of COM and posture
 tasks:
   - type: controlit/COMTask
     name: COMTask
     parameters:
       - name: enabled
         type: integer
-        value: 1
+        value: 2
       - name: goalPosition
         type: vector
         value: [0.02, 0, 0.355]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
@@ -48,7 +48,7 @@ tasks:
     parameters:
       - name: enabled
         type: integer
-        value: 1
+        value: 2
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100,        # left leg
@@ -92,7 +92,7 @@ tasks:
     parameters:
       - name: enabled
         type: integer
-        value: 1
+        value: 2
       - name: goalFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -153,7 +153,7 @@ constraints:
         value: 1        # 0 = world, 1 = local
       - name: enabled
         type: integer
-        value: 1
+        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -190,7 +190,7 @@ constraints:
         value: 1        # 0 = world, 1 = local
       - name: enabled
         type: integer
-        value: 1
+        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local

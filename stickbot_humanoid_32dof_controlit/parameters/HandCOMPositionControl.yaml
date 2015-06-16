@@ -1,6 +1,6 @@
 header:
   version: 2
-  description: humanoid stick bot joint state control
+  description: humanoid stick bot control of COM and end effector Cartesian position and orientation
 tasks:
   - name: RightArmCartesianPositionTask
     type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
@@ -28,7 +28,7 @@ tasks:
         value: 0
       - name: goalPosition      # in frameName's frame
         type: vector
-        value: [-0.15180417579690852, -0.18507059795744202, 0.802338564271228]
+        value: [0.15180417579690852, -0.18507059795744202, 0.802338564271228]
       - name: goalVelocity           # in frameName's frame
         type: vector
         value: [0.0, 0.0, 0.0]
@@ -99,7 +99,7 @@ tasks:
         value: 0
       - name: goalPosition      # in frameName's frame
         type: vector
-        value: [-0.14939884473941475, 0.1860233660746471, 0.8003902013037729]
+        value: [0.14939884473941475, 0.1860233660746471, 0.8003902013037729]
       - name: goalVelocity           # in frameName's frame
         type: vector
         value: [0.0, 0.0, 0.0]
@@ -144,6 +144,7 @@ tasks:
       - name: goalVelocity           # in frameName's frame
         type: vector
         value: [0.0, 0.0, 0.0]
+
   - type: controlit/COMTask
     name: COMTask
     parameters:
@@ -152,7 +153,7 @@ tasks:
         value: 1
       - name: goalPosition
         type: vector
-        value: [0, 0, 0.35]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
+        value: [0.02, 0, 0.355]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
       - name: goalVelocity
         type: vector
         value: [0, 0, 0]
@@ -163,15 +164,12 @@ tasks:
                 [0, 0, 0]]
       - name: kp
         type: vector
-        # value: [4, 4, 4]
         value: [10, 10, 10]
       - name: kd
         type: vector
-        # value: [4, 4, 4]
         value: [6, 6, 6]
       - name: maxVelocity
         type: vector
-        # value: [.1, .1, .1]
         value: [0.2, 0.2, 0.2]
       - name: maxAcceleration
         type: vector
@@ -188,98 +186,52 @@ tasks:
       - name: frameName
         type: string
         value: "world"
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JPosTask     # Arbitrary instance name
+
+  - type: controlit/JointPositionTask
+    name: JPosTask
     parameters:
       - name: enabled
         type: integer
         value: 1
       - name: kp
         type: vector
-        # value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-        value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+        value: [100, 100, 100, 100, 100, 100,        # left leg
+                100, 100, 100, 100, 100, 100,        # right leg
+                100, 100, 100,                       # torso
+                100, 100, 100, 100, 100, 100, 100,   # left arm
+                100, 100, 100,                       # neck
+                100, 100, 100, 100, 100, 100, 100]   # right arm
       - name: kd
-        type: vector
-        # Over-damp the torso joints to prevent oscillations that occured when wrist extensors were added
-        # value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 40, 40, 40, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
-        value: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+        type: vector,
+        # Over-damp the torso joints to prevent oscillations
+        value: [20, 20, 20, 20, 20, 20,              # left leg
+                20, 20, 20, 20, 20, 20,              # right leg
+                20, 50, 50,                          # torso
+                20, 20, 20, 20, 20, 20, 20,          # left arm
+                20, 20, 20,                          # neck
+                20, 20, 20, 20, 20, 20, 20]          # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
-        type: real
-        value: 0.0, #1.0
+        type: vector
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
-        value: [0.0,   # left hip joint 1
-                0.8,   # left hip extensor
-                0.0,   # left hip aductor
-                -1.5,  # left knee
-                0.71,  # left ankle pitch
-                0.0,   # left ankle roll
-                0.0,   # right hip joint 1
-                0.8,   # right hip extensor
-                0.0,   # right hip aductor
-                -1.5,  # right knee (positive for flexion)?
-                0.71,  # right ankle pitch (negative for flexion)?
-                0.0,   # right ankle roll
-                0.0,   # waist rotation
-                0.0,   # torso extensor
-                0.0,   # chest extensor
-                0.0,   # left shoulder extensor
-                0.0,   # left_shoulder_adductor
-                0.0,   # left_shoulder_rotator
-                1.0,   # left_elbow_extensor
-                0.0,   # left_wrist_rotator
-                0.0,   # left_wrist_extensor
-                0.0,   # left_wrist_adductor
-                0.0,   # neck rotator
-                0.0,   # neck extensor
-                0.0,   # neck_adductor
-                0.0,   # right shoulder extensor
-                0.0,   # right_shoulder_adductor
-                0.0,   # right_shoulder_rotator
-                1.0,   # right_elbow_extensor
-                0.0,   # right_wrist_rotator
-                0.0,   # right_wrist_extensor
-                0.0]   # right_wrist_adductor
+        value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
+                0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # right leg
+                0.0, 0.0, 0.0,                       # torso
+                0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
+                0.0, 0.0, 0.0,                       # neck
+                0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
       - name: goalVelocity
         type: vector
         value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0]
+        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
   - type: controlit/GenericInternalForceTask
     name: InternalForceTask
     parameters:
@@ -292,11 +244,11 @@ tasks:
       - name: actualFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    events:
-      - name: converged
-        expression: errorNorm < 1e-3
-      - name: quiescent
-        expression: errorDotNorm < 1e-3
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
   name: My compound task
@@ -309,16 +261,16 @@ compound_task:
        enabled: 1
      - name: RightArmCartesianPositionTask
        priority: 1
-       enabled: 1
-     - name: RightArmOriQuatTask
-       priority: 1
-       enabled: 1      
+       enabled: 0
+     # - name: RightArmOriQuatTask
+     #   priority: 1
+     #   enabled: 0     
      - name: LeftArmCartesianPositionTask
        priority: 1
-       enabled: 1
-     - name: LeftArmOriQuatTask
-       priority: 1
-       enabled: 1                
+       enabled: 0
+     # - name: LeftArmOriQuatTask
+     #   priority: 1
+     #   enabled: 0
      - name: JPosTask
        priority: 2
        enabled: 1
