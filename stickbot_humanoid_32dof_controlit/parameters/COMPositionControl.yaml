@@ -4,52 +4,59 @@ tasks:
   - name: COMTask
     type: controlit/COMTask
     parameters:
-      - name: goalPosition
-        type: vector
-        value: [0.02, 0, 0.355]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
-      - name: goalVelocity
-        type: vector
-        value: [0, 0, 0]
+      - name: frameName
+        type: string
+        value: "world"
       - name: projection
         type: matrix
         value: [[1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 0]]
+      # World frame X axis is forward, Y axis is to the left, Z is up.
+      # Robot is centered over origin.
+      # Note that the projection matrix results in only the X and Y axes
+      # being controlled.
+      - name: goalPosition
+        type: vector
+        # value: [0.02, 0, 0.355]
+        value: [0.02587, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0]
+
       - name: kp
         type: vector
         value: [10, 10, 10]
       - name: kd
         type: vector
-        value: [6, 6, 6]
+        value: [4, 4, 4]
       - name: maxVelocity
         type: vector
         value: [0.2, 0.2, 0.2]
       - name: maxAcceleration
         type: vector
         value: [0, 0, 0]
-      - name: frameName
-        type: string
-        value: "world"
+
   - name: JPosTask
     type: controlit/JointPositionTask
     parameters:
       - name: kp
         type: vector
-        value: [100, 100, 100, 100, 100, 100,        # left leg
-                100, 100, 100, 100, 100, 100,        # right leg
-                100, 100, 100,                       # torso
-                100, 100, 100, 100, 100, 100, 100,   # left arm
-                100, 100, 100,                       # neck
-                100, 100, 100, 100, 100, 100, 100]   # right arm
+        value: [200, 200, 200, 200, 200, 200,        # left leg
+                200, 200, 200, 200, 200, 200,        # right leg
+                200, 200, 200,                       # torso
+                200, 200, 200, 200, 200, 200, 200,   # left arm
+                200, 200, 200,                       # neck
+                200, 200, 200, 200, 200, 200, 200]   # right arm
       - name: kd
         type: vector,
         # Over-damp the torso joints to prevent oscillations
-        value: [20, 20, 20, 20, 20, 20,              # left leg
-                20, 20, 20, 20, 20, 20,              # right leg
-                20, 50, 50,                          # torso
-                20, 20, 20, 20, 20, 20, 20,          # left arm
-                20, 20, 20,                          # neck
-                20, 20, 20, 20, 20, 20, 20]          # right arm
+        value: [30, 30, 30, 30, 30, 30,              # left leg
+                30, 30, 30, 30, 30, 30,              # right leg
+                30, 60, 60,                          # torso
+                30, 30, 30, 30, 30, 30, 30,          # left arm
+                30, 30, 30,                          # neck
+                30, 30, 30, 30, 30, 30, 30]          # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100,

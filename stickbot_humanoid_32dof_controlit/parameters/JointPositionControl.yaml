@@ -6,21 +6,21 @@ tasks:
     parameters:
       - name: kp
         type: vector
-        value: [100, 100, 100, 100, 100, 100,        # left leg
-                100, 100, 100, 100, 100, 100,        # right leg
-                100, 100, 100,                       # torso
-                100, 100, 100, 100, 100, 100, 100,   # left arm
-                100, 100, 100,                       # neck
-                100, 100, 100, 100, 100, 100, 100]   # right arm
+        value: [200, 200, 200, 200, 200, 200,        # left leg
+                200, 200, 200, 200, 200, 200,        # right leg
+                200, 200, 200,                       # torso
+                200, 200, 200, 200, 200, 200, 200,   # left arm
+                200, 200, 200,                       # neck
+                200, 200, 200, 200, 200, 200, 200]   # right arm
       - name: kd
         type: vector
         # Over-damp the torso joints to prevent oscillations
-        value: [20, 20, 20, 20, 20, 20,              # left leg
-                20, 20, 20, 20, 20, 20,              # right leg
-                20, 50, 50,                          # torso
-                20, 20, 20, 20, 20, 20, 20,          # left arm
-                20, 20, 20,                          # neck
-                20, 20, 20, 20, 20, 20, 20]          # right arm
+        value: [30, 30, 30, 30, 30, 30,              # left leg
+                30, 30, 30, 30, 30, 30,              # right leg
+                30, 60, 60,                          # torso
+                30, 30, 30, 30, 30, 30, 30,          # left arm
+                30, 30, 30,                          # neck
+                30, 30, 30, 30, 30, 30, 30]          # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100,
@@ -61,6 +61,7 @@ tasks:
                 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0]
+
   - type: controlit/GenericInternalForceTask
     name: InternalForceTask
     parameters:
@@ -70,11 +71,15 @@ tasks:
       - name: actualFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    # events:
-    #   - name: converged
-    #     expression: errorNorm < 1e-3
-    #   - name: quiescent
-    #     expression: errorDotNorm < 1e-3
+
+  # This COMTask is used as a sensor in this configuration.
+  # Thus, only the frameName parameter needs to be specified.
+  - name: COMSensor
+    type: controlit/COMTask
+    parameters:
+      - name: frameName
+        type: string
+        value: "world"
 compound_task:
   type: compound_task
   name: My Compound Task
@@ -85,9 +90,12 @@ compound_task:
      - name: JPosTask
        priority: 0
        enableState: 2
-     - name : InternalForceTask
+     - name: InternalForceTask
        priority: 1
        enableState: 2
+     # - name: COMSensor
+     #   priority: 2
+     #   enableState: 1  # sensing state
 constraints:
   - type: controlit/FlatContactConstraintSensed
     name: LeftContactConstraint
