@@ -34,6 +34,9 @@ namespace gazebo {
 #define LISTEN_TO_ROS_TOPIC false
 #define USE_POLLING false
 
+// The number of seconds to wait for a command before printing warnings to the terminal.
+#define AWAIT_COMMAND_THRESHOLD 5
+
 class SMControlPlugin: public ModelPlugin
 {
 public:
@@ -42,9 +45,10 @@ public:
         rttTxSubscriber(LISTEN_TO_ROS_TOPIC, USE_POLLING),
         rcvdCmd(false),
         rcvdRTT(false),
-        isFirstSend(true),
+        // isFirstSend(true),
         rcvdInitCmdMsg(false),
-        rcvdInitRTTMsg(false)
+        rcvdInitRTTMsg(false),
+        cmdWaitCount(0)
         // idleThreadOn(false)
     {
         noCmdErrLastPrintTime = ros::Time::now(); // initialization
@@ -539,11 +543,17 @@ public:
      */
     void receiveCmd()
     {
+
         while (!rcvdCmd)
         {
-            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Waiting for cmd to arrive..." << std::endl;
+            if (++cmdWaitCount > AWAIT_COMMAND_THRESHOLD)
+            {
+                std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Waiting for cmd to arrive..." << std::endl;
+            }
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
+
+        cmdWaitCount = 0;
 
         cmdMutex.lock();
   
@@ -652,23 +662,23 @@ public:
     {
         // std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Method Called!" << std::endl;
 
-        if (isFirstSend)
-        {
-            char buffer[30];
-            struct timeval tv;
-            time_t curtime;
+        // if (isFirstSend)
+        // {
+        //     char buffer[30];
+        //     struct timeval tv;
+        //     time_t curtime;
 
-            gettimeofday(&tv, NULL); 
-            curtime=tv.tv_sec;
+        //     gettimeofday(&tv, NULL); 
+        //     curtime=tv.tv_sec;
           
-            strftime(buffer,30,"%m-%d-%Y  %T.", localtime(&curtime));
-            // printf("%s%ld\n",buffer,tv.tv_usec);
+        //     strftime(buffer,30,"%m-%d-%Y  %T.", localtime(&curtime));
+        //     // printf("%s%ld\n",buffer,tv.tv_usec);
 
-            std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending first state at time:"
-                << buffer << tv.tv_usec << std::endl;
+        //     std::cerr << "SMControlPlugin-" << getpid() << "::" << __func__ << ": Sending first state at time:"
+        //         << buffer << tv.tv_usec << std::endl;
 
-            isFirstSend = false;
-        }
+        //     isFirstSend = false;
+        // }
 
         // std::cerr << "SMControlPlugin (" << getpid() << "): Starting OnUpdate method." << std::endl;
 
@@ -823,7 +833,7 @@ private:
       /*!
        * Whether this is the first time we're sending robot state.
        */
-      bool isFirstSend;
+      // bool isFirstSend;
       
       /*!
        * Whether the initial command message was received.
@@ -834,6 +844,13 @@ private:
        * Whether the initial RTT message was received.
        */
       bool rcvdInitRTTMsg;
+
+      /*!
+       * The number of seconds this plugin is waiting for a command to arrive.
+       * Once this duration exceeds AWAIT_COMMAND_THRESHOLD seconds, a warning is 
+       * printed to the terminal.
+       */
+      int cmdWaitCount;
 };
 
 // Register this plugin with the simulator
