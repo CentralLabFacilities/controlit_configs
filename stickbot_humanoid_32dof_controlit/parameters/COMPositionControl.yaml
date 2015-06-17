@@ -18,12 +18,11 @@ tasks:
       # being controlled.
       - name: goalPosition
         type: vector
-        # value: [0.02, 0, 0.355]
-        value: [0.02587, 0.0, 0.0]
+        # value: [0.02587, 0.0, 0.0]
+        value: [0.014, 0.0, 0.0]
       - name: goalVelocity
         type: vector
         value: [0, 0, 0]
-
       - name: kp
         type: vector
         value: [10, 10, 10]
@@ -75,12 +74,18 @@ tasks:
                 0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
-        value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
-                0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # right leg
+        value: [0.0, -0.8, 0.0, 1.5, -0.71, 0.0,    # left leg
+                0.0, -0.8, 0.0, 1.5, -0.71, 0.0,    # right leg
                 0.0, 0.0, 0.0,                       # torso
                 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
                 0.0, 0.0, 0.0,                       # neck
                 0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
+        # value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
+        #         0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # right leg
+        #         0.0, 0.0, 0.0,                       # torso
+        #         0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
+        #         0.0, 0.0, 0.0,                       # neck
+        #         0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
       - name: goalVelocity
         type: vector
         value: [0, 0, 0, 0, 0, 0,
@@ -98,8 +103,8 @@ tasks:
                 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0]
 
-  - type: controlit/GenericInternalForceTask
-    name: InternalForceTask
+  - name: InternalForceTask
+    type: controlit/GenericInternalForceTask
     parameters:
       - name: goalFint
         type: vector

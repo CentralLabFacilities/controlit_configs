@@ -33,21 +33,4 @@
     <rosparam param="USE_SINGLE_THREADED_SENSOR_UPDATER">true</rosparam>
     -->
 
-    <!--
-       Here are some other parameters that should be set:
-
-       controlit_max_effort_command
-       controlit_torque_offsets
-       controlit_torque_scaling_factors
-       controlit_gravity_vector
-       controlit_ramp_up_time' does not exist
-       controlit_coupled_joint_groups
-       controlit_gravity_compensation_mask
-       controlit_effective_gain_pass_through_mask
-       controlit_model_delta_cutoff
-       controlit_model_blend_rate
-    -->
-
-    <param name="sensorSet" textfile="$(find stickbot_humanoid_32dof_controlit)/parameters/RightHandCartOriSensor.yaml"/>
-
 </launch>
