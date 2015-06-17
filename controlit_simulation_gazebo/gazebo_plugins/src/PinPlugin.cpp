@@ -29,7 +29,7 @@ namespace gazebo
   public:
     PinPlugin()
     {
-      int argc = 0;
+      // int argc = 0;
       // ros::init(argc, NULL, "pin_plugin");
     }
 

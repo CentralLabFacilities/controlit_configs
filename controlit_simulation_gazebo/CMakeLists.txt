@@ -7,6 +7,7 @@ project(controlit_simulation_gazebo)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
     shared_memory_interface
+    controlit_cmake
     controlit_robot_interface_library
     message_generation
     geometry_msgs
@@ -19,6 +20,11 @@ find_package(Boost REQUIRED COMPONENTS
     filesystem 
     program_options
 )
+
+# The following is necessary to set the build type.
+list(APPEND CMAKE_MODULE_PATH ${controlit_cmake_DIR}/../../../../src/controlit/controlit_cmake/cmake)
+include(controlitbuild)
+controlit_build_init()
 
 ################################################
 ## Declare ROS messages, services and actions ##
