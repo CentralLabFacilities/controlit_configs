@@ -1,11 +1,9 @@
 header:
-  version: 2
-  description: upper body stick bot 10DoF joint state control
+  description: stickbot_upperbody_10dof joint state control
 tasks:
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JointPosition     # Arbitrary instance name
+  - name: JointPosition               # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     parameters:
-      - {name: enabled, type: integer, value: 1}
       - {name: useDefaultBindings, type: integer, value: 1}
       - {name: kp, type: vector, value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]}
       - {name: kd, type: vector, value: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20]}
@@ -15,17 +13,17 @@ tasks:
       - {name: goalAcceleration, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
 compound_task:
   type: compound_task
-  name: My compound task
-  events:
-    - name: converged
-      expression: JointPosition.converged && JointPosition.quiescent
+  name: My Compound Task
+  # events:
+  #   - name: converged
+  #     expression: JointPosition.converged && JointPosition.quiescent
   task_list:
      - name: JointPosition
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraint
-    name: basePlateContactConstraint
+    name: BasePlateContactConstraint
     parameters:
       - name: masterNodeName
         type: string
@@ -33,12 +31,12 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
+      - name: enableState
         type: integer
-        value: 1
+        value: 2
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
-    - name: basePlateContactConstraint
-      enabled: 1
+    - name: BasePlateContactConstraint
+      enableState: 2

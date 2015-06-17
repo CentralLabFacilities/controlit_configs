@@ -1,13 +1,9 @@
 header:
-  version: 2
-  description: upper body stick bot 10DoF joint state control
+  description: joint state control of stickbot_humanoid_32dof_controlit
 tasks:
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JPosTask     # Arbitrary instance name
+  - name: JPosTask                    # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     parameters:
-      - name: enableState
-        type: integer
-        value: 2
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100,        # left leg
@@ -27,10 +23,20 @@ tasks:
                 20, 20, 20, 20, 20, 20, 20]          # right arm
       - name: maxVelocity
         type: vector
-        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: real
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
         value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
@@ -41,16 +47,23 @@ tasks:
                 0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
       - name: goalVelocity
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
   - type: controlit/GenericInternalForceTask
     name: InternalForceTask
     parameters:
-      - name: enableState
-        type: integer
-        value: 2
       - name: goalFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -64,17 +77,17 @@ tasks:
     #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
+  name: My Compound Task
   # events:
   #   - name: converged
   #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
      - name: JPosTask
        priority: 0
-       enableState: 1
+       enableState: 2
      - name : InternalForceTask
        priority: 1
-       enableState: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraintSensed
     name: LeftContactConstraint
@@ -106,9 +119,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enableState
-        type: integer
-        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -143,9 +153,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enableState
-        type: integer
-        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local

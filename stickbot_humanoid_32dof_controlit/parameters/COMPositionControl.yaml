@@ -1,13 +1,9 @@
 header:
-  version: 2
-  description: humanoid stick bot control of COM and posture
+  description: COM and posture control of stickbot_humanoid_32dof_controlit
 tasks:
-  - type: controlit/COMTask
-    name: COMTask
+  - name: COMTask
+    type: controlit/COMTask
     parameters:
-      - name: enabled
-        type: integer
-        value: 2
       - name: goalPosition
         type: vector
         value: [0.02, 0, 0.355]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
@@ -31,24 +27,12 @@ tasks:
       - name: maxAcceleration
         type: vector
         value: [0, 0, 0]
-      - name: error
-        type: vector
-        value: [0, 0, 0]
-      - name: errorDot
-        type: vector
-        value: [0, 0, 0]
-      - name: worldCOM
-        type: vector
-        value: [0, 0, 0]
       - name: frameName
         type: string
         value: "world"
-  - type: controlit/JointPositionTask
-    name: JPosTask
+  - name: JPosTask
+    type: controlit/JointPositionTask
     parameters:
-      - name: enabled
-        type: integer
-        value: 2
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100,        # left leg
@@ -68,10 +52,20 @@ tasks:
                 20, 20, 20, 20, 20, 20, 20]          # right arm
       - name: maxVelocity
         type: vector
-        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
         value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
@@ -82,17 +76,24 @@ tasks:
                 0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
       - name: goalVelocity
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
 
   - type: controlit/GenericInternalForceTask
     name: InternalForceTask
     parameters:
-      - name: enabled
-        type: integer
-        value: 2
       - name: goalFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -106,20 +107,20 @@ tasks:
     #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
+  name: My Compound Task
   # events:
   #   - name: converged
   #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
      - name: COMTask
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: JPosTask
        priority: 1
-       enabled: 1
+       enableState: 2
      - name : InternalForceTask
        priority: 2
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraintSensed
     name: LeftContactConstraint
@@ -151,9 +152,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
-        type: integer
-        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -188,9 +186,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
-        type: integer
-        value: 2
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -199,6 +194,6 @@ constraint_set:
   name: My Constraint Set
   active_constraints:
     - name: LeftContactConstraint
-      enabled: 1
+      enableState: 2
     - name: RightContactConstraint
-      enabled: 1
+      enableState: 2

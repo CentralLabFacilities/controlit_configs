@@ -1,13 +1,9 @@
 header:
-  version: 2
-  description: upper body stick bot 10DoF joint state control
+  description: joint state control of stickbot_humanoid_32dof_pinned_controlit
 tasks:
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JPosTask     # Arbitrary instance name
-    parameters:
-      - name: enabled
-        type: integer
-        value: 1
+  - name: JPosTask                    # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
+    parameters:      
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100,       # left leg
@@ -27,10 +23,20 @@ tasks:
                 20, 20, 20, 20, 20, 20, 20]   # right arm
       - name: maxVelocity
         type: vector
-        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: real
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
         value: [0.0,   # left hip joint 1
@@ -67,25 +73,35 @@ tasks:
                 0.0]   # right_wrist_adductor
       - name: goalVelocity
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    events:
-      - name: converged
-        expression: errorNorm < 1e-3
-      - name: quiescent
-        expression: errorDotNorm < 1e-3
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
-  events:
-    - name: converged
-      expression: JPosTask.converged && JPosTask.quiescent
+  name: My Compound Task
+  # events:
+  #   - name: converged
+  #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraint
     name: PinnedConstraint
@@ -96,12 +112,9 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
     - name: PinnedConstraint
-      enabled: 1
+      enableState: 2

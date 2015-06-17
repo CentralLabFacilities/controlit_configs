@@ -1,69 +1,25 @@
 header:
-  version: 2
   description: Joint position control for stickbot_bipedal_12dof.
 tasks:
-  - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    name: JPosTask     # Arbitrary instance name
+  - name: JPosTask                    # Arbitrary instance name
+    type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
-        value: [100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100]
       - name: kd
         type: vector,
-        value: [20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20]
+        value: [20, 20, 20, 20, 20, 20,
+                20, 20, 20, 20, 20, 20]
       - name: maxVelocity
         type: vector
-        value: [100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: vector
-        value: [0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
         value: [0.0,   # revolute1DoF_6, left ankle roll?
@@ -80,76 +36,30 @@ tasks:
                 0.0]   # revolute1DoF_12, right ankle roll?
       - name: goalVelocity
         type: vector
-        value: [0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0]
-      - {name: error, type: vector, value: [
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0]}
-      - {name: errorDot, type: vector, value: [
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0]}
-    events:
-      - name: converged
-        expression: errorNorm < 1e-3
-      - name: quiescent
-        expression: errorDotNorm < 1e-3
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
+    # events:
+    #   - name: converged
+    #     expression: errorNorm < 1e-3
+    #   - name: quiescent
+    #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
-  events:
-    - name: converged
-      expression: JPosTask.converged && JPosTask.quiescent
+  name: My Compound Task
+  # events:
+  #   - name: converged
+  #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
-  - type: controlit/FlatContactConstraint
-    name: LeftContactConstraint
+  - name: LeftContactConstraint
+    type: controlit/FlatContactConstraint
     parameters:
       - name: masterNodeName
         type: string
@@ -157,11 +67,8 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
-  - type: controlit/FlatContactConstraint
-    name: RightContactConstraint
+  - name: RightContactConstraint
+    type: controlit/FlatContactConstraint
     parameters:
       - name: masterNodeName
         type: string
@@ -169,14 +76,11 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
     - name: LeftContactConstraint
-      enabled: 1
+      enableState: 2
     - name: RightContactConstraint
-      enabled: 1
+      enableState: 2

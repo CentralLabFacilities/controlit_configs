@@ -1,5 +1,4 @@
 header:
-  version: 2
   description: Cartesian position and orientation control of stickbot_upperbody_10dof
 tasks:
   - name: RightHandPosition
@@ -40,6 +39,7 @@ tasks:
         value: [[1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 1]]
+
   - type: controlit/OrientQuaternionTask
     name: RightHandOrientation
     parameters:
@@ -77,9 +77,6 @@ tasks:
   - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     name: Posture     # Arbitrary instance name
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
         value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
@@ -91,12 +88,10 @@ tasks:
         value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: real
-        value: 0.0, #1.0
+        value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
       - {name: goalPosition, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
       - {name: goalVelocity, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
       - {name: goalAcceleration, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
-      - {name: error,    type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
-      - {name: errorDot, type: vector, value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
     # events:
     #   - name: converged
     #     expression: errorNorm < 1e-3
@@ -104,23 +99,23 @@ tasks:
     #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
+  name: My Compound Task
   # events:
   #   - name: converged
   #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
      - name: RightHandOrientation
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: RightHandPosition
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: Posture
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
-  - type: controlit/FlatContactConstraint
-    name: basePlateContactConstraint
+  - name: BasePlateContactConstraint
+    type: controlit/FlatContactConstraint
     parameters:
       - name: masterNodeName
         type: string
@@ -128,12 +123,9 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: My Constraint Set
   active_constraints:
-    - name: basePlateContactConstraint
-      enabled: 1
+    - name: BasePlateContactConstraint
+      enableState: 2
