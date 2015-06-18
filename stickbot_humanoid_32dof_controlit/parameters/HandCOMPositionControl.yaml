@@ -1,8 +1,7 @@
 header:
-  version: 2
-  description: humanoid stick bot control of COM and end effector Cartesian position and orientation
+  description: end effector Cartesian control of stickbot_humanoid_32dof_controlit
 tasks:
-  - name: RightArmCartesianPositionTask
+  - name: RightWristPositionTask
     type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
     parameters:
       - name: kp
@@ -28,7 +27,8 @@ tasks:
         value: 0
       - name: goalPosition      # in frameName's frame
         type: vector
-        value: [0.15180417579690852, -0.18507059795744202, 0.802338564271228]
+        # value: [-0.027415353493742738, -0.23084780929980173, 0.70197780175084]
+        value: [-0.008796419296566299, -0.2305559599399811, 0.8374181932455703]
       - name: goalVelocity           # in frameName's frame
         type: vector
         value: [0.0, 0.0, 0.0]
@@ -40,12 +40,13 @@ tasks:
         value: [[1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 1]]
-  - type: controlit/OrientQuaternionTask
-    name: RightArmOriQuatTask
+
+  - name: RightWristOrientationTask
+    type: controlit/OrientQuaternionTask
     parameters:
       - name: kp
         type: real
-        value: 100
+        value: 200
       - name: kd
         type: real
         value: 20
@@ -66,78 +67,7 @@ tasks:
         value: 0
       - name: goalOrientation      # w,x,y,z
         type: vector
-        value: [0.8787118494278933, -0.0008382589763612181, 0.477350973438069, -0.0009116768220535133]
-      - name: controlPoint      # w,x,y,z, fixed offset in body frame
-        type: vector
-        value: [1,0,0,0]
-      - name: goalVelocity           # in frameName's frame
-        type: vector
-        value: [0.0, 0.0, 0.0]
-  - name: LeftArmCartesianPositionTask
-    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
-    parameters:
-      - name: kp
-        type: vector
-        value: 10
-      - name: kd
-        type: real
-        value: 4
-      - name: maxVelocity
-        type: real
-        value: 10
-      - name: bodyName  # the coordinate frame of the current heading
-        type: string
-        value: left_wrist_adductor
-      - name: frameName  # the coordinate frame of the goal heading
-        type: string
-        value: world
-      - name: latchOn
-        type: real
-        value: 0
-      - name: resetLatch
-        type: real
-        value: 0
-      - name: goalPosition      # in frameName's frame
-        type: vector
-        value: [0.14939884473941475, 0.1860233660746471, 0.8003902013037729]
-      - name: goalVelocity           # in frameName's frame
-        type: vector
-        value: [0.0, 0.0, 0.0]
-      - name: controlPoint
-        type: vector
-        value: [0.0, 0.0, 0.0] #in bodyName's  frame
-      - name: projection
-        type: matrix
-        value: [[1, 0, 0],
-                [0, 1, 0],
-                [0, 0, 1]]
-  - type: controlit/OrientQuaternionTask
-    name: LeftArmOriQuatTask
-    parameters:
-      - name: kp
-        type: real
-        value: 100
-      - name: kd
-        type: real
-        value: 20
-      - name: maxVelocity
-        type: real
-        value: 100.0
-      - name: bodyName  # the coordinate frame of the current heading
-        type: string
-        value: left_wrist_adductor
-      - name: frameName  # the coordinate frame of the goal heading
-        type: string
-        value: world
-      - name: latchOn
-        type: real
-        value: 0
-      - name: resetLatch
-        type: real
-        value: 0
-      - name: goalOrientation      # w,x,y,z
-        type: vector
-        value: [0.8787106649734258, -0.0006943294783869571, 0.47734964846452504, -0.0020972075075540234]
+        value: [0.998682187816181, -0.04993077488957514, -0.01182878399435775, -0.0009409180770013911]
       - name: controlPoint      # w,x,y,z, fixed offset in body frame
         type: vector
         value: [1,0,0,0]
@@ -145,99 +75,185 @@ tasks:
         type: vector
         value: [0.0, 0.0, 0.0]
 
-  - type: controlit/COMTask
-    name: COMTask
+  - name: LeftWristPositionTask
+    type: controlit/CartesianPositionTask  # must match class name in sensor_plugins.xml
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
-      - name: goalPosition
+      - name: kp
         type: vector
-        value: [0.02, 0, 0.355]  # World frame X axis is forward, Y axis is to the left, Z is up.  Robot is centered over origin.
-      - name: goalVelocity
+        value: 10
+      - name: kd
+        type: real
+        value: 4
+      - name: maxVelocity
+        type: real
+        value: 10
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: left_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalPosition      # in frameName's frame
         type: vector
-        value: [0, 0, 0]
+        # value: [-0.026044464994334417, 0.23086809830655858, 0.7023824827171156]
+        value: [-0.007799524764560805, 0.2311174601948187, 0.8375245627803899]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+      - name: controlPoint
+        type: vector
+        value: [0.0, 0.0, 0.0] #in bodyName's  frame
+      - name: projection
+        type: matrix
+        value: [[1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]]
+
+  - name: LeftWristOrientationTask
+    type: controlit/OrientQuaternionTask
+    parameters:
+      - name: kp
+        type: real
+        value: 200
+      - name: kd
+        type: real
+        value: 20
+      - name: maxVelocity
+        type: real
+        value: 100.0
+      - name: bodyName  # the coordinate frame of the current heading
+        type: string
+        value: left_wrist_adductor
+      - name: frameName  # the coordinate frame of the goal heading
+        type: string
+        value: world
+      - name: latchOn
+        type: real
+        value: 0
+      - name: resetLatch
+        type: real
+        value: 0
+      - name: goalOrientation      # w,x,y,z
+        type: vector
+        value: [0.998736921778896, 0.05015925251082566, -0.002903059397650681, -0.0004274450892306993]
+      - name: controlPoint      # w,x,y,z, fixed offset in body frame
+        type: vector
+        value: [1,0,0,0]
+      - name: goalVelocity           # in frameName's frame
+        type: vector
+        value: [0.0, 0.0, 0.0]
+
+  - name: COMTask
+    type: controlit/COMTask
+    parameters:
+      - name: frameName
+        type: string
+        value: "world"
       - name: projection
         type: matrix
         value: [[1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 0]]
+      - name: goalPosition
+        type: vector
+        # value: [0.02587, 0.0, 0.0]
+        value: [0.014, 0.0, 0.0]
+      - name: goalVelocity
+        type: vector
+        value: [0, 0, 0]
       - name: kp
         type: vector
         value: [10, 10, 10]
       - name: kd
         type: vector
-        value: [6, 6, 6]
+        value: [4, 4, 4]
       - name: maxVelocity
         type: vector
         value: [0.2, 0.2, 0.2]
       - name: maxAcceleration
         type: vector
         value: [0, 0, 0]
-      - name: error
-        type: vector
-        value: [0, 0, 0]
-      - name: errorDot
-        type: vector
-        value: [0, 0, 0]
-      - name: worldCOM
-        type: vector
-        value: [0, 0, 0]
-      - name: frameName
-        type: string
-        value: "world"
 
-  - type: controlit/JointPositionTask
-    name: JPosTask
+  - name: JPosTask
+    type: controlit/JointPositionTask
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
-        value: [100, 100, 100, 100, 100, 100,        # left leg
-                100, 100, 100, 100, 100, 100,        # right leg
-                100, 100, 100,                       # torso
-                100, 100, 100, 100, 100, 100, 100,   # left arm
-                100, 100, 100,                       # neck
-                100, 100, 100, 100, 100, 100, 100]   # right arm
+        value: [50, 50, 50, 50, 50, 50,        # left leg
+                50, 50, 50, 50, 50, 50,        # right leg
+                50, 50, 50,                    # torso
+                50, 50, 50, 50, 50, 50, 50,    # left arm
+                50, 50, 50,                    # neck
+                50, 50, 50, 50, 50, 50, 50]    # right arm
       - name: kd
         type: vector,
         # Over-damp the torso joints to prevent oscillations
-        value: [20, 20, 20, 20, 20, 20,              # left leg
-                20, 20, 20, 20, 20, 20,              # right leg
-                20, 50, 50,                          # torso
-                20, 20, 20, 20, 20, 20, 20,          # left arm
-                20, 20, 20,                          # neck
-                20, 20, 20, 20, 20, 20, 20]          # right arm
+        value: [2, 2, 2, 2, 2, 2,              # left leg
+                2, 2, 2, 2, 2, 2,              # right leg
+                2, 2, 2,                       # torso
+                2, 2, 2, 2, 2, 2, 2,           # left arm
+                2, 2, 2,                       # neck
+                2, 2, 2, 2, 2, 2, 2]           # right arm
       - name: maxVelocity
         type: vector
-        value: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+        value: [100, 100, 100, 100, 100, 100,
+                100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100,
+                100, 100, 100,
+                100, 100, 100, 100, 100, 100, 100]
       - name: maxAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalPosition
         type: vector
+        # High squat
         value: [0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # left leg
                 0.0, -0.3, 0.0, 0.65, -0.35, 0.0,    # right leg
                 0.0, 0.0, 0.0,                       # torso
                 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
                 0.0, 0.0, 0.0,                       # neck
                 0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
+
+        # Low squat
+        # value: [0.0, -0.8, 0.0, 1.5, -0.71, 0.0,    # left leg
+        #         0.0, -0.8, 0.0, 1.5, -0.71, 0.0,    # right leg
+        #         0.0, 0.0, 0.0,                       # torso
+        #         0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,   # left arm
+        #         0.0, 0.0, 0.0,                       # neck
+        #         0.0, -0.1, 0.0, 0.0, 0.0, 0.0, 0.0]  # right arm
+
       - name: goalVelocity
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
       - name: goalAcceleration
         type: vector
-        value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        value: [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0]
 
-
-  - type: controlit/GenericInternalForceTask
-    name: InternalForceTask
+  - name: InternalForceTask
+    type: controlit/GenericInternalForceTask
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: goalFint
         type: vector
         value: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -251,32 +267,36 @@ tasks:
     #     expression: errorDotNorm < 1e-3
 compound_task:
   type: compound_task
-  name: My compound task
+  name: My Compound Task
   # events:
   #   - name: converged
   #     expression: JPosTask.converged && JPosTask.quiescent
   task_list:
+    #  Enable states are defined as follows:
+    #    - 0: disable
+    #    - 1: sensing
+    #    - 2: enable
      - name: COMTask
        priority: 0
-       enabled: 1
-     - name: RightArmCartesianPositionTask
+       enableState: 2
+     - name: RightWristPositionTask
        priority: 1
-       enabled: 0
-     # - name: RightArmOriQuatTask
-     #   priority: 1
-     #   enabled: 0     
-     - name: LeftArmCartesianPositionTask
+       enableState: 2
+     - name: RightWristOrientationTask
        priority: 1
-       enabled: 0
-     # - name: LeftArmOriQuatTask
-     #   priority: 1
-     #   enabled: 0
+       enableState: 2
+     - name: LeftWristPositionTask
+       priority: 1
+       enableState: 2
+     - name: LeftWristOrientationTask
+       priority: 1
+       enableState: 2
      - name: JPosTask
        priority: 2
-       enabled: 1
+       enableState: 2
      - name : InternalForceTask
        priority: 3
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/FlatContactConstraintSensed
     name: LeftContactConstraint
@@ -308,9 +328,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
-        type: integer
-        value: 1
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -344,9 +361,6 @@ constraints:
       - name: reactionForceFrame
         type: int
         value: 1        # 0 = world, 1 = local
-      - name: enabled
-        type: integer
-        value: 1
       - name: goalCOPFrame
         type: int
         value: 1        # 0 = world, 1 = local
@@ -355,6 +369,6 @@ constraint_set:
   name: My Constraint Set
   active_constraints:
     - name: LeftContactConstraint
-      enabled: 1
+      enableState: 2
     - name: RightContactConstraint
-      enabled: 1
+      enableState: 2
