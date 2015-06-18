@@ -6,21 +6,21 @@ tasks:
     parameters:
       - name: kp
         type: vector
-        value: [200, 200, 200, 200, 200, 200,        # left leg
-                200, 200, 200, 200, 200, 200,        # right leg
-                200, 200, 200,                       # torso
-                200, 200, 200, 200, 200, 200, 200,   # left arm
-                200, 200, 200,                       # neck
-                200, 200, 200, 200, 200, 200, 200]   # right arm
+        value: [50, 50, 50, 50, 50, 50,        # left leg
+                50, 50, 50, 50, 50, 50,        # right leg
+                50, 50, 50,                       # torso
+                50, 50, 50, 50, 50, 50, 50,   # left arm
+                50, 50, 50,                       # neck
+                50, 50, 50, 50, 50, 50, 50]   # right arm
       - name: kd
         type: vector
         # Over-damp the torso joints to prevent oscillations
-        value: [30, 30, 30, 30, 30, 30,              # left leg
-                30, 30, 30, 30, 30, 30,              # right leg
-                30, 60, 60,                          # torso
-                30, 30, 30, 30, 30, 30, 30,          # left arm
-                30, 30, 30,                          # neck
-                30, 30, 30, 30, 30, 30, 30]          # right arm
+        value: [2.5, 2.5, 2.5, 2.5, 2.5, 2.5,              # left leg
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5,              # right leg
+                2.5, 2.5, 2.5,                          # torso
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5,          # left arm
+                2.5, 2.5, 2.5,                          # neck
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5]          # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100,
