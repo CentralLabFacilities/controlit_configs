@@ -60,20 +60,11 @@ include_directories(
 )
 link_directories(${GAZEBO_LIBRARY_DIRS})
 
-add_executable(DreamerInteractiveMarkers 
-    src/DreamerInteractiveMarkers.cpp
-)
-
-target_link_libraries(DreamerInteractiveMarkers 
-    ${catkin_LIBRARIES}
-    ${GAZEBO_LIBRARIES}
-)
-
-add_executable(TestQuaternionTrajectory 
+add_executable(TestQuaternionTrajectory
     src/TestQuaternionTrajectory.cpp
 )
 
-target_link_libraries(TestQuaternionTrajectory 
+target_link_libraries(TestQuaternionTrajectory
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
 )

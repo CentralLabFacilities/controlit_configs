@@ -2,21 +2,21 @@
 <launch>
     <!-- Load the robot description parameter -->
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find dreamer_controlit)/models/dreamer_controlit/xacro/dreamer_controlit_rviz.xacro'"/>
-  
+
     <rosparam param="servo_clock_type">controlit_servo_clock/ServoClockChrono</rosparam>
-  
+
     <rosparam param="servo_frequency">1000</rosparam>
-  
+
     <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceSM</rosparam>
     <!-- <rosparam param="robot_interface_type">controlit_robot_interface/RobotInterfaceROSTopic</rosparam> -->
-  
+
     <rosparam param="whole_body_controller_type">controlit_wbc/WBOSC</rosparam>
-  
+
     <rosparam param="odometry_topic">/gazebo/root_link_odom</rosparam>
-  
+
     <rosparam param="parameter_binding_factories">["controlit_binding_factory/BindingFactoryROS", "controlit_binding_factory/BindingFactorySM"]</rosparam>
-  
+
     <!-- Specify the log level and the log prefix fields -->
     <rosparam param="log_level">DEBUG</rosparam>
-    <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>  
+    <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>
 </launch>
