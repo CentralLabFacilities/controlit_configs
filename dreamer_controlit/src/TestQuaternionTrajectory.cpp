@@ -19,7 +19,7 @@
  */
 
 /**
- * This is a test program that generates a trajectory between the 
+ * This is a test program that generates a trajectory between the
  * following two quaternions defined in the world coordinate frame:
  *
  * [0, 1, 0, 0]
@@ -46,7 +46,7 @@ using controlit::addons::eigen::Quaternion;
 
 ros::Publisher publisher;
 
-/** 
+/**
  * Override the '<<' operator for printing an quaternion to an output stream.
  */
 std::ostream & operator<<(std::ostream & os, const Quaternion & qq)
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 
     // Create publishers for the new position and quaternion goals
     publisher = nh.advertise<std_msgs::Float64MultiArray>("/dreamer_controller/RightHandOrientation/goalOrientation", 1000);
-  
+
     // Define the message to be published
     std_msgs::MultiArrayDimension dimMsg;
     std_msgs::Float64MultiArray goalMsg;

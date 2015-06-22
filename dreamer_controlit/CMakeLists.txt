@@ -7,11 +7,11 @@ project(dreamer_controlit)
 find_package(catkin REQUIRED COMPONENTS
     roscpp
     cmake_modules
-    interactive_markers
+    # interactive_markers
     controlit_dependency_addons
 )
 
-find_package(gazebo REQUIRED)
+#find_package(gazebo REQUIRED)
 find_package(Eigen REQUIRED)
 
 ###################################
@@ -43,19 +43,19 @@ catkin_package(
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-include (FindPkgConfig)
-if (PKG_CONFIG_FOUND)
-  pkg_check_modules(GAZEBO gazebo REQUIRED)
-else()
-  message(FATAL_ERROR "pkg-config is required; please install it")
-endif()
+#include (FindPkgConfig)
+#if (PKG_CONFIG_FOUND)
+#  pkg_check_modules(GAZEBO gazebo REQUIRED)
+#else()
+#  message(FATAL_ERROR "pkg-config is required; please install it")
+#endif()
 
-message(STATUS ${GAZEBO_INCLUDE_DIRS})
-message(STATUS ${GAZEBO_LIBRARY_DIRS})
+#message(STATUS ${GAZEBO_INCLUDE_DIRS})
+#message(STATUS ${GAZEBO_LIBRARY_DIRS})
 
 include_directories(
     ${catkin_INCLUDE_DIRS}
-    ${GAZEBO_INCLUDE_DIRS}
+    #${GAZEBO_INCLUDE_DIRS}
     ${EIGEN_INCLUDE_DIRS}
 )
 link_directories(${GAZEBO_LIBRARY_DIRS})
@@ -66,7 +66,7 @@ add_executable(TestQuaternionTrajectory
 
 target_link_libraries(TestQuaternionTrajectory
     ${catkin_LIBRARIES}
-    ${GAZEBO_LIBRARIES}
+    #${GAZEBO_LIBRARIES}
 )
 
 # rosbuild_add_library(dreamer_slave_joint_plugin gazebo_plugins/src/dreamer_slave_joint_plugin.cpp)
