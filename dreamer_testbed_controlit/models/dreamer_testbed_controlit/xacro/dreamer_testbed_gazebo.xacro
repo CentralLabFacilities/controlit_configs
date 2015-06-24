@@ -10,12 +10,12 @@
     <property name="JOINT_TYPE_TORSO_YAW"               value="fixed" />
     <property name="JOINT_TYPE_TORSO_LOWER_PITCH"       value="revolute" />
     <property name="JOINT_TYPE_TORSO_UPPER_PITCH"       value="revolute" />
-    
+
     <property name="JOINT_TYPE_LOWER_NECK_PITCH"        value="fixed" />
     <property name="JOINT_TYPE_UPPER_NECK_YAW"          value="fixed" />
     <property name="JOINT_TYPE_UPPER_NECK_ROLL"         value="fixed" />
     <property name="JOINT_TYPE_UPPER_NECK_PITCH"        value="fixed" />
-    
+
     <property name="JOINT_TYPE_LEFT_SHOULDER_EXTENSOR"  value="revolute" />
     <property name="JOINT_TYPE_LEFT_SHOULDER_ABDUCTOR"  value="revolute" />
     <property name="JOINT_TYPE_LEFT_SHOULDER_ROTATOR"   value="revolute" />
@@ -23,7 +23,7 @@
     <property name="JOINT_TYPE_LEFT_WRIST_ROTATOR"      value="revolute" />
     <property name="JOINT_TYPE_LEFT_WRIST_PITCH"        value="revolute" />
     <property name="JOINT_TYPE_LEFT_WRIST_YAW"          value="revolute" />
-    
+
     <property name="JOINT_TYPE_RIGHT_SHOULDER_EXTENSOR" value="revolute" />
     <property name="JOINT_TYPE_RIGHT_SHOULDER_ABDUCTOR" value="revolute" />
     <property name="JOINT_TYPE_RIGHT_SHOULDER_ROTATOR"  value="revolute" />
@@ -31,6 +31,9 @@
     <property name="JOINT_TYPE_RIGHT_WRIST_ROTATOR"     value="revolute" />
     <property name="JOINT_TYPE_RIGHT_WRIST_PITCH"       value="revolute" />
     <property name="JOINT_TYPE_RIGHT_WRIST_YAW"         value="revolute" />
+
+    <property name="MESH_QUALITY" value="optimized" />
+    <property name="MESH_EXTENSION" value="stl" />
 
     <!-- Gazebo uses model:// for the model path. -->
     <property name="modelPath" value="model://dreamer" />

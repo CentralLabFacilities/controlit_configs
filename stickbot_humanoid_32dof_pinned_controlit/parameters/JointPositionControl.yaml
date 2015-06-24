@@ -3,24 +3,24 @@ header:
 tasks:
   - name: JPosTask                    # Arbitrary instance name
     type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
-    parameters:      
+    parameters:
       - name: kp
         type: vector
-        value: [100, 100, 100, 100, 100, 100,       # left leg
-                100, 100, 100, 100, 100, 100,       # right leg
-                100, 100, 100,                      # torso
-                100, 100, 100, 100, 100, 100, 100,  # left arm
-                100, 100, 100,                      # neck
-                100, 100, 100, 100, 100, 100, 100]  # right arm
+        value: [50, 50, 50, 50, 50, 50,       # left leg
+                50, 50, 50, 50, 50, 50,       # right leg
+                50, 50, 50,                      # torso
+                50, 50, 50, 50, 50, 50, 50,  # left arm
+                50, 50, 50,                      # neck
+                50, 50, 50, 50, 50, 50, 50]  # right arm
       - name: kd
         type: vector,
         # Over-damp the torso joints to prevent oscillations that occured when wrist extensors were added
-        value: [20, 20, 20, 20, 20, 20,       # left leg
-                20, 20, 20, 20, 20, 20,       # right leg
-                20, 50, 50,                   # torso
-                20, 20, 20, 20, 20, 20, 20,   # left arm
-                20, 20, 20,                   # neck
-                20, 20, 20, 20, 20, 20, 20]   # right arm
+        value: [2.5, 2.5, 2.5, 2.5, 2.5, 2.5,       # left leg
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5,       # right leg
+                2.5, 2.5, 2.5,                   # torso
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5,   # left arm
+                2.5, 2.5, 2.5,                   # neck
+                2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5]   # right arm
       - name: maxVelocity
         type: vector
         value: [100, 100, 100, 100, 100, 100,
@@ -40,16 +40,16 @@ tasks:
       - name: goalPosition
         type: vector
         value: [0.0,   # left hip joint 1
-                0.8,   # left hip extensor
+                -0.8,   # left hip extensor
                 0.0,   # left hip aductor
-                -1.5,  # left knee
-                0.71,  # left ankle pitch
+                1.5,  # left knee
+                -0.71,  # left ankle pitch
                 0.0,   # left ankle roll
                 0.0,   # right hip joint 1
-                0.8,   # right hip extensor
+                -0.8,   # right hip extensor
                 0.0,   # right hip aductor
-                -1.5,  # right knee (positive for flexion)?
-                0.71,  # right ankle pitch (negative for flexion)?
+                1.5,  # right knee (positive for flexion)?
+                -0.71,  # right ankle pitch (negative for flexion)?
                 0.0,   # right ankle roll
                 0.0,   # waist rotation
                 0.0,   # torso extensor
@@ -57,7 +57,7 @@ tasks:
                 0.0,   # left shoulder extensor
                 0.0,   # left_shoulder_adductor
                 0.0,   # left_shoulder_rotator
-                1.0,   # left_elbow_extensor
+                -1.0,   # left_elbow_extensor
                 0.0,   # left_wrist_rotator
                 0.0,   # left_wrist_extensor
                 0.0,   # left_wrist_adductor
@@ -67,7 +67,7 @@ tasks:
                 0.0,   # right shoulder extensor
                 0.0,   # right_shoulder_adductor
                 0.0,   # right_shoulder_rotator
-                1.0,   # right_elbow_extensor
+                -1.0,   # right_elbow_extensor
                 0.0,   # right_wrist_rotator
                 0.0,   # right_wrist_extensor
                 0.0]   # right_wrist_adductor

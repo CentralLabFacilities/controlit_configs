@@ -11,8 +11,13 @@ find_package(catkin REQUIRED COMPONENTS
     controlit_dependency_addons
 )
 
-#find_package(gazebo REQUIRED)
+find_package(gazebo REQUIRED)
 find_package(Eigen REQUIRED)
+
+list(APPEND CMAKE_MODULE_PATH ${controlit_cmake_DIR}/../../../../src/controlit/controlit_cmake/cmake)
+
+include(controlitbuild)
+controlit_build_init()
 
 ###################################
 ## catkin specific configuration ##
@@ -55,7 +60,7 @@ catkin_package(
 
 include_directories(
     ${catkin_INCLUDE_DIRS}
-    #${GAZEBO_INCLUDE_DIRS}
+    ${GAZEBO_INCLUDE_DIRS}
     ${EIGEN_INCLUDE_DIRS}
 )
 link_directories(${GAZEBO_LIBRARY_DIRS})
@@ -69,8 +74,26 @@ target_link_libraries(TestQuaternionTrajectory
     #${GAZEBO_LIBRARIES}
 )
 
-# rosbuild_add_library(dreamer_slave_joint_plugin gazebo_plugins/src/dreamer_slave_joint_plugin.cpp)
-# rosbuild_add_compile_flags(dreamer_slave_joint_plugin -std=c++0x)
+add_library(DreamerTorsoTransmissionPlugin
+    gazebo_plugins/src/DreamerTorsoTransmissionPlugin.cpp
+)
 
-# rosbuild_add_library(dreamer_eye_plugin gazebo_plugins/src/dreamer_eye_plugin.cpp)
-# rosbuild_add_compile_flags(dreamer_eye_plugin -std=c++0x)
+target_link_libraries(DreamerTorsoTransmissionPlugin
+    ${GAZEBO_LIBRARIES}
+)
+
+# add_library(dreamer_eye_plugin
+#     gazebo_plugins/src/dreamer_eye_plugin.cpp
+# )
+
+# target_link_libraries(dreamer_eye_plugin
+#     ${GAZEBO_LIBRARIES}
+# )
+
+# add_library(dreamer_pr2_gripper_plugin
+#     gazebo_plugins/src/dreamer_pr2_gripper_plugin.cpp
+# )
+
+# target_link_libraries(dreamer_pr2_gripper_plugin
+#     ${GAZEBO_LIBRARIES}
+# )

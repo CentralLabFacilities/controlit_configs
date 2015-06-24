@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
     <include file="$(find dreamer_testbed_controlit)/launch/simulate_base.xml"/>
-    <include file="$(find dreamer_no_left_arm_controlit)/launch/load_dreamer_no_left_arm_parameters_jpos.launch"/>
+    <include file="$(find dreamer_controlit)/launch/load_dreamer_parameters_jpos.launch"/>
 </launch>
 

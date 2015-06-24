@@ -3,6 +3,6 @@
     <include file="$(find stickbot_leg_6dof_controlit)/launch/gazebo.launch"/>
     <include file="$(find stickbot_leg_6dof_controlit)/launch/load_stickbot_leg_6dof_parameters.launch"/>
     <include file="$(find stickbot_leg_6dof_controlit)/launch/start_controlit.launch"/>
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_leg_6dof_controlit)/launch/rviz_configure.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_leg_6dof_controlit)/rviz/stickbot_leg_6dof.rviz"/>
 </launch>
 

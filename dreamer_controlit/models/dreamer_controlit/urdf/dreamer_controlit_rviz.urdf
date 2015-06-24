@@ -8,15 +8,12 @@
   <!-- RViz uses package:// for the model path -->
   <!-- Load the Dreamer Model -->
   <!-- <property name="MESH" value="mid_res" /> -->
-  <!-- The following was taken from drc_configuration/common_xacro/xacro/generic_models.xacro -->
   <!-- Its seems that zero mass links are not kosher. I can't find any solid data, only suggestions from people
-  as to what small but not too small should be for mass numbers.
-
-  Until better evidence/experience says otherwise, we will use a mass that is ~0.1% * total_mass, and
-  the inertia properties of a cylinder. Justification: Most of these virtual links are the rotor attached
-  to gearing and any attachment structure.
-   -->
-  <!-- The following was taken from drc_configuration/common_xacro/xacro/generic_models.xacro -->
+    as to what small but not too small should be for mass numbers.
+    Until better evidence/experience says otherwise, we will use a mass that is ~0.1% * total_mass, and
+    the inertia properties of a cylinder. Justification: Most of these virtual links are the rotor attached
+    to gearing and any attachment structure.
+     -->
   <!--Torso-->
   <!-- ensure that modelPath, MESH, TORSO are defined in parent xacro -->
   <!-- Arms -->
@@ -789,7 +786,6 @@
     <visual>
       <geometry>
         <mesh filename="package://dreamer/models/dreamer/meka_description/meshes/optimized/H2R3/H2R3_RJ0_thumb_abductlink.stl" scale="1 1 1"/>
-        <!-- <box size="${width} ${height} ${depth}"/> -->
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <!-- <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/> -->
@@ -802,9 +798,6 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <!-- <gazebo reference="${name}">
-      <material>Gazebo/${material}</material>
-    </gazebo> -->
   <gazebo reference="right_thumb_cmc_link">
     <mu1>1</mu1>
     <mu2>1</mu2>
@@ -1153,10 +1146,10 @@
     <mu1>1</mu1>
     <mu2>1</mu2>
   </gazebo>
-  <!--   
+  <!--
     <m3_l_hand side="l" reflect="1" parent="left_wrist_yaw_link">
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-    </m3_l_hand> 
+    </m3_l_hand>
     -->
   <!-- Add PR2 gripper onto end of left arm -->
   <!--Modify by POLAM-->
@@ -1364,136 +1357,4 @@
       </geometry>
     </collision>
   </link>
-  <!--
-      The following enables torque feedback.  Without these, the following warning will be printed
-      by Gazebo when the shared memory plugin is used:
-    
-      Warning [ODEJoint.cc:1105] GetForceTorque: forgot to set <provide_feedback>?
-    -->
-  <!-- Torso joints -->
-  <gazebo reference="torso_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="torso_lower_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="torso_upper_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <!-- right arm joints -->
-  <gazebo reference="right_shoulder_extensor">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_shoulder_abductor">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_shoulder_rotator">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_elbow">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_wrist_rotator">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_wrist_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_wrist_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <!-- Left arm joints -->
-  <gazebo reference="left_shoulder_extensor">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_shoulder_abductor">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_shoulder_rotator">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_elbow">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_wrist_rotator">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_wrist_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_wrist_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <!-- Head and neck joints -->
-  <gazebo reference="lower_neck_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="upper_neck_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="upper_neck_roll">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="upper_neck_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="eye_pitch">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_eye_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="left_eye_yaw">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <!-- Right hand joints -->
-  <gazebo reference="right_thumb_1">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_thumb_2">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_thumb_3">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pointer_finger_1">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pointer_finger_2">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pointer_finger_3">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_middle_finger_1">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_middle_finger_2">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_middle_finger_3">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pinky_1">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pinky_2">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="right_pinky_3">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <!-- Left gripper joints -->
-  <gazebo reference="l_gripper_l_finger_joint">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="l_gripper_l_finger_tip_joint">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="l_gripper_r_finger_joint">
-    <provideFeedback value="true"/>
-  </gazebo>
-  <gazebo reference="l_gripper_r_finger_tip_joint">
-    <provideFeedback value="true"/>
-  </gazebo>
 </robot>

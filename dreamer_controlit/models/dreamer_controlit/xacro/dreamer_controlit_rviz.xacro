@@ -32,6 +32,9 @@
     <property name="JOINT_TYPE_RIGHT_WRIST_PITCH"       value="revolute" />
     <property name="JOINT_TYPE_RIGHT_WRIST_YAW"         value="revolute" />
 
+    <property name="MESH_QUALITY" value="optimized" />
+    <property name="MESH_EXTENSION" value="stl" />
+
     <!-- RViz uses package:// for the model path -->
     <property name="modelPath" value="package://dreamer/models/dreamer" />
     <property name="gripperModelPath" value="package://dreamer/models/dreamer" />

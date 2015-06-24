@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <launch>
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find dreamer_controlit)/models/dreamer_controlit/xacro/dreamer_controlit_rviz.xacro'"/>
-    
+
     <group ns="dreamer_controller/controlit">
         <include file="$(find dreamer_controlit)/launch/dreamer_params_base.xml"/>
         <param name="parameters" textfile="$(find dreamer_controlit)/parameters/CartesianPositionControl_BothHands.yaml"/>

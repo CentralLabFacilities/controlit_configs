@@ -5,21 +5,21 @@
 
     <!-- Load the robot description parameter. -->
     <param name="robot_description"
-           command="$(find xacro)/xacro.py '$(find dreamer_no_left_arm_controlit)/models/dreamer_no_left_arm_controlit/xacro/dreamer_no_left_arm_controlit.xacro'"/>
+           command="$(find xacro)/xacro.py '$(find dreamer_controlit)/models/dreamer_controlit/xacro/dreamer_controlit_rviz.xacro'"/>
 
-    <group ns="dreamer_no_left_arm_controller">
+    <group ns="dreamer_controller">
         <!-- Set the parameters used by the SMControlPlugin. -->
         <rosparam param="ControlItSMGazeboPlugin/JointOrder">["m3joint_mt3_j0", "m3joint_mt3_j1", "m3joint_slave_mt3_j2",
                 "m3joint_ma10_j0", "m3joint_ma10_j1", "m3joint_ma10_j2", "m3joint_ma10_j3", "m3joint_ma10_j4", "m3joint_ma10_j5",
                 "m3joint_ma10_j6", "m3joint_ms2_j0", "m3joint_ms2_j1", "m3joint_ms2_j2", "m3joint_ms2_j3"]</rosparam>
         <rosparam param="ControlItSMGazeboPlugin/UnactuatedJoints">["m3joint_slave_mt3_j2"]</rosparam>
-        
+
         <!-- Start gazebo with robot. -->
         <node args="$(find dreamer_testbed_controlit)/worlds/dreamer_testbed.world" name="gazebo" pkg="controlit_simulation_gazebo" type="run_gazebo.sh" ns="dreamer_testbed_controller"/>
     </group>
 
-    
+
     <!-- Start a shared memory manager. -->
-    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager" 
+    <node name="SMManager" pkg="shared_memory_interface" type="shared_memory_manager"
         output="screen" ns="/" respawn="false"/>
 </launch>

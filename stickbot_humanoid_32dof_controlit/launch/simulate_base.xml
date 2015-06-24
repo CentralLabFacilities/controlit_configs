@@ -2,6 +2,6 @@
 <launch>
     <include file="$(find stickbot_humanoid_32dof_controlit)/launch/gazebo.launch"/>
    	<include file="$(find stickbot_humanoid_32dof_controlit)/launch/start_controlit.launch"/>
-   	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_humanoid_32dof_controlit)/launch/rviz_configure.rviz"/>
+   	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find stickbot_humanoid_32dof_controlit)/rviz/stickbot_humanoid_32dof.rviz"/>
 </launch>
 
