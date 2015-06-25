@@ -40,8 +40,8 @@
 #include <XmlRpcValue.h>
 #include <XmlRpcException.h>
 
-#define JOINT_STATE_PUBLISH_FREQ_HZ 400
 #define TOLERANCE 1e-6
+#define NUM_JOINTS 3
 
 namespace gazebo {
 class DreamerEyePlugin : public ModelPlugin
@@ -61,7 +61,7 @@ public:
         lastPubTime = ros::Time::now();
 
         // Define the joints to be controlled
-        EYE_JOINT_NAMES = new std::string[3]
+        EYE_JOINT_NAMES = new std::string[NUM_JOINTS]
         {
             "eye_pitch",
             "right_eye_yaw",
@@ -97,7 +97,7 @@ public:
         // TODO : Get KP/KD from parameters at startup!!!
 
         // Set up parameters for this plugin
-        for (size_t ii = 0; ii < 3; ii++)
+        for (size_t ii = 0; ii < NUM_JOINTS; ii++)
         {
             physics::JointPtr _jptr = this->model->GetJoint(EYE_JOINT_NAMES[ii]);
             if (_jptr == nullptr)
