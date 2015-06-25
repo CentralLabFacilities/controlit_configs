@@ -36,6 +36,9 @@
 
 namespace gazebo {
 
+double DEFAULT_KP_GAINS[4] = {100, 100, 100, 100};
+double DEFAULT_KD_GAINS[4] = {20, 20, 20, 20};
+
 struct JointControllerParameters {
     physics::JointPtr joint;
     double kp;
@@ -92,8 +95,8 @@ public:
 
             struct JointControllerParameters params;
             params.joint =  joint;
-            params.kp = 100;
-            params.kd = 20;
+            params.kp = DEFAULT_KP_GAINS[ii];
+            params.kd = DEFAULT_KD_GAINS[ii];
             params.goalPos = 0;
             params.goalVel = 0;
 
