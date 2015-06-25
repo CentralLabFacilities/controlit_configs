@@ -117,7 +117,7 @@ public:
         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
             boost::bind(&DreamerNeckPlugin::onUpdate, this));
 
-        // Instantiate a ROS topic publisher for the current position and velocity errors
+        // Instantiate a ROS topic publishers
         currPosPublisher = this->node->advertise<std_msgs::Float64MultiArray>("neck/current_position", 1, false);
         currVelPublisher = this->node->advertise<std_msgs::Float64MultiArray>("neck/current_velocity", 1, false);
         goalPosPublisher = this->node->advertise<std_msgs::Float64MultiArray>("neck/goal_position", 1, false);

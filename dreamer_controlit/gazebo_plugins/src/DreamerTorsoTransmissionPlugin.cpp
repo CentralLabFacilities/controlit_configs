@@ -40,6 +40,9 @@
 
 namespace gazebo {
 
+#define DEFAULT_KP 1000
+#define DEFAULT_KD 50
+
 class DreamerTorsoTransmissionPlugin : public ModelPlugin
 {
 
@@ -86,20 +89,29 @@ class DreamerTorsoTransmissionPlugin : public ModelPlugin
             return;
         }
 
-        kp = 150;
-        kd = 30;
+        kp = DEFAULT_KP;
+        kd = DEFAULT_KD;
 
         // ROS Nodehandle
         this->node = new ros::NodeHandle;
 
         // Listeners for published updates to embedded controller
-        this->kpSub = this->node->subscribe("dreamer_slave_joint_kp", 1000, &DreamerTorsoTransmissionPlugin::KpCallback, this);
-        this->kdSub = this->node->subscribe("dreamer_slave_joint_kd", 1000, &DreamerTorsoTransmissionPlugin::KdCallback, this);
+        this->kpSub = this->node->subscribe("torso/kp", 1000, &DreamerTorsoTransmissionPlugin::KpCallback, this);
+        this->kdSub = this->node->subscribe("torso/kd", 1000, &DreamerTorsoTransmissionPlugin::KdCallback, this);
 
         // Listen to the update event. This event is broadcast every
         // simulation iteration.
         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
             boost::bind(&DreamerTorsoTransmissionPlugin::onUpdate, this));
+
+        // Instantiate a ROS topic publishers
+        currPosPublisher = this->node->advertise<std_msgs::Float64>("torso/current_position", 1, false);
+        currVelPublisher = this->node->advertise<std_msgs::Float64>("torso/current_velocity", 1, false);
+        goalPosPublisher = this->node->advertise<std_msgs::Float64>("torso/goal_position", 1, false);
+        goalVelPublisher = this->node->advertise<std_msgs::Float64>("torso/goal_velocity", 1, false);
+        posErrorPublisher = this->node->advertise<std_msgs::Float64>("torso/position_error", 1, false);
+        velErrorPublisher = this->node->advertise<std_msgs::Float64>("torso/velocity_error", 1, false);
+        torquePublisher = this->node->advertise<std_msgs::Float64>("torso/torque_cmd", 1, false);
 
         initialized = true;
     }
@@ -133,9 +145,28 @@ class DreamerTorsoTransmissionPlugin : public ModelPlugin
         double slaveAngle = slaveJnt->GetAngle(0).Radian();
         double slaveVelocity = slaveJnt->GetVelocity(0);
 
-        double slaveTorque = kp * (masterAngle - slaveAngle) + kd * (masterVelocity - slaveVelocity);
+        double errPos = masterAngle - slaveAngle;
+        double errVel = masterVelocity - slaveVelocity;
+
+        double slaveTorque = kp * errPos + kd * errVel;
 
         slaveJnt->SetForce(0, slaveTorque);
+
+        currPosMsg.data = slaveAngle;
+        currVelMsg.data = slaveVelocity;
+        goalPosMsg.data = masterAngle;
+        goalVelMsg.data = masterVelocity;
+        posErrorMsg.data = errPos;
+        velErrorMsg.data = errVel;
+        torqueMsg.data = slaveTorque;
+
+        currPosPublisher.publish(currPosMsg);
+        currVelPublisher.publish(currVelMsg);
+        goalPosPublisher.publish(goalPosMsg);
+        goalVelPublisher.publish(goalVelMsg);
+        posErrorPublisher.publish(posErrorMsg);
+        velErrorPublisher.publish(velErrorMsg);
+        torquePublisher.publish(torqueMsg);
     }
 
 private:
@@ -169,6 +200,19 @@ private:
 
     physics::JointPtr slaveJnt;
     physics::JointPtr masterJnt;
+
+    // ROS Publishers
+    ros::Publisher currPosPublisher, currVelPublisher,
+                   goalPosPublisher, goalVelPublisher,
+                   posErrorPublisher, velErrorPublisher,
+                   torquePublisher;
+
+    // Messages to be published
+    std_msgs::Float64 currPosMsg, currVelMsg,
+                      goalPosMsg, goalVelMsg,
+                      posErrorMsg, velErrorMsg,
+                      torqueMsg;
+
 
 };
 
