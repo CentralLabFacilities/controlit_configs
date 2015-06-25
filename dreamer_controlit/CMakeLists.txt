@@ -82,18 +82,26 @@ target_link_libraries(DreamerTorsoTransmissionPlugin
     ${GAZEBO_LIBRARIES}
 )
 
-# add_library(dreamer_eye_plugin
-#     gazebo_plugins/src/dreamer_eye_plugin.cpp
-# )
+add_library(DreamerEyePlugin
+    gazebo_plugins/src/DreamerEyePlugin.cpp
+)
 
-# target_link_libraries(dreamer_eye_plugin
-#     ${GAZEBO_LIBRARIES}
-# )
+target_link_libraries(DreamerEyePlugin
+    ${GAZEBO_LIBRARIES}
+)
 
-# add_library(dreamer_pr2_gripper_plugin
-#     gazebo_plugins/src/dreamer_pr2_gripper_plugin.cpp
-# )
+add_library(DreamerLeftGripperPlugin
+    gazebo_plugins/src/DreamerLeftGripperPlugin.cpp
+)
 
-# target_link_libraries(dreamer_pr2_gripper_plugin
-#     ${GAZEBO_LIBRARIES}
-# )
+target_link_libraries(DreamerLeftGripperPlugin
+    ${GAZEBO_LIBRARIES}
+)
+
+add_library(DreamerNeckPlugin
+    gazebo_plugins/src/DreamerNeckPlugin.cpp
+)
+
+target_link_libraries(DreamerNeckPlugin
+    ${GAZEBO_LIBRARIES}
+)

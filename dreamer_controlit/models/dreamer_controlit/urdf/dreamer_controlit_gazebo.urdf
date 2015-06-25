@@ -1369,11 +1369,13 @@
     <!-- Mimic the internal transmission in Dreamer's torso. -->
     <plugin filename="libDreamerTorsoTransmissionPlugin.so" name="DreamerTorsoTransmissionPlugin"/>
     <!-- Control the eyes. -->
-    <!-- <plugin filename="libdreamer_eye_plugin.so" name="DreamerEyePlugin"/> -->
+    <plugin filename="libDreamerEyePlugin.so" name="DreamerEyePlugin"/>
     <!-- Control the right hand. -->
     <!-- <plugin filename="libdreamer_hand_poscom_plugin.so" name="RightHandPosComPlugin"/> -->
     <!-- Control the left gripper. -->
-    <!-- <plugin filename="libdreamer_pr2_gripper_plugin.so" name="DreamerGripperPlugin"/> -->
+    <plugin filename="libDreamerLeftGripperPlugin.so" name="DreamerLeftGripperPlugin"/>
+    <!-- Control the neck. -->
+    <plugin filename="libDreamerNeckPlugin.so" name="DreamerNeckPlugin"/>
   </gazebo>
   <!--
       The following enables torque feedback.  Without these, the following warning will be printed
