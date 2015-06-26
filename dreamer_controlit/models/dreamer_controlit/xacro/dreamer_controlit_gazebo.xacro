@@ -61,7 +61,7 @@
         <plugin filename="libDreamerEyePlugin.so" name="DreamerEyePlugin"/>
 
         <!-- Control the right hand. -->
-        <!-- <plugin filename="libdreamer_hand_poscom_plugin.so" name="RightHandPosComPlugin"/> -->
+        <plugin filename="libDreamerRightHandPlugin.so" name="DreamerRightHandPlugin"/>
 
         <!-- Control the left gripper. -->
         <plugin filename="libDreamerLeftGripperPlugin.so" name="DreamerLeftGripperPlugin"/>

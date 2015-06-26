@@ -105,3 +105,11 @@ add_library(DreamerNeckPlugin
 target_link_libraries(DreamerNeckPlugin
     ${GAZEBO_LIBRARIES}
 )
+
+add_library(DreamerRightHandPlugin
+    gazebo_plugins/src/DreamerRightHandPlugin.cpp
+)
+
+target_link_libraries(DreamerRightHandPlugin
+    ${GAZEBO_LIBRARIES}
+)
