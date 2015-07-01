@@ -233,30 +233,30 @@ tasks:
       - name: quiescent
         expression: errorDotNorm < 3e-2 #absolute value take in code
 compound_task:
+  name: DreamerCompoundTask
   type: compound_task
-  name: My compound task
   events:
     - name: converged
       expression: Posture.converged && Posture.quiescent
   task_list:
      - name: RightHandPosition
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: LeftHandPosition
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: RightHandOrientation
        priority: 1
-       enabled: 1
+       enableState: 2
      - name: LeftHandOrientation
        priority: 1
-       enabled: 1
+       enableState: 2
      - name: Posture
        priority: 2
-       enabled: 1
+       enableState: 2
 constraints:
-  - type: controlit/FlatContactConstraint
-    name: ContactConstraint
+  - name: ContactConstraint
+    type: controlit/FlatContactConstraint
     parameters:
       - name: masterNodeName
         type: string
@@ -264,9 +264,6 @@ constraints:
       - name: contactPoint
         type: vector
         value: [0, 0, 0]
-      - name: enabled
-        type: integer
-        value: 1
   - name: TorsoTransmission
     type: controlit/TransmissionConstraint
     parameters:
@@ -280,21 +277,21 @@ constraints:
         type: float
         value: 1.0
 constraint_set:
+  name: DreamerConstraintSet
   type: constraint_set
-  name: My Constraint Set
-  bindings:
-    - parameter: ContactConstraint.constraintJacobian
-      direction: output
-      target:
-        type: ROSTopic
-        dataType: "std_msgs/Float64MultiArray"
-        properties:
-          topic: ContactConstraint/constraintJacobian
-          publish_rate: 100.0
-          queue_size: 1
-          latched: 0
+  # bindings:
+  #   - parameter: ContactConstraint.constraintJacobian
+  #     direction: output
+  #     target:
+  #       type: ROSTopic
+  #       dataType: "std_msgs/Float64MultiArray"
+  #       properties:
+  #         topic: ContactConstraint/constraintJacobian
+  #         publish_rate: 100.0
+  #         queue_size: 1
+  #         latched: 0
   active_constraints:
     - name: ContactConstraint
-      enabled: 1
+      enableState: 2
     - name: TorsoTransmission
-      enabled: 1
+      enableState: 2
