@@ -3,7 +3,7 @@
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find stickbot_lowerleg_3dof)/models/stickbot_lowerleg_3dof/xacro/stickbot_lowerleg_3dof.xacro'"/>
 
     <group ns="stickbot_lowerleg_3dof_controller/controlit">
-      
+
         <param name="robot_description" command="$(find xacro)/xacro.py '$(find stickbot_lowerleg_3dof)/models/stickbot_lowerleg_3dof/xacro/stickbot_lowerleg_3dof.xacro'"/>
 
         <!-- Specify the servo clock type. -->
