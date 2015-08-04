@@ -5,8 +5,9 @@
     <version>0.0.0</version>
 
     <description>
-        Contains files related to the "dreamer" robot in the Human Centered Robotics Lab (HCRL)
-        with only its right arm installed.
+        Contains files that enable Dreamer, a humanoid upperbody robot in the
+        Human Centered Robotics Lab (HCRL), to be controlled by ControlIt!
+        in simulation.
     </description>
 
     <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
@@ -23,8 +24,7 @@
 
     <depend>roscpp</depend>
     <depend>dreamer</depend>
-    <depend>controlit_gazebo_plugins</depend>
-
+    <depend>controlit_simulation_gazebo</depend>
     <depend>interactive_marker</depend>
     <depend>tf</depend>
 

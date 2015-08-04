@@ -1,29 +1,30 @@
 <?xml version="1.0"?>
 <package format="2">
     <name>trikey_controlit</name>
-  
+
     <version>0.0.0</version>
 
     <description>
-        Contains files related to the "trikey" robot in the Human Centered Robotics Lab (HCRL).
+        Contains files that enable Dreamer, a humanoid upperbody robot in the
+        Human Centered Robotics Lab (HCRL), to be controlled by ControlIt!
+        in simulation.
     </description>
-    
+
     <maintainer email="liangfok@utexas.edu">Chien-Liang Fok</maintainer>
 
     <author>Chien-Liang Fok</author>
     <author>Gwendolyn Johnson</author>
     <author>J.D. Yamokoski</author>
-    
+
     <license>LGPLv2.1</license>
 
-    <url>http://ros.org/wiki/trikey</url>
+    <url>http://ros.org/wiki/trikey_controlit</url>
 
     <buildtool_depend>catkin</buildtool_depend>
-    
-    <!-- Uses the gazebo plugin in controlit_simulation_gazebo -->
-    <depend>controlit_simulation_gazebo</depend>
 
-    <!-- udp stuff -->
+    <depend>roscpp</depend>
+    <depend>dreamer</depend>
+    <depend>controlit_simulation_gazebo</depend>
     <depend>controlit_udp</depend>
 
 </package>

@@ -34,6 +34,10 @@
     <rosparam param="log_level">DEBUG</rosparam>
     <rosparam param="log_fields">["package", "file", "line", "function"]</rosparam>
 
+    <param name="RobotInterfaceUDP/address" type="str" value="127.0.0.1" />
+    <param name="RobotInterfaceUDP/cmdPort" type="int" value="51124" />
+    <param name="RobotInterfaceUDP/statePort" type="int" value="51125" />
+
     <!-- The following enable/disable multi-threading in ControlIt! -->
     <!--
     <rosparam param="USE_SINGLE_THREADED_CONTROL_MODEL">true</rosparam>

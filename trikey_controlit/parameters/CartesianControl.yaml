@@ -41,14 +41,14 @@ tasks:
                 [0, 1, 0],
                 [0, 0, 0]]
   - type: controlit/OrientVectorToVectorTask
-    name: ThetaTask
+    name: HeadingTask
     parameters:
       - name: kp
         type: real
-        value: 4
+        value: 40
       - name: kd
         type: real
-        value: 4
+        value: 5
       - name: maxVelocity
         type: real
         value: 100.0
@@ -73,9 +73,6 @@ tasks:
   - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     name: JPosTask     # Arbitrary instance name
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
         value: [16, 16, 16]
@@ -85,6 +82,9 @@ tasks:
       - name: maxVelocity
         type: vector
         value: [10, 10, 10]
+      - name: goalAcceleration
+        type: vector
+        value: [0.0, 0.0, 0.0]
       - name: maxAcceleration
         type: real
         value: [0.0, 0.0, 0.0]
@@ -109,15 +109,15 @@ compound_task:
   type: compound_task
   name: My compound task
   task_list:
-     - name: ThetaTask
+     - name: HeadingTask
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: XYTask
        priority: 0
-       enabled: 1
+       enableState: 2
      - name: JPosTask
        priority: 1
-       enabled: 1
+       enableState: 2
   events:
     # - name: converged
     #   expression: JPosTask.converged && JPosTask.quiescent
@@ -140,9 +140,6 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
   - type: controlit/OmniWheelContactConstraint
     name: ContactConstraint1
     parameters:
@@ -161,9 +158,6 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
   - type: controlit/OmniWheelContactConstraint
     name: ContactConstraint2
     parameters:
@@ -182,16 +176,13 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: Trikey Constraint Set
   active_constraints:
     - name: ContactConstraint0
-      enabled: 1
+      enableState: 2
     - name: ContactConstraint1
-      enabled: 1
+      enableState: 2
     - name: ContactConstraint2
-      enabled: 1
+      enableState: 2

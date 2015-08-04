@@ -5,9 +5,6 @@ tasks:
   - type: controlit/JointPositionTask # Must Match the NAME of the task in the task_library
     name: JPosTask     # Arbitrary instance name
     parameters:
-      - name: enabled
-        type: integer
-        value: 1
       - name: kp
         type: vector
         value: [16, 16, 16]
@@ -49,7 +46,7 @@ compound_task:
   task_list:
      - name: JPosTask
        priority: 0
-       enabled: 1
+       enableState: 2
 constraints:
   - type: controlit/OmniWheelContactConstraint
     name: ContactConstraint0
@@ -69,9 +66,6 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
   - type: controlit/OmniWheelContactConstraint
     name: ContactConstraint1
     parameters:
@@ -90,9 +84,6 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
   - type: controlit/OmniWheelContactConstraint
     name: ContactConstraint2
     parameters:
@@ -111,16 +102,13 @@ constraints:
       - name: normalAxis
         type: vector
         value: [0, 0, 1]
-      - name: enabled
-        type: integer
-        value: 1
 constraint_set:
   type: constraint_set
   name: Trikey Constraint Set
   active_constraints:
     - name: ContactConstraint0
-      enabled: 1
+      enableState: 2
     - name: ContactConstraint1
-      enabled: 1
+      enableState: 2
     - name: ContactConstraint2
-      enabled: 1
+      enableState: 2

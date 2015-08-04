@@ -15,9 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(gazebo REQUIRED)
 
-find_package(Boost REQUIRED COMPONENTS 
-    thread 
-    filesystem 
+find_package(Boost REQUIRED COMPONENTS
+    thread
+    filesystem
     program_options
 )
 
@@ -97,9 +97,9 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
-endif()
+# if(CMAKE_COMPILER_IS_GNUCXX)
+#     set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+# endif()
 
 #uncomment if you have defined messages
 # rosbuild_genmsg()
@@ -128,26 +128,26 @@ endif()
 # link_directories(${GAZEBO_LIBRARY_DIRS})
 
 
-add_library(ControlItROSTopicPlugin 
+add_library(ControlItROSTopicPlugin
     gazebo_plugins/src/ControlItROSTopicPlugin.cpp
 )
 
-target_link_libraries(ControlItROSTopicPlugin 
+target_link_libraries(ControlItROSTopicPlugin
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
 )
 
-add_library(SMControlPlugin SHARED 
+add_library(SMControlPlugin SHARED
     gazebo_plugins/src/SMControlPlugin.cpp
 )
 
-target_link_libraries(SMControlPlugin 
+target_link_libraries(SMControlPlugin
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
     ${Boost_LIBRARIES}
 )
 
-add_library(stick_bot_plugin 
+add_library(stick_bot_plugin
     gazebo_plugins/src/stick_bot_plugin.cpp
 )
 
@@ -156,7 +156,7 @@ target_link_libraries(stick_bot_plugin
     ${GAZEBO_LIBRARIES}
 )
 
-add_library(PinPlugin 
+add_library(PinPlugin
     gazebo_plugins/src/PinPlugin.cpp
 )
 

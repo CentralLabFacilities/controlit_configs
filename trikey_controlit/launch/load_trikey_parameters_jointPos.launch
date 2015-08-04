@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <launch>
-    <group ns="trikey_controller">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find trikey_controlit)/models/trikey_controlit/xacro/trikey_controlit.xacro'"/>
+
+    <group ns="trikey_controller/controlit">
         <include file="$(find trikey_controlit)/launch/trikey_parameters_base.xml"/>
         <param name="parameters" textfile="$(find trikey_controlit)/parameters/JointPositionControl.yaml"/>
     </group>
