@@ -23,9 +23,6 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-
-
-
 #uncomment if you have defined messages
 #rosbuild_genmsg()
 #uncomment if you have defined services
@@ -54,3 +51,8 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 
 # rosbuild_add_library(dreamer_testbed_plugin gazebo_plugins/src/dreamer_testbed_plugin.cpp)
 # rosbuild_add_compile_flags(dreamer_testbed_plugin -std=c++0x)
+
+install(DIRECTORY
+    models
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)

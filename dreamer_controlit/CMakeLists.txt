@@ -8,13 +8,14 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     cmake_modules
     # interactive_markers
+    controlit_cmake
     controlit_dependency_addons
 )
 
 find_package(gazebo REQUIRED)
 find_package(Eigen REQUIRED)
 
-list(APPEND CMAKE_MODULE_PATH ${controlit_cmake_DIR}/../../../../src/controlit/controlit_cmake/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../controlit/controlit_cmake/Modules)
 
 include(controlitbuild)
 controlit_build_init()
@@ -112,4 +113,18 @@ add_library(DreamerRightHandPlugin
 
 target_link_libraries(DreamerRightHandPlugin
     ${GAZEBO_LIBRARIES}
+)
+
+install(TARGETS DreamerRightHandPlugin DreamerNeckPlugin DreamerLeftGripperPlugin DreamerEyePlugin DreamerTorsoTransmissionPlugin
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY
+    models
+    launch
+    parameters
+    worlds
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

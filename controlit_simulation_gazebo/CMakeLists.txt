@@ -22,7 +22,7 @@ find_package(Boost REQUIRED COMPONENTS
 )
 
 # The following is necessary to set the build type.
-list(APPEND CMAKE_MODULE_PATH ${controlit_cmake_DIR}/../../../../src/controlit/controlit_cmake/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../controlit/controlit_cmake/Modules)
 include(controlitbuild)
 controlit_build_init()
 
@@ -49,6 +49,9 @@ controlit_build_init()
 ##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+# Install python scripts using distutils
+#catkin_python_setup()
 
 ## Generate messages in the 'msg' folder
 add_message_files(
@@ -127,7 +130,6 @@ endif()
 # include_directories(${GAZEBO_INCLUDE_DIRS})
 # link_directories(${GAZEBO_LIBRARY_DIRS})
 
-
 add_library(ControlItROSTopicPlugin 
     gazebo_plugins/src/ControlItROSTopicPlugin.cpp
 )
@@ -176,4 +178,14 @@ add_dependencies(WrenchMeasurementPlugin
 target_link_libraries(WrenchMeasurementPlugin
     ${GAZEBO_LIBRARIES}
     ${Boost_LIBRARIES}
+)
+
+install(TARGETS ControlItROSTopicPlugin SMControlPlugin stick_bot_plugin PinPlugin WrenchMeasurementPlugin
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(PROGRAMS scripts/run_gazebo.sh
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

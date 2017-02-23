@@ -23,8 +23,8 @@
 
     <depend>roscpp</depend>
     <depend>dreamer</depend>
+    <depend>controlit_dependency_addons</depend>
     <depend>controlit_gazebo_plugins</depend>
-
     <depend>interactive_marker</depend>
     <depend>tf</depend>
 

@@ -56,3 +56,8 @@ catkin_package(
 
 # rosbuild_add_library(stick_bot_plugin gazebo_plugins/src/stick_bot_plugin.cpp)
 # rosbuild_add_compile_flags(stick_bot_plugin -std=c++0x)
+
+install(DIRECTORY
+        models
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)

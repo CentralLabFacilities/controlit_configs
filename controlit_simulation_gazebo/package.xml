@@ -27,7 +27,6 @@
     <depend>controlit_constraint_library</depend>
     <depend>controlit_robot_interface_library</depend>
     <depend>controlit_sensor_library</depend>
-
     <depend>controlit_dependency_addons</depend>
     <depend>geometry_msgs</depend>
     <depend>sensor_msgs</depend>

@@ -1,7 +1,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="atlas" >
 
     <!-- gazebo uses model:// for the model path. -->
-    <property name="modelPath" value="model://atlas_plain" />
+    <xacro:property name="modelPath" value="model://atlas_plain" />
 
     <xacro:include filename="$(find atlas_plain)/models/atlas_plain/xacro/atlas_plain_with_sandia_hands.xacro" />
 

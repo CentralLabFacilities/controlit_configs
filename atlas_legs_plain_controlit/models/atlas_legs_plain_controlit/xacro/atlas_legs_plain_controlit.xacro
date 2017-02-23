@@ -1,7 +1,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="atlas_legs_plain" >
 
 	<!-- rViz uses package:// for the model path. -->
-    <property name="modelPath" value="package://atlas_plain/models/atlas_plain" />
+    <xacro:property name="modelPath" value="package://atlas_plain/models/atlas_plain" />
 
 
     <xacro:include filename="$(find atlas_legs_plain)/models/atlas_legs_plain/xacro/atlas_legs_plain_base.xacro" />
